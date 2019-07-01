@@ -1,5 +1,4 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace MyResourcePlanning.Data.Models
+﻿namespace MyResourcePlanning.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -14,8 +13,6 @@ namespace MyResourcePlanning.Data.Models
         {
             this.Id = Guid.NewGuid().ToString();
             this.Roles = new HashSet<IdentityUserRole<string>>();
-            this.Claims = new HashSet<IdentityUserClaim<string>>();
-            this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
 
         public string FirstName { get; set; }
@@ -23,6 +20,8 @@ namespace MyResourcePlanning.Data.Models
         public string LastName { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public string ImageUrl { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
@@ -35,9 +34,5 @@ namespace MyResourcePlanning.Data.Models
         public DateTime? DeletedOn { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
-
-        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
-
-        public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
     }
 }

@@ -160,6 +160,8 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<string>("ImageUrl");
+
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LastName");
@@ -240,7 +242,7 @@ namespace MyResourcePlanning.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser")
-                        .WithMany("Claims")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
@@ -248,7 +250,7 @@ namespace MyResourcePlanning.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser")
-                        .WithMany("Logins")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
