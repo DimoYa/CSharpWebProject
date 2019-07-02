@@ -2,63 +2,69 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 
-    <div class="text-center">
+<div class="text-center">
+    <div class="container">
         <h1 class="display-4">Welcome to MyResourcePlanning!</h1>
-        @if (!this.SignInManager.IsSignedIn(this.User))
-        {
-            <partial name="_InfoPartial" />
-        }
-        <div class="jumbotron">
-            @if (this.SignInManager.IsSignedIn(this.User))
-            {
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">My assigned requests</h4>
-                        <p class="card-text">Get an overview of all requests which i am assignedt to</p>
-                        <a class="btn btn-secondary"><i class="fas fa-tasks"></i> My assigned requests</a>
-                    </div>
-                </div>
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">My Skills</h4>
-                        <p class="card-text">Build and mantain your professional skill profile</p>
-                        <a class="btn btn-secondary"><i class="fas fa-book-reader"></i> My skills</a>
-                    </div>
-                </div>
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">My Trainings</h4>
-                        <p class="card-text">Request and manage your trainings</p>
-                        <a class="btn btn-secondary"><i class="fas fa-user-graduate"></i> My Trainings</a>
-                    </div>
-                </div>
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">My Calendar</h4>
-                        <p class="card-text">Get an overview of your calendar</p>
-                        <a class="btn btn-secondary"><i class="far fa-calendar-alt"></i> My calendar</a>
-                    </div>
-                </div>
-            }
-            else
-            {
-
-                <div class="d-flex justify-content-between">
-                    <div class="card text-white bg-info mb-3">
-                        <div class="card-body">
-                            <h4 class="card-title">New member?</h4>
-                            <p class="card-text">Get a free registration and read our latest articles</p>
-                            <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus"></i>Register</a>
-                        </div>
-                    </div>
-                    <div class="card text-white bg-info mb-3">
-                        <div class="card-body">
-                            <h4 class="card-title">Already registered?</h4>
-                            <p class="card-text">Login and read our latest articles</p>
-                            <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i>Login</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
     </div>
+    @if (!this.SignInManager.IsSignedIn(this.User))
+    {
+        <partial name="_InfoPartial" />
+    }
+    <div class="jumbotron">
+        @if (this.SignInManager.IsSignedIn(this.User))
+        {
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">My assigned requests</h4>
+                    <p class="card-text">Get an overview of all requests which i am assignedt to</p>
+                    <a class="btn btn-secondary"><i class="fas fa-tasks"></i>&nbspMy assigned requests</a>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">My Skills</h4>
+                    <p class="card-text">Build and mantain your professional skill profile</p>
+                    <a class="btn btn-secondary"><i class="fas fa-book-reader"></i>&nbspMy skills</a>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">My Trainings</h4>
+                    <p class="card-text">Request and manage your trainings</p>
+                    <a class="btn btn-secondary"><i class="fas fa-user-graduate"></i>&nbspMy Trainings</a>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">My Calendar</h4>
+                    <p class="card-text">Get an overview of your calendar</p>
+                    <a class="btn btn-secondary"><i class="far fa-calendar-alt"></i>&nbspMy calendar</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="d-flex justify-content-between">
+                <div class="card text-white bg-info mb-3 container-fluid content-row">
+                    <div class="card-body container-fluid content-row d-flex flex-column">
+                        <h4 class="card-title container-fluid">New member?</h4>
+                        <p class="card-text">Get a free registration and read our latest articles</p>
+                        <div class="card-buttons align-self-md-center">
+                            <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus"></i>&nbspRegister</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col py-3 px-md-5 bordered col-example"></div>
+                <div class="card text-white bg-info mb-3 container-fluid content-row">
+                    <div class="card-body container-fluid content-row d-flex flex-column">
+                        <h4 class="card-title container-fluid">Already registered?</h4>
+                        <p class="card-text">Login and read our latest articles</p>
+                        <div class="card-buttons align-self-md-center">
+                            <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i>&nbspLogin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

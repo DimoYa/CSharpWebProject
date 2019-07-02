@@ -59,3 +59,14 @@ html, body {
 .fill {
     min-height: 100%;
 }
+
+.card-text {
+    margin-bottom: 50px;
+}
+
+.card-buttons {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: inherit;
+}
+
