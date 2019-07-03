@@ -12,18 +12,6 @@
         <div class="d-flex justify-content-between">
             <div class="form-group w-45">
                 <div class="d-flex justify-content-center">
-                    <label asp-for="Input.Email" class="font-weight-bold"></label>
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                    </div>
-                    <input asp-for="Input.Email" class="form-control" placeholder="Email address..." />
-                </div>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group w-45">
-                <div class="d-flex justify-content-center">
                     <label asp-for="Input.FirstName" class="font-weight-bold"></label>
                 </div>
                 <div class="form-group input-group">
@@ -34,8 +22,6 @@
                 </div>
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
-        </div>
-        <div class="d-flex justify-content-between">
             <div class="form-group w-45">
                 <div class="d-flex justify-content-center">
                     <label asp-for="Input.LastName" class="font-weight-bold"></label>
@@ -47,6 +33,20 @@
                     <input asp-for="Input.LastName" class="form-control" placeholder="Last Name..." />
                 </div>
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div class="form-group w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Input.Email" class="font-weight-bold"></label>
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input asp-for="Input.Email" class="form-control" placeholder="Email address..." />
+                </div>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-group w-45">
                 <div class="d-flex justify-content-center">
