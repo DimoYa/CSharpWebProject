@@ -73,3 +73,11 @@ html, body {
 .bg-transparent {
     padding: 3px !important;
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+#myInput {
+    width: 300px;
+}

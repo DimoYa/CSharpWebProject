@@ -1,13 +1,17 @@
 ﻿@*@model List<Eventures.Models.ViewModels.EventAllViewModel>
-    *@
+*@
 
-    @{
+@{
     ViewData["Title"] = "All";
-    }
+}
 
-    <div class="jumbotron">
-        <h1 class="text-center">All Requests</h1>
-        <hr class="bg-resources hr-2" />
+<div class="jumbotron">
+    <h1 class="text-center">All Requests</h1>
+    <hr class="bg-resources hr-2" />
+    <div style="width:100%">
+        <p style="margin-top:14px">Type something in the input field to search the table for first names, last names or emails:</p>
+        <input class="form-control" id="myInput" type="search" placeholder="Search..">
+        <br>
         <div class="table-responsive">
             <table id="myTable2" class="table table-striped table-bordered table-sm sortable" cellspacing="0" width="100%">
                 <thead>
@@ -22,17 +26,17 @@
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="myTable">
                     @*@for (int i = 0; i < Model.Count; i++)
-                    {
-                    <tr class="row mx-auto">
-                        <td class="col-md-1">@(i + 1)</td>
-                        <td class="col-md-5">@Model[i].Name</td>
-                        <td class="col-md-2">@Model[i].Start</td>
-                        <td class="col-md-2">@Model[i].End</td>
-                        <td class="col-md-2">@Model[i].Place</td>
-                    </tr>
-                    }*@
+                        {
+                        <tr class="row mx-auto">
+                            <td class="col-md-1">@(i + 1)</td>
+                            <td class="col-md-5">@Model[i].Name</td>
+                            <td class="col-md-2">@Model[i].Start</td>
+                            <td class="col-md-2">@Model[i].End</td>
+                            <td class="col-md-2">@Model[i].Place</td>
+                        </tr>
+                        }*@
                     <tr>
                         <th scope="row">1</th>
                         <td>Test Test Test Test</td>
@@ -76,3 +80,19 @@
             </table>
         </div>
     </div>
+</div>
+
+@section scripts{
+    @*
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("input", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+}
