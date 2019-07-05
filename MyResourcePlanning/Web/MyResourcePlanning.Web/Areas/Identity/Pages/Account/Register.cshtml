@@ -7,7 +7,7 @@
 <partial name="_InfoPartial" />
 <div class="jumbotron">
     <h1 class="text-center" mt-3>Register</h1>
-    <form method="post" class="w-50 mx-auto">
+    <form id="registerForm" method="post" class="w-50 mx-auto">
         <hr class="mt-3 bg-resources hr-2" />
         <div class="d-flex justify-content-between">
             <div class="form-group w-45">
@@ -102,12 +102,17 @@
         </div>
         <hr class="mt-3 bg-eventures hr-2" />
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary btn-block" [disabled]="">
+            <button type="submit" class="btn btn-primary btn-block">
                 Create Account
             </button>
         </div>
     </form>
 </div>
+
+@section scripts{
+    <script type="text/javascript" src="~/js/errorMessages.js"></script>
+    <script type="text/javascript">getErrorMsgs('#registerForm')</script>
+}
 
 
 

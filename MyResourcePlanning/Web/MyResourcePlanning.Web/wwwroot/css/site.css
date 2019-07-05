@@ -25,6 +25,8 @@ hr.hr-2 {
 .alert-danger {
     background-color: #bc204b;
     color: #fff;
+    display: flex;
+    justify-content: center;
 }
 
 button {
@@ -144,4 +146,4 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .pagination-container li:hover:not(.active) {
     background-color: #ddd;
-} 
+}
