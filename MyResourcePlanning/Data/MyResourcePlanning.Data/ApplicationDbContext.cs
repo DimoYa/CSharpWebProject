@@ -72,6 +72,27 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            builder.Entity<UserCalendar>()
+                   .HasKey(uc => new
+                   {
+                       uc.UserId,
+                       uc.CalendarId,
+                   });
+
+            builder.Entity<UserSkills>()
+                   .HasKey(us => new
+                   {
+                       us.UserId,
+                       us.SkillId,
+                   });
+
+            builder.Entity<UserTrainings>()
+                  .HasKey(ut => new
+                  {
+                      ut.UserId,
+                      ut.TrainingId,
+                  });
         }
 
         private static void ConfigureUserIdentityRelations(ModelBuilder builder)

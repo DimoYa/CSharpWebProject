@@ -5,16 +5,14 @@
 
     public class UserTrainings
     {
-
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
 
-        public string TrainingID { get; set; }
+        public string TrainingId { get; set; }
 
         public Training Training { get; set; }
 
         public TrainingStatus Status { get; set; }
-
     }
 }

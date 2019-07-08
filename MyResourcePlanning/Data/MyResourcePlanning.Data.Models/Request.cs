@@ -1,22 +1,39 @@
 ﻿namespace MyResourcePlanning.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using MyResourcePlanning.Common.Validators;
     using MyResourcePlanning.Data.Models.Enums;
 
     public class Request
     {
+        public Request()
+        {
+            this.CreatedAt = DateTime.Now;
+            this.CreatedBy = this.User.Id;
+        }
+
+        [Required]
         public string Id { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
         public string CreatedBy { get; set; }
 
+        [Required]
+        [DateGreaterOrEqualThatPresent]
         public DateTime StartDate { get; set; }
 
+        [Required]
+        [DateGreaterThan("StartDate")]
+        [DateGreaterOrEqualThatPresent]
         public DateTime EndDate { get; set; }
 
+        [Required]
+        [Range(1, double.MaxValue)]
         public double WorkingHours { get; set; }
 
+        [Required]
         public RequestStatus Status { get; set; }
 
         public string UserId { get; set; }
