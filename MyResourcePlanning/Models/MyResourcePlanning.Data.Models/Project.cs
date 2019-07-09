@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using MyResourcePlanning.Web.Infrastructure.Validators;
 
     public class Project
     {
@@ -13,10 +15,17 @@
 
         public string Id { get; set; }
 
+        [Required]
+        [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
 
+        [Required]
+        [DateGreaterOrEqualThatPresent]
         public DateTime StartDate { get; set; }
 
+        [Required]
+        [DateGreaterThan("StartDate")]
+        [DateGreaterOrEqualThatPresent]
         public DateTime EndDate { get; set; }
 
         public virtual ICollection<Request> Requests { get; set; }

@@ -1,11 +1,15 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using MyResourcePlanning.Services;
 
     public class RequestsController : BaseController
     {
-        public RequestsController()
+        private readonly IRequestService requestsService;
+
+        public RequestsController(IRequestService requestsService)
         {
+            this.requestsService = requestsService;
         }
 
         public IActionResult Create()
@@ -26,7 +30,8 @@
 
         public IActionResult All()
         {
-            return this.View();
+            var requests = this.requestsService.GetAllRequests();
+            return this.View(requests);
         }
     }
 }

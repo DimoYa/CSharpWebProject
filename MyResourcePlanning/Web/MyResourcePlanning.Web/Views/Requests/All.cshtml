@@ -1,229 +1,102 @@
-﻿@*@model List<Eventures.Models.ViewModels.EventAllViewModel>
-    *@
+﻿@model List<MyResourcePlanning.Web.ViewModels.RequestAllViewModel>
 
-    @{
+
+@{
     ViewData["Title"] = "All";
-    }
+}
 
-    <div class="jumbotron">
-        <h1 class="text-center">All Requests</h1>
-        <hr class="bg-resources hr-2" />
-        <div class="table-responsive">
+<div class="jumbotron">
+    <h1 class="text-center">All Requests</h1>
+    <hr class="bg-resources hr-2" />
+    <div class="table-responsive">
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="active-pink-3 active-pink-4 w-100">
+            <form class="form-inline active-purple-3 active-purple-4">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input id="search_input_all" oninput="getFilteredData()" class="form-control form-control-sm ml-3" type="search" placeholder="Search after the second character..."
+                       aria-label="Search">
+            </form>
         </div>
-        <div class="d-flex justify-content-between">
-            <div class="active-pink-3 active-pink-4 w-100">
-                <form class="form-inline active-purple-3 active-purple-4">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                    <input id="search_input_all" oninput="getFilteredData()" class="form-control form-control-sm ml-3" type="search" placeholder="Search after the second character..."
-                           aria-label="Search">
-                </form>
-            </div>
-            <div class="active-pink-3 active-pink-4">
-                <select class="form-control" name="state" id="maxRows">
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="70">70</option>
-                    <option value="100">100</option>
-                    <option value="5000">Show ALL Rows</option>
-                </select>
-            </div>
-        </div>
-        <table class="table table-striped table-bordered table-sm sortable" cellspacing="0" width="100%" id="table-id">
-            <thead>
-                <tr>
-                    <th scope="col">Project</th>
-                    <th scope="col">Resource</th>
-                    <th scope="col">Start</th>
-                    <th scope="col">End</th>
-                    <th scope="col">Hours</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody id="myTable">
-                @*@for (int i = 0; i < Model.Count; i++)
-                {
-                <tr class="row mx-auto">
-                    <td class="col-md-1">@(i + 1)</td>
-                    <td class="col-md-5">@Model[i].Name</td>
-                    <td class="col-md-2">@Model[i].Start</td>
-                    <td class="col-md-2">@Model[i].End</td>
-                    <td class="col-md-2">@Model[i].Place</td>
-                </tr>
-                }*@
-                <tr>
-                    <td>Test Test Test Test</td>
-                    <td>Dimo Yanev</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>10</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>20</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>30</td>
-                    <td>Test</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>abc</td>
-                    <td>bbc</td>
-                    <td>bbc</td>
-                    <td>bbc</td>
-                    <td>30</td>
-                    <td>bbc</td>
-                    <td>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="d-flex justify-content-between">
-            <div id="paginationDiv" class="pagination-container">
-                <nav>
-                    <ul class="pagination"></ul>
-                </nav>
-            </div>
-            <div id="paginationRowsCount" class="rows_count">Showing 11 to 20 of 91 entries</div>
+        <div class="active-pink-3 active-pink-4">
+            <select class="form-control" name="state" id="maxRows">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="70">70</option>
+                <option value="100">100</option>
+                <option value="5000">Show ALL Rows</option>
+            </select>
         </div>
     </div>
+    <table class="table table-striped table-bordered table-sm sortable" cellspacing="0" width="100%" id="table-id">
+        <thead>
+            <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Resource</th>
+                <th scope="col">Start</th>
+                <th scope="col">End</th>
+                <th scope="col">Hours</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].Project</td>
+                    <td>@Model[i].Resource</td>
+                    <td>@Model[i].Start</td>
+                    <td>@Model[i].End</td>
+                    <td>@Model[i].Hours</td>
+                    <td>@Model[i].Status</td>
+                    <td>
+                        <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
+                        <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>Test Test Test Test</td>
+                <td>Dimo Yanev</td>
+                <td>Test</td>
+                <td>Test</td>
+                <td>10</td>
+                <td>Test</td>
+                <td>
+                    <button class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit Request"></i></button>
+                    <button class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete Request"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Test</td>
+                <td>Test</td>
+                <td>Test</td>
+                <td>Test</td>
+                <td>20</td>
+                <td>Test</td>
+                <td>
+                    <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
+                    <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-between">
+        <div id="paginationDiv" class="pagination-container">
+            <nav>
+                <ul class="pagination"></ul>
+            </nav>
+        </div>
+        <div id="paginationRowsCount" class="rows_count">Showing 11 to 20 of 91 entries</div>
+    </div>
+</div>
 
-    @section scripts{
+@section scripts{
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="~/js/paging.js"></script>
     <script type="text/javascript" src="~/js/search.js"></script>
-    }
+}

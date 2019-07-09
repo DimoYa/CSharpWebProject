@@ -1,9 +1,9 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.Settings
 {
-    using MyResourcePlanning.Data.Models;
     using MyResourcePlanning.Services.Mapping;
 
     using AutoMapper;
+    using MyResourcePlanning.Data.Models;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

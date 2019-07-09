@@ -6,7 +6,7 @@
 
         public ApplicationUser User { get; set; }
 
-        public string CalendarID { get; set; }
+        public string CalendarId { get; set; }
 
         public Calendar Calendar { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace MyResourcePlanning.Data.Models
 {
-    public class UserSkills
+    public class UserSkill
     {
         public string UserId { get; set; }
 
