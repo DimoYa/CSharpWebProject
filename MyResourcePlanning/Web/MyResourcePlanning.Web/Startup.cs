@@ -88,6 +88,8 @@
             services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
             services.AddTransient<IRequestService, RequestService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IProjectService, ProjectService>();
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));

@@ -147,3 +147,4 @@ input[type="search"]::-webkit-search-cancel-button {
 .pagination-container li:hover:not(.active) {
     background-color: #ddd;
 }
+

@@ -1,0 +1,35 @@
+﻿@model MyResourcePlanning.Web.ViewModels.Request.RequestCreateResourcesAndProjects
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="jumbotron">
+    <div class="form-group text-center">
+        <label for="Resources">Resource</label>
+        <select class="form-control">
+            <option selected disabled>-- Choose Resource --</option>
+            @foreach(var option in Model.Resources)
+                {
+            <option>@option.FullName - @string.Join(" ", @option.Skills)</option>
+                }
+        </select>
+    </div>
+    <hr class="bg-panda" style="height: 2px" />
+    <div class="form-group text-center">
+        <label for="Resources">Project</label>
+        <select class="form-control">
+            <option selected disabled>-- Choose Resource --</option>
+            @foreach(var option in Model.Projects)
+                {
+        <option>@option.Name - @option.Start - @option.Name</option>
+                }
+        </select>
+    </div>
+
+</div>
+
+@section scripts{
+
+}

@@ -11,6 +11,7 @@
         {
             this.CreatedAt = DateTime.Now;
             this.CreatedBy = this.User.Id;
+            this.Status = RequestStatus.InProgress;
         }
 
         [Required]
