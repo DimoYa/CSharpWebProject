@@ -2,25 +2,25 @@
 {
     using System;
     using System.Collections.Generic;
-    using MyResourcePlanning.Data.Models.Enums;
+    using System.ComponentModel.DataAnnotations;
 
-    public class Training
+    public class Skill
     {
-        public Training()
+        public Skill()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Users = new HashSet<UserTrainings>();
+            this.Users = new HashSet<UserSkill>();
         }
 
         public string Id { get; set; }
 
+        [Required]
+        [StringLength(20, MinimumLength = 3)]
         public string Name { get; set; }
 
-        public TrainingType Type { get; set; }
-
+        [Required]
         public bool IsActive { get; set; }
 
-        public virtual ICollection<UserTrainings> Users { get; set; }
-
+        public virtual ICollection<UserSkill> Users { get; set; }
     }
 }

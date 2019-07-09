@@ -146,6 +146,8 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("ApproverId");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -158,13 +160,15 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
                     b.Property<string>("ImageUrl");
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -193,6 +197,8 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApproverId");
+
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("NormalizedEmail")
@@ -204,6 +210,68 @@ namespace MyResourcePlanning.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.Calendar", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Day");
+
+                    b.Property<bool>("IsPublicHoliday");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Calendars");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.Project", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.Request", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("ProjectId");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<double>("WorkingHours");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("MyResourcePlanning.Data.Models.Setting", b =>
@@ -229,6 +297,85 @@ namespace MyResourcePlanning.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.Skill", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Skills");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.Training", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<int>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Trainings");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.UserCalendar", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("CalendarId");
+
+                    b.Property<bool>("IsVacation");
+
+                    b.HasKey("UserId", "CalendarId");
+
+                    b.HasIndex("CalendarId");
+
+                    b.ToTable("UserCalendars");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.UserSkill", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("SkillId");
+
+                    b.Property<bool>("IsAllowedToAdd");
+
+                    b.HasKey("UserId", "SkillId");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("UserSkills");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.UserTraining", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("TrainingId");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("UserId", "TrainingId");
+
+                    b.HasIndex("TrainingId");
+
+                    b.ToTable("UserTrainings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -274,6 +421,63 @@ namespace MyResourcePlanning.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "Approver")
+                        .WithMany()
+                        .HasForeignKey("ApproverId");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.Request", b =>
+                {
+                    b.HasOne("MyResourcePlanning.Data.Models.Project", "Project")
+                        .WithMany("Requests")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "User")
+                        .WithMany("Requests")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.UserCalendar", b =>
+                {
+                    b.HasOne("MyResourcePlanning.Data.Models.Calendar", "Calendar")
+                        .WithMany("Users")
+                        .HasForeignKey("CalendarId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "User")
+                        .WithMany("CalendarDays")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.UserSkill", b =>
+                {
+                    b.HasOne("MyResourcePlanning.Data.Models.Skill", "Skill")
+                        .WithMany("Users")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "User")
+                        .WithMany("Skills")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.UserTraining", b =>
+                {
+                    b.HasOne("MyResourcePlanning.Data.Models.Training", "Training")
+                        .WithMany("Users")
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "User")
+                        .WithMany("Trainings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
