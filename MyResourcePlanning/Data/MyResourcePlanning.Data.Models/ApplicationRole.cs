@@ -1,8 +1,11 @@
-﻿namespace MyResourcePlanning.Data.Models
+﻿// ReSharper disable VirtualMemberCallInConstructor
+namespace MyResourcePlanning.Data.Models
 {
     using System;
-    using Microsoft.AspNetCore.Identity;
+
     using MyResourcePlanning.Data.Common.Models;
+
+    using Microsoft.AspNetCore.Identity;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

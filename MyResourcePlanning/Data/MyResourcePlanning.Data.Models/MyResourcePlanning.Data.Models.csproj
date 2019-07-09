@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MyResourcePlanning.Common\MyResourcePlanning.Common.csproj" />
     <ProjectReference Include="..\MyResourcePlanning.Data.Common\MyResourcePlanning.Data.Common.csproj" />
   </ItemGroup>
   
