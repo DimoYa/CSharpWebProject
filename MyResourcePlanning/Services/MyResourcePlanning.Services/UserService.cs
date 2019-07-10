@@ -21,7 +21,9 @@ namespace MyResourcePlanning.Services
                 .Where(u => u.IsDeleted == false)
                 .Select(u => new UsersWithSkillsViewModel
                 {
-                    FullName = $"{u.FirstName} {u.LastName}",
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
                     Skills = u.Skills.Select(s => s.Skill.Name)
                      .ToList(),
                 }).ToList();
