@@ -148,14 +148,14 @@ input[type="search"]::-webkit-search-cancel-button {
     background-color: #ddd;
 }
 
-select{
-    font-family:"Courier New", Courier, monospace
+select {
+    font-family: "Courier", Song Myung,Helvetica,Arial,sans-serif;
 }
 
     select option {
         width: 100px;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis
+        text-overflow: ellipsis;
     }
 

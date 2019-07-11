@@ -12,5 +12,7 @@ namespace MyResourcePlanning.Web.ViewModels.Request
         public List<ProjectAllViewModel> Projects { get; set; }
 
         public List<UsersWithSkillsViewModel> Resources { get; set; }
+
+        public RequestCreateBindingModel BindingModel { get; set; }
     }
 }
