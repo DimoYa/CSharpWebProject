@@ -3,9 +3,8 @@
     using System.Reflection;
 
     using MyResourcePlanning.Data;
-    using MyResourcePlanning.Data.Common;
     //using MyResourcePlanning.Data.Common.Repositories;
-    using MyResourcePlanning.Data.Models;
+    using MyResourcePlanning.Models;
     //using MyResourcePlanning.Data.Repositories;
     using MyResourcePlanning.Data.Seeding;
     using MyResourcePlanning.Services.Mapping;
@@ -41,7 +40,7 @@
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
             services
-                .AddIdentity<ApplicationUser, ApplicationRole>(options =>
+                .AddIdentity<User, UserRole>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
@@ -50,7 +49,7 @@
                     options.Password.RequiredLength = 3;
                 })
                 .AddEntityFrameworkStores<MyResourcePlanningDbContext>()
-                //.AddUserStore<ApplicationUserStore>()
+                //.AddUserStore<UserStore>()
                 //.AddRoleStore<ApplicationRoleStore>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI(UIFramework.Bootstrap4);
@@ -85,7 +84,7 @@
             services.AddSingleton(this.configuration);
 
             // Identity stores
-            //services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
+            //services.AddTransient<IUserStore<User>, UserStore>();
             //services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
             services.AddTransient<IRequestService, RequestService>();
             services.AddTransient<IUserService, UserService>();

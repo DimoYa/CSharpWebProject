@@ -3,7 +3,7 @@
     using System;
     using System.Globalization;
     using AutoMapper;
-    using MyResourcePlanning.Data.Models;
+    using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
 
     public class ProjectAllViewModel : IMapFrom<Project>, IHaveCustomMappings

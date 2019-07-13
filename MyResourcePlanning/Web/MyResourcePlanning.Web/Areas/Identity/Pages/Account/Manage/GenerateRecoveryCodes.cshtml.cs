@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using MyResourcePlanning.Data.Models;
+    using MyResourcePlanning.Models;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -15,11 +15,11 @@
     public class GenerateRecoveryCodesModel : PageModel
 #pragma warning restore SA1649 // File name should match first type name
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<User> userManager;
         private readonly ILogger<GenerateRecoveryCodesModel> logger;
 
         public GenerateRecoveryCodesModel(
-            UserManager<ApplicationUser> userManager,
+            UserManager<User> userManager,
             ILogger<GenerateRecoveryCodesModel> logger)
         {
             this.userManager = userManager;

@@ -4,16 +4,14 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using MyResourcePlanning.Data.Models;
+    using MyResourcePlanning.Models;
 
-    public class MyResourcePlanningDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class MyResourcePlanningDbContext : IdentityDbContext<User, UserRole, string>
     {
         public MyResourcePlanningDbContext(DbContextOptions<MyResourcePlanningDbContext> options)
             : base(options)
         {
         }
-
-        public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Calendar> Calendars { get; set; }
 
@@ -72,7 +70,7 @@
 
         private static void ConfigureUserIdentityRelations(ModelBuilder builder)
         {
-            builder.Entity<ApplicationUser>()
+            builder.Entity<User>()
                 .HasMany(e => e.Roles)
                 .WithOne()
                 .HasForeignKey(e => e.UserId)

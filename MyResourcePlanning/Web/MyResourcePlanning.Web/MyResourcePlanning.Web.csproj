@@ -29,8 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\MyResourcePlanning.Common\MyResourcePlanning.Common.csproj" />
     <ProjectReference Include="..\..\Data\MyResourcePlanning.Data\MyResourcePlanning.Data.csproj" />
-    <ProjectReference Include="..\..\Models\MyResourcePlanning.Data.Models\MyResourcePlanning.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Models\MyResourcePlanning.Models\MyResourcePlanning.Models.csproj" />
     <ProjectReference Include="..\..\Services\MyResourcePlanning.Services.Mapping\MyResourcePlanning.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\MyResourcePlanning.Services\MyResourcePlanning.Services.csproj" />
     <ProjectReference Include="..\MyResourcePlanning.Web.Infrastructure\MyResourcePlanning.Web.Infrastructure.csproj" />

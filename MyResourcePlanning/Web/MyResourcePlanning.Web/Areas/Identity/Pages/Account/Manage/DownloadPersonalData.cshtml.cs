@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    using MyResourcePlanning.Data.Models;
+    using MyResourcePlanning.Models;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -19,11 +19,11 @@
     public class DownloadPersonalDataModel : PageModel
 #pragma warning restore SA1649 // File name should match first type name
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<User> userManager;
         private readonly ILogger<DownloadPersonalDataModel> logger;
 
         public DownloadPersonalDataModel(
-            UserManager<ApplicationUser> userManager,
+            UserManager<User> userManager,
             ILogger<DownloadPersonalDataModel> logger)
         {
             this.userManager = userManager;
@@ -42,7 +42,7 @@
 
             // Only include personal data for download
             var personalData = new Dictionary<string, string>();
-            var personalDataProps = typeof(ApplicationUser).GetProperties().Where(
+            var personalDataProps = typeof(User).GetProperties().Where(
                             prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
             foreach (var p in personalDataProps)
             {

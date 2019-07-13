@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
 
-    using MyResourcePlanning.Data.Models;
+    using MyResourcePlanning.Models;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -15,9 +15,9 @@
     public class ResetPasswordModel : PageModel
 #pragma warning restore SA1649 // File name should match first type name
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<User> userManager;
 
-        public ResetPasswordModel(UserManager<ApplicationUser> userManager)
+        public ResetPasswordModel(UserManager<User> userManager)
         {
             this.userManager = userManager;
         }

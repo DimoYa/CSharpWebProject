@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
-    using MyResourcePlanning.Data.Models;
+    using MyResourcePlanning.Models;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -14,11 +14,11 @@
     public class Disable2faModel : PageModel
 #pragma warning restore SA1649 // File name should match first type name
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<User> userManager;
         private readonly ILogger<Disable2faModel> logger;
 
         public Disable2faModel(
-            UserManager<ApplicationUser> userManager,
+            UserManager<User> userManager,
             ILogger<Disable2faModel> logger)
         {
             this.userManager = userManager;

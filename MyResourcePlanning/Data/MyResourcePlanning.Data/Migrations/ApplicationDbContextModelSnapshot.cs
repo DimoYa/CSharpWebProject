@@ -139,7 +139,7 @@ namespace MyResourcePlanning.Data.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("MyResourcePlanning.Data.Models.ApplicationUser", b =>
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -427,7 +427,7 @@ namespace MyResourcePlanning.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser")
+                    b.HasOne("MyResourcePlanning.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -435,7 +435,7 @@ namespace MyResourcePlanning.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser")
+                    b.HasOne("MyResourcePlanning.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -448,7 +448,7 @@ namespace MyResourcePlanning.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser")
+                    b.HasOne("MyResourcePlanning.Data.Models.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -456,15 +456,15 @@ namespace MyResourcePlanning.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser")
+                    b.HasOne("MyResourcePlanning.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MyResourcePlanning.Data.Models.ApplicationUser", b =>
+            modelBuilder.Entity("MyResourcePlanning.Data.Models.User", b =>
                 {
-                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "Approver")
+                    b.HasOne("MyResourcePlanning.Data.Models.User", "Approver")
                         .WithMany()
                         .HasForeignKey("ApproverId");
                 });
@@ -475,7 +475,7 @@ namespace MyResourcePlanning.Data.Migrations
                         .WithMany("Requests")
                         .HasForeignKey("ProjectId");
 
-                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "User")
+                    b.HasOne("MyResourcePlanning.Data.Models.User", "User")
                         .WithMany("Requests")
                         .HasForeignKey("UserId");
                 });
@@ -487,7 +487,7 @@ namespace MyResourcePlanning.Data.Migrations
                         .HasForeignKey("CalendarId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "User")
+                    b.HasOne("MyResourcePlanning.Data.Models.User", "User")
                         .WithMany("CalendarDays")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -500,7 +500,7 @@ namespace MyResourcePlanning.Data.Migrations
                         .HasForeignKey("SkillId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "User")
+                    b.HasOne("MyResourcePlanning.Data.Models.User", "User")
                         .WithMany("Skills")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -513,7 +513,7 @@ namespace MyResourcePlanning.Data.Migrations
                         .HasForeignKey("TrainingId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MyResourcePlanning.Data.Models.ApplicationUser", "User")
+                    b.HasOne("MyResourcePlanning.Data.Models.User", "User")
                         .WithMany("Trainings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
