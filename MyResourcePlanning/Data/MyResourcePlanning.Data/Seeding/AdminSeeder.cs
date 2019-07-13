@@ -37,20 +37,20 @@
                 {
                     throw new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
                 }
-            }
 
-            var adminRoleName = GlobalConstants.AdministratorRoleName;
+                var adminRoleName = GlobalConstants.AdministratorRoleName;
 
-            var role = await roleManager.FindByNameAsync(adminRoleName);
+                var role = await roleManager.FindByNameAsync(adminRoleName);
 
-            if (role != null)
-            {
-                var adminUser = await userManager.FindByEmailAsync(admin.Email);
-                var result = await userManager.AddToRoleAsync(adminUser, adminRoleName);
-
-                if (!result.Succeeded)
+                if (role != null)
                 {
-                    throw new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
+                    var adminUser = await userManager.FindByEmailAsync(admin.Email);
+                    var addRoleResult = await userManager.AddToRoleAsync(adminUser, adminRoleName);
+
+                    if (!addRoleResult.Succeeded)
+                    {
+                        throw new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
+                    }
                 }
             }
         }

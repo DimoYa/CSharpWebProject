@@ -40,7 +40,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Redirect("/Requests/Create");
+                return this.View(bindingModel ?? new RequestCreateBindingModel());
             }
 
             return this.RedirectToAction("All");
