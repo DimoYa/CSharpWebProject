@@ -1,11 +1,11 @@
-﻿using MyResourcePlanning.Web.ViewModels.User;
-
-using System.Collections.Generic;
-
-namespace MyResourcePlanning.Services
+﻿namespace MyResourcePlanning.Services
 {
+    using System.Collections.Generic;
+
+    using MyResourcePlanning.Web.ViewModels.User;
+
     public interface IUserService
     {
-        List<UsersWithSkillsViewModel> GetAllActiveResourcesAndTheirSkills();
+        IEnumerable<UsersWithSkillsViewModel> GetAllActiveResourcesAndTheirSkills();
     }
 }

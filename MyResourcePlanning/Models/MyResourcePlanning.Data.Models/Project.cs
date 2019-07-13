@@ -3,17 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using MyResourcePlanning.Data.Models.BaseModels;
     using MyResourcePlanning.Web.Infrastructure.Validators;
 
-    public class Project
+    public class Project : BaseDeletableModel<string>
     {
         public Project()
         {
             this.Id = Guid.NewGuid().ToString();
             this.Requests = new HashSet<Request>();
         }
-
-        public string Id { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 3)]

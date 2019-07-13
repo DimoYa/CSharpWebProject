@@ -3,8 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using MyResourcePlanning.Data.Models.BaseModels;
 
-    public class Skill
+    public class Skill : BaseDeletableModel<string>
     {
         public Skill()
         {
@@ -12,14 +13,9 @@
             this.Users = new HashSet<UserSkill>();
         }
 
-        public string Id { get; set; }
-
         [Required]
         [StringLength(20, MinimumLength = 3)]
         public string Name { get; set; }
-
-        [Required]
-        public bool IsActive { get; set; }
 
         public virtual ICollection<UserSkill> Users { get; set; }
     }

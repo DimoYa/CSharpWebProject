@@ -2,23 +2,20 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using MyResourcePlanning.Data.Models.BaseModels;
     using MyResourcePlanning.Data.Models.Enums;
     using MyResourcePlanning.Web.Infrastructure.Validators;
 
-    public class Request
+    public class Request : BaseDeletableModel<string>
     {
         public Request()
         {
-            this.CreatedAt = DateTime.Now;
+            this.CreatedOn = DateTime.Now;
             this.CreatedBy = this.User.Id;
             this.Status = RequestStatus.InProgress;
         }
 
         [Required]
-        public string Id { get; set; }
-
-        public DateTime CreatedAt { get; set; }
-
         public string CreatedBy { get; set; }
 
         [Required]

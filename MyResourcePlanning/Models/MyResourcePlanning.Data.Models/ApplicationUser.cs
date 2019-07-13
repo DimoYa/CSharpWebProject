@@ -1,10 +1,10 @@
 ﻿namespace MyResourcePlanning.Data.Models
 {
-    using Microsoft.AspNetCore.Identity;
-    using MyResourcePlanning.Data.Common.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Microsoft.AspNetCore.Identity;
+    using MyResourcePlanning.Data.Models.BaseModels;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {

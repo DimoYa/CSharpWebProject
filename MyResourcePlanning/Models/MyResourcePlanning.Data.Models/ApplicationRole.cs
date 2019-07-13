@@ -2,7 +2,7 @@
 {
     using System;
     using Microsoft.AspNetCore.Identity;
-    using MyResourcePlanning.Data.Common.Models;
+    using MyResourcePlanning.Data.Models.BaseModels;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

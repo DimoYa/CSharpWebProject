@@ -1,6 +1,6 @@
 ﻿namespace MyResourcePlanning.Data.Models
 {
-    using MyResourcePlanning.Data.Common.Models;
+    using MyResourcePlanning.Data.Models.BaseModels;
 
     public class Setting : BaseDeletableModel<int>
     {

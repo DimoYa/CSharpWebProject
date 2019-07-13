@@ -1,11 +1,9 @@
-﻿using MyResourcePlanning.Web.ViewModels.Project;
-
-using System.Collections.Generic;
-
-namespace MyResourcePlanning.Services
+﻿namespace MyResourcePlanning.Services
 {
+    using System.Collections.Generic;
+
     public interface IProjectService
     {
-        List<ProjectAllViewModel> GetAllProjects();
+        IEnumerable<TViewModel> GetAllProjects<TViewModel>();
     }
 }

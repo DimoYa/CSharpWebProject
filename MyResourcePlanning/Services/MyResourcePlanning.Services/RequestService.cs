@@ -9,14 +9,14 @@
 
     public class RequestService : IRequestService
     {
-        private readonly ApplicationDbContext context;
+        private readonly MyResourcePlanningDbContext context;
 
-        public RequestService(ApplicationDbContext context)
+        public RequestService(MyResourcePlanningDbContext context)
         {
             this.context = context;
         }
 
-        public List<RequestAllViewModel> GetAllRequests()
+        public IEnumerable<RequestAllViewModel> GetAllRequests()
         {
             var requests = this.context.Requests
                 .Select(r => new RequestAllViewModel

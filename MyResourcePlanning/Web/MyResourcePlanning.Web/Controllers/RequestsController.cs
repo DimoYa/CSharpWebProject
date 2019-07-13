@@ -2,7 +2,9 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using MyResourcePlanning.Services;
+    using MyResourcePlanning.Web.ViewModels.Project;
     using MyResourcePlanning.Web.ViewModels.Request;
+
     using System;
 
     public class RequestsController : BaseController
@@ -24,7 +26,7 @@
         public IActionResult Create()
         {
             var resource = this.userService.GetAllActiveResourcesAndTheirSkills();
-            var projects = this.projectService.GetAllProjects();
+            var projects = this.projectService.GetAllProjects<ProjectAllViewModel>();
 
             var projectsAndResources = new RequestCreateResourcesAndProjects()
             {

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
-using MyResourcePlanning.Data.Models;
-using MyResourcePlanning.Web.Infrastructure.Validators;
-using MyResourcePlanning.Web.ViewModels.Project;
-using MyResourcePlanning.Web.ViewModels.User;
-
-namespace MyResourcePlanning.Web.ViewModels.Request
+﻿namespace MyResourcePlanning.Web.ViewModels.Request
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    using MyResourcePlanning.Web.Infrastructure.Validators;
+
     public class RequestCreateBindingModel
     {
-
         [Required]
         [DateGreaterOrEqualThatPresent]
         [Display(Name = "Start Date")]

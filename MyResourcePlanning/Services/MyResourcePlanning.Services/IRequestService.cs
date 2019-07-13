@@ -1,11 +1,11 @@
 ﻿namespace MyResourcePlanning.Services
 {
-    using MyResourcePlanning.Web.ViewModels;
-
     using System.Collections.Generic;
+
+    using MyResourcePlanning.Web.ViewModels;
 
     public interface IRequestService
     {
-        List<RequestAllViewModel> GetAllRequests();
+        IEnumerable<RequestAllViewModel> GetAllRequests();
     }
 }

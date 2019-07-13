@@ -1,12 +1,30 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.Project
 {
-    public class ProjectAllViewModel
+    using System;
+    using System.Globalization;
+    using AutoMapper;
+    using MyResourcePlanning.Data.Models;
+    using MyResourcePlanning.Services.Mapping;
+
+    public class ProjectAllViewModel : IMapFrom<Project>, IHaveCustomMappings
     {
         public string Id { get; set; }
+
         public string Name { get; set; }
 
-        public string Start { get; set; }
+        public string StartDate { get; set; }
 
-        public string End { get; set; }
+        public string EndDate { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Project, ProjectAllViewModel>()
+                .ForMember(
+                    s => s.StartDate,
+                    opt => opt.MapFrom(s => s.StartDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(
+                    e => e.EndDate,
+                    opt => opt.MapFrom(e => e.EndDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)));
+        }
     }
 }

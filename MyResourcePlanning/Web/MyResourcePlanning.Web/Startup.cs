@@ -4,9 +4,9 @@
 
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Data.Common;
-    using MyResourcePlanning.Data.Common.Repositories;
+    //using MyResourcePlanning.Data.Common.Repositories;
     using MyResourcePlanning.Data.Models;
-    using MyResourcePlanning.Data.Repositories;
+    //using MyResourcePlanning.Data.Repositories;
     using MyResourcePlanning.Data.Seeding;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.ViewModels;
@@ -37,7 +37,7 @@
         {
             // Framework services
             // TODO: Add pooling when this bug is fixed: https://github.com/aspnet/EntityFrameworkCore/issues/9741
-            services.AddDbContext<ApplicationDbContext>(
+            services.AddDbContext<MyResourcePlanningDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
             services
@@ -49,9 +49,9 @@
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredLength = 3;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddUserStore<ApplicationUserStore>()
-                .AddRoleStore<ApplicationRoleStore>()
+                .AddEntityFrameworkStores<MyResourcePlanningDbContext>()
+                //.AddUserStore<ApplicationUserStore>()
+                //.AddRoleStore<ApplicationRoleStore>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI(UIFramework.Bootstrap4);
 
@@ -85,16 +85,16 @@
             services.AddSingleton(this.configuration);
 
             // Identity stores
-            services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
-            services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
+            //services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
+            //services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
             services.AddTransient<IRequestService, RequestService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProjectService, ProjectService>();
 
             // Data repositories
-            services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
-            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
+            //services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
+            //services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            //services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
         }
 
@@ -106,14 +106,14 @@
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<MyResourcePlanningDbContext>();
 
                 if (env.IsDevelopment())
                 {
                     dbContext.Database.Migrate();
                 }
 
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                new MyResourcePlanningDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
             if (env.IsDevelopment())

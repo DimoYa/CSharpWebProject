@@ -3,16 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using MyResourcePlanning.Data.Models.BaseModels;
 
-    public class Calendar
+    public class Calendar : BaseModel<string>
     {
         public Calendar()
         {
             this.Id = Guid.NewGuid().ToString();
             this.Users = new HashSet<UserCalendar>();
         }
-
-        public string Id { get; set; }
 
         [Required]
         public DateTime Day { get; set; }

@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using MyResourcePlanning.Data;
-using MyResourcePlanning.Web.ViewModels.User;
-
-namespace MyResourcePlanning.Services
+﻿namespace MyResourcePlanning.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using MyResourcePlanning.Data;
+    using MyResourcePlanning.Web.ViewModels.User;
+
     public class UserService : IUserService
     {
-        private readonly ApplicationDbContext context;
+        private readonly MyResourcePlanningDbContext context;
 
-        public UserService(ApplicationDbContext context)
+        public UserService(MyResourcePlanningDbContext context)
         {
             this.context = context;
         }
 
-        public List<UsersWithSkillsViewModel> GetAllActiveResourcesAndTheirSkills()
+        public IEnumerable<UsersWithSkillsViewModel> GetAllActiveResourcesAndTheirSkills()
         {
             var userWithSkills = this.context.Users
                 .Where(u => u.IsDeleted == false)

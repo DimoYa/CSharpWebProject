@@ -8,7 +8,7 @@ using MyResourcePlanning.Data;
 
 namespace MyResourcePlanning.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(MyResourcePlanningDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -217,9 +217,13 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedOn");
+
                     b.Property<DateTime>("Day");
 
                     b.Property<bool>("IsPublicHoliday");
+
+                    b.Property<DateTime?>("ModifiedOn");
 
                     b.HasKey("Id");
 
@@ -231,7 +235,15 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<DateTime>("EndDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -241,6 +253,8 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsDeleted");
+
                     b.ToTable("Projects");
                 });
 
@@ -249,11 +263,18 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired();
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
 
                     b.Property<DateTime>("EndDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("ProjectId");
 
@@ -266,6 +287,8 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<double>("WorkingHours");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("ProjectId");
 
@@ -304,13 +327,21 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsActive");
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
 
                     b.ToTable("Skills");
                 });
@@ -320,7 +351,13 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsActive");
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -329,6 +366,8 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<int>("Type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
 
                     b.ToTable("Trainings");
                 });

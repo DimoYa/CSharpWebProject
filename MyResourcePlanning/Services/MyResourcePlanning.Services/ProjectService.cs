@@ -1,32 +1,25 @@
 ﻿namespace MyResourcePlanning.Services
 {
-    using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
 
     using MyResourcePlanning.Data;
-    using MyResourcePlanning.Web.ViewModels.Project;
+    using MyResourcePlanning.Services.Mapping;
 
     public class ProjectService : IProjectService
     {
-        private readonly ApplicationDbContext context;
+        private readonly MyResourcePlanningDbContext context;
 
-        public ProjectService(ApplicationDbContext context)
+        public ProjectService(MyResourcePlanningDbContext context)
         {
             this.context = context;
         }
 
-        public List<ProjectAllViewModel> GetAllProjects()
+        IEnumerable<TViewModel> IProjectService.GetAllProjects<TViewModel>()
         {
             var projects = this.context.Projects
-                .Select(p => new ProjectAllViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Start = p.StartDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture),
-                    End = p.StartDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture),
-                }).ToList();
+                .To<TViewModel>()
+                .ToList();
 
             return projects;
         }
