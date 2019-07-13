@@ -1,4 +1,4 @@
-﻿@model List<MyResourcePlanning.Web.ViewModels.RequestAllViewModel>
+﻿@model List<MyResourcePlanning.Web.ViewModels.Request.RequestAllViewModel>
 
 
 @{
@@ -48,9 +48,9 @@
                 <tr>
                     <td>@Model[i].Project</td>
                     <td>@Model[i].Resource</td>
-                    <td>@Model[i].Start</td>
-                    <td>@Model[i].End</td>
-                    <td>@Model[i].Hours</td>
+                    <td>@Model[i].StartDate</td>
+                    <td>@Model[i].EndDate</td>
+                    <td>@Model[i].WorkingHours</td>
                     <td>@Model[i].Status</td>
                     <td>
                         <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>

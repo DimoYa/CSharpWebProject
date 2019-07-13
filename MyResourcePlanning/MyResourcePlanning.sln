@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{ACBE44C4-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{516E002B-9E6E-4456-B7F6-EAA353966DE6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyResourcePlanning.Services", "Services\MyResourcePlanning.Services\MyResourcePlanning.Services.csproj", "{8522212F-F01E-4E20-9975-FCF5E10D71DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyResourcePlanning.Services.Data", "Services\MyResourcePlanning.Services\MyResourcePlanning.Services.Data.csproj", "{8522212F-F01E-4E20-9975-FCF5E10D71DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyResourcePlanning.Data", "Data\MyResourcePlanning.Data\MyResourcePlanning.Data.csproj", "{4B844ECB-E845-49A6-8B31-85E577933598}"
 EndProject

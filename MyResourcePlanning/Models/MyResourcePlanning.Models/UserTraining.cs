@@ -1,6 +1,5 @@
 ﻿namespace MyResourcePlanning.Models
 {
-    using System.Collections.Generic;
     using MyResourcePlanning.Models.Enums;
 
     public class UserTraining

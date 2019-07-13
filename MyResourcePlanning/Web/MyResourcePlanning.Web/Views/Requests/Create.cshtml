@@ -1,4 +1,4 @@
-﻿@model MyResourcePlanning.Web.ViewModels.Request.RequestCreateResourcesAndProjects
+﻿@model MyResourcePlanning.Web.ViewModels.Request.RequestCreateBaseViewModel
 
 
 @{
@@ -48,7 +48,7 @@
                     <option selected disabled>ID;First Name;Last Name; Skills</option>
                     @foreach (var option in Model.Resources)
                     {
-                        <option>@option.Id;@option.FirstName; @option.LastName; @string.Join(" ", @option.Skills)</option>
+                        <option>@option.Id;@option.FirstName; @option.LastName; @string.Join(Environment.NewLine, @option.Skills)</option>
                     }
                 </select>
             </div>

@@ -1,7 +1,7 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.Project
 {
-    using System;
     using System.Globalization;
+
     using AutoMapper;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;

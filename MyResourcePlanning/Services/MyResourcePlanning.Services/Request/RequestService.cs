@@ -1,4 +1,4 @@
-﻿namespace MyResourcePlanning.Services
+﻿namespace MyResourcePlanning.Services.Data.Request
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -6,22 +6,22 @@
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Services.Mapping;
 
-    public class ProjectService : IProjectService
+    public class RequestService : IRequestService
     {
         private readonly MyResourcePlanningDbContext context;
 
-        public ProjectService(MyResourcePlanningDbContext context)
+        public RequestService(MyResourcePlanningDbContext context)
         {
             this.context = context;
         }
 
-        IEnumerable<TViewModel> IProjectService.GetAllProjects<TViewModel>()
+        public IEnumerable<TViewModel> GetAllRequests<TViewModel>()
         {
-            var projects = this.context.Projects
+            var requests = this.context.Requests
                 .To<TViewModel>()
                 .ToList();
 
-            return projects;
+            return requests;
         }
     }
 }

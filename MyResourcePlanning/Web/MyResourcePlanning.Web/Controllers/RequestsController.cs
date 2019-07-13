@@ -1,11 +1,12 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using MyResourcePlanning.Services;
+    using MyResourcePlanning.Services.Data.Project;
+    using MyResourcePlanning.Services.Data.Request;
+    using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Web.ViewModels.Project;
     using MyResourcePlanning.Web.ViewModels.Request;
-
-    using System;
+    using MyResourcePlanning.Web.ViewModels.User;
 
     public class RequestsController : BaseController
     {
@@ -25,16 +26,13 @@
 
         public IActionResult Create()
         {
-            var resource = this.userService.GetAllActiveResourcesAndTheirSkills();
-            var projects = this.projectService.GetAllProjects<ProjectAllViewModel>();
-
-            var projectsAndResources = new RequestCreateResourcesAndProjects()
+            var requestCreateBaseViewModel = new RequestCreateBaseViewModel()
             {
-                Resources = resource,
-                Projects = projects,
+                Resources = this.userService.GetAllActiveResourcesAndTheirSkills<UsersWithSkillsViewModel>(),
+                Projects = this.projectService.GetAllProjects<ProjectAllViewModel>(),
             };
 
-            return this.View(projectsAndResources);
+            return this.View(requestCreateBaseViewModel);
         }
 
         [HttpPost]
@@ -50,7 +48,7 @@
 
         public IActionResult All()
         {
-            var requests = this.requestsService.GetAllRequests();
+            var requests = this.requestsService.GetAllRequests<RequestAllViewModel>();
             return this.View(requests);
         }
     }

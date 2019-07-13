@@ -2,14 +2,6 @@
 {
     using System.Reflection;
 
-    using MyResourcePlanning.Data;
-    //using MyResourcePlanning.Data.Common.Repositories;
-    using MyResourcePlanning.Models;
-    //using MyResourcePlanning.Data.Repositories;
-    using MyResourcePlanning.Data.Seeding;
-    using MyResourcePlanning.Services.Mapping;
-    using MyResourcePlanning.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -20,7 +12,14 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using MyResourcePlanning.Services;
+    using MyResourcePlanning.Data;
+    using MyResourcePlanning.Data.Seeding;
+    using MyResourcePlanning.Models;
+    using MyResourcePlanning.Services.Data.Project;
+    using MyResourcePlanning.Services.Data.Request;
+    using MyResourcePlanning.Services.Data.User;
+    using MyResourcePlanning.Services.Mapping;
+    using MyResourcePlanning.Web.ViewModels;
 
     public class Startup
     {
@@ -31,11 +30,8 @@
             this.configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Framework services
-            // TODO: Add pooling when this bug is fixed: https://github.com/aspnet/EntityFrameworkCore/issues/9741
             services.AddDbContext<MyResourcePlanningDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
@@ -49,8 +45,6 @@
                     options.Password.RequiredLength = 3;
                 })
                 .AddEntityFrameworkStores<MyResourcePlanningDbContext>()
-                //.AddUserStore<UserStore>()
-                //.AddRoleStore<ApplicationRoleStore>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI(UIFramework.Bootstrap4);
 
@@ -75,29 +69,17 @@
             services
                 .Configure<CookiePolicyOptions>(options =>
                 {
-                    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                     options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.Lax;
                     options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
                 });
 
             services.AddSingleton(this.configuration);
-
-            // Identity stores
-            //services.AddTransient<IUserStore<User>, UserStore>();
-            //services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
             services.AddTransient<IRequestService, RequestService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProjectService, ProjectService>();
-
-            // Data repositories
-            //services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
-            //services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            //services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);

@@ -1,4 +1,4 @@
-﻿namespace MyResourcePlanning.Services
+﻿namespace MyResourcePlanning.Services.Data.Project
 {
     using System.Collections.Generic;
 

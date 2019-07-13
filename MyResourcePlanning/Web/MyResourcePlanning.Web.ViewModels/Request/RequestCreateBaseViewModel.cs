@@ -1,13 +1,11 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.Request
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     using MyResourcePlanning.Web.ViewModels.Project;
     using MyResourcePlanning.Web.ViewModels.User;
 
-    public class RequestCreateResourcesAndProjects
+    public class RequestCreateBaseViewModel
     {
         public IEnumerable<ProjectAllViewModel> Projects { get; set; }
 
