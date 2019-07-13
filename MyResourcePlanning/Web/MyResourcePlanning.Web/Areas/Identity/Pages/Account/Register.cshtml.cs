@@ -71,11 +71,13 @@
             public string Email { get; set; }
 
             [Required]
+            [RegularExpression("[A-Z][a-z]+", ErrorMessage = "{0} should contain only letters starting with a capital case")]
             [Display(Name = "First Name")]
             [DataType(DataType.Text)]
             public string FirstName { get; set; }
 
             [Required]
+            [RegularExpression("[A-Z][a-z]+", ErrorMessage = "{0} should contain only letters starting with a capital case")]
             [Display(Name = "Last Name")]
             [DataType(DataType.Text)]
             public string LastName { get; set; }

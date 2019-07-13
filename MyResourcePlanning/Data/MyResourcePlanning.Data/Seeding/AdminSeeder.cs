@@ -29,7 +29,7 @@
 
         private static async Task SeedAdminAsync(UserManager<User> userManager, RoleManager<UserRole> roleManager, User admin)
         {
-            var user = await userManager.FindByEmailAsync(admin.Email);
+            User user = await NewMethod(userManager, admin.Email);
             if (user == null)
             {
                 var result = await userManager.CreateAsync(admin, "admin");
@@ -44,7 +44,7 @@
 
                 if (role != null)
                 {
-                    var adminUser = await userManager.FindByEmailAsync(admin.Email);
+                    User adminUser = await NewMethod(userManager, admin.Email);
                     var addRoleResult = await userManager.AddToRoleAsync(adminUser, adminRoleName);
 
                     if (!addRoleResult.Succeeded)
@@ -53,6 +53,11 @@
                     }
                 }
             }
+        }
+
+        private static async Task<User> NewMethod(UserManager<User> userManager, string email)
+        {
+            return await userManager.FindByEmailAsync(email);
         }
     }
 }
