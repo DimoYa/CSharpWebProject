@@ -5,5 +5,7 @@
     public interface IUserService
     {
         IEnumerable<TViewModel> GetAllActiveResourcesAndTheirSkills<TViewModel>();
+
+        string GetRoleIdByName(string roleName);
     }
 }

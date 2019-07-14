@@ -7,5 +7,7 @@
         public const string PlannerRoleName = "Planner";
 
         public const string ApproverRoleName = "Approver";
+
+        public const string ResourceRoleName = "Resource";
     }
 }

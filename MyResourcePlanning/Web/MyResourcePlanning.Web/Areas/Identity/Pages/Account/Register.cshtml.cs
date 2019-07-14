@@ -1,13 +1,17 @@
 ﻿namespace MyResourcePlanning.Web.Areas.Identity.Pages.Account
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using MyResourcePlanning.Common;
     using MyResourcePlanning.Models;
 
     [AllowAnonymous]
@@ -18,15 +22,18 @@
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
         private readonly ILogger<RegisterModel> logger;
+        private readonly IServiceProvider serviceProvider;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger,
+            IServiceProvider serviceProvider)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
+            this.serviceProvider = serviceProvider;
         }
 
         [BindProperty]
@@ -46,8 +53,25 @@
             {
                 var user = new User { UserName = this.Input.Email, FirstName = this.Input.FirstName, LastName = this.Input.LastName, Email = this.Input.Email, PhoneNumber = this.Input.PhoneNumber };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
+
                 if (result.Succeeded)
                 {
+                    var roleManager = this.serviceProvider.GetRequiredService<RoleManager<UserRole>>();
+                    var resourceRoleName = GlobalConstants.ResourceRoleName;
+
+                    var resourceRole = await roleManager.FindByNameAsync(resourceRoleName);
+
+                    if (resourceRole != null)
+                    {
+                        User currentUser = await this.userManager.FindByEmailAsync(this.Input.Email);
+                        var addRoleResult = await this.userManager.AddToRoleAsync(currentUser, resourceRoleName);
+
+                        if (!addRoleResult.Succeeded)
+                        {
+                            throw new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
+                        }
+                    }
+
                     this.logger.LogInformation("User created a new account with password.");
                     await this.signInManager.SignInAsync(user, isPersistent: false);
                     return this.LocalRedirect(returnUrl);

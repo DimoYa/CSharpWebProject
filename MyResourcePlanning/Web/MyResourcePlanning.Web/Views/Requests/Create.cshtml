@@ -19,7 +19,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fas fa-calendar-alt"></i></span>
                     </div>
-                    <input asp-for="BindingModel.StartDate" id="datetimepicker" class="form-control" type="text" placeholder="Start Date..." />
+                    <input asp-for="BindingModel.StartDate" id="startDate" class="form-control" type="text" placeholder="Start Date..." />
                 </div>
                 <span asp-validation-for="BindingModel.StartDate" class="text-danger"></span>
             </div>
@@ -31,7 +31,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
                     </div>
-                    <input asp-for="BindingModel.EndDate" id="datetimepicker" class="form-control" type="text" placeholder="Last Name..." />
+                    <input asp-for="BindingModel.EndDate" id="endDate" class="form-control" type="text" placeholder="Last Name..." />
                 </div>
                 <span asp-validation-for="BindingModel.EndDate" class="text-danger"></span>
             </div>
@@ -92,14 +92,16 @@
 </div>
 
 @section scripts{
-    <script src="/jquery.js"></script>
-    <script src="/build/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/js//jquery/dist/jquery.js"></script>
+    <script src="~/js//jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
 
     <script>
-        $('#datetimepicker').datetimepicker({
-            format: 'd.m.Y',
-            lang: 'en'
-        });
+        window.onload = () => {
+            $('#startDate, #endDate').datetimepicker({
+                format: 'd.m.Y H:i',
+                lang: 'en'
+            });
+        };
     </script>
     <script type="text/javascript" src="~/js/twoColumnDropDown.js"></script>
     <script>

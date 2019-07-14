@@ -10,14 +10,14 @@
         [Required]
         [DateGreaterOrEqualThatPresent]
         [Display(Name = "Start Date")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Text)]
         public DateTime StartDate { get; set; }
 
         [Required]
         [DateGreaterThan("StartDate")]
         [DateGreaterOrEqualThatPresent]
         [Display(Name = "End Date")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Text)]
         public DateTime EndDate { get; set; }
 
         [Required]
