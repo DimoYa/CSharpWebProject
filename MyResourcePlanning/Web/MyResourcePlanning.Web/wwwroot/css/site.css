@@ -112,6 +112,7 @@ html, body {
     float: left;
 }
 
+
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button;
 }
@@ -158,4 +159,6 @@ select {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+
 
