@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.Request
 {
+    using System;
     using System.Globalization;
 
     using AutoMapper;
@@ -16,7 +17,7 @@
 
         public string EndDate { get; set; }
 
-        public string WorkingHours { get; set; }
+        public double WorkingHours { get; set; }
 
         public string Status { get; set; }
 
