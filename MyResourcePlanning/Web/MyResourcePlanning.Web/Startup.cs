@@ -75,6 +75,7 @@
                 });
 
             services.AddSingleton(this.configuration);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IRequestService, RequestService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProjectService, ProjectService>();

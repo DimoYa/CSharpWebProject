@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Threading.Tasks;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Services.Mapping;
 
@@ -15,7 +15,7 @@
             this.context = context;
         }
 
-        IEnumerable<TViewModel> IProjectService.GetAllProjects<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>()
         {
             var projects = this.context.Projects
                 .To<TViewModel>()

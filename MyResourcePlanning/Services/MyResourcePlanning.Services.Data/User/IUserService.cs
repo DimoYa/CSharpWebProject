@@ -1,11 +1,12 @@
 ﻿namespace MyResourcePlanning.Services.Data.User
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IUserService
     {
-        IEnumerable<TViewModel> GetAllActiveResourcesAndTheirSkills<TViewModel>();
+        Task<IEnumerable<TViewModel>> GetAllActiveResourcesAndTheirSkills<TViewModel>();
 
-        string GetRoleIdByName(string roleName);
+        Task<string> GetRoleIdByName(string roleName);
     }
 }

@@ -11,7 +11,6 @@
         public Request()
         {
             this.CreatedOn = DateTime.Now;
-            this.CreatedBy = this.User.Id;
             this.Status = RequestStatus.InProgress;
         }
 
@@ -23,7 +22,7 @@
         public DateTime StartDate { get; set; }
 
         [Required]
-        [DateGreaterThan("StartDate")]
+        [DateGreaterThan(nameof(StartDate))]
         [DateGreaterOrEqualThatPresent]
         public DateTime EndDate { get; set; }
 

@@ -14,7 +14,7 @@
         public DateTime StartDate { get; set; }
 
         [Required]
-        [DateGreaterThan("StartDate")]
+        [DateGreaterThan(nameof(StartDate))]
         [DateGreaterOrEqualThatPresent]
         [Display(Name = "End Date")]
         [DataType(DataType.Text)]
@@ -33,6 +33,6 @@
         [Required]
         [Range(1, double.MaxValue, ErrorMessage ="Please input positive hours")]
         [Display(Name = "Working Hours")]
-        public double Hours { get; set; }
+        public double WorkingHours { get; set; }
     }
 }

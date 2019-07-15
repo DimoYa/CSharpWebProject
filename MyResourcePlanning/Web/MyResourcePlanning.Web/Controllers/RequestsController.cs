@@ -1,5 +1,7 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using MyResourcePlanning.Services.Data.Project;
     using MyResourcePlanning.Services.Data.Request;
@@ -24,31 +26,33 @@
             this.projectService = projectService;
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var requestCreateBaseViewModel = new RequestCreateBaseViewModel()
             {
-                Resources = this.userService.GetAllActiveResourcesAndTheirSkills<UsersWithSkillsViewModel>(),
-                Projects = this.projectService.GetAllProjects<ProjectAllViewModel>(),
+                Resources = await this.userService.GetAllActiveResourcesAndTheirSkills<UsersWithSkillsViewModel>(),
+                Projects = await this.projectService.GetAllProjects<ProjectAllViewModel>(),
             };
 
             return this.View(requestCreateBaseViewModel);
         }
 
         [HttpPost]
-        public IActionResult Create(RequestCreateBindingModel bindingModel)
+        public async Task<IActionResult> Create(RequestCreateBindingModel bindingModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(bindingModel ?? new RequestCreateBindingModel());
             }
 
+            await this.requestsService.Create(bindingModel);
+
             return this.RedirectToAction("All");
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var requests = this.requestsService.GetAllRequests<RequestAllViewModel>();
+            var requests = await this.requestsService.GetAllRequests<RequestAllViewModel>();
             return this.View(requests);
         }
     }
