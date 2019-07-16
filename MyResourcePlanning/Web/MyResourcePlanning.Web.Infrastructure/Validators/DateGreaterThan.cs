@@ -16,7 +16,7 @@
         {
             var propertyInfo = validationContext.ObjectType.GetProperty(this.startDatePropertyName);
             var propertyValue = propertyInfo.GetValue(validationContext.ObjectInstance, null);
-            if ((DateTime)value > (DateTime)propertyValue)
+            if ((DateTime)value >= (DateTime)propertyValue)
             {
                 return ValidationResult.Success;
             }

@@ -1,16 +1,16 @@
-﻿@model List<MyResourcePlanning.Web.ViewModels.Request.RequestAllViewModel>
+﻿@model List<MyResourcePlanning.Web.ViewModels.Project.ProjectAllViewModel>
 @using MyResourcePlanning.Common
 
 
 @{
-    ViewData["Title"] = "All";
+    ViewData["Title"] = "All Projects";
 }
 <head>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 </head>
 <div class="jumbotron">
-    <h1 class="text-center">All Requests</h1>
+    <h1 class="text-center">Manage Projects</h1>
     <hr class="bg-resources hr-2" />
     <div class="table-responsive">
     </div>
@@ -37,12 +37,10 @@
     <table class="table table-striped table-bordered table-sm sortable" cellspacing="0" width="100%" id="table-id">
         <thead>
             <tr>
-                <th scope="col">Project</th>
-                <th scope="col">Resource</th>
+                <th scope="col">Name</th>
                 <th scope="col">Start</th>
                 <th scope="col">End</th>
-                <th scope="col">Hours</th>
-                <th scope="col">Status</th>
+                <th scope="col">Remaining Hours</th>
                 @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
                 {
                     <th scope="col">Action</th>
@@ -53,12 +51,10 @@
             @for (int i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    <td>@Model[i].Project</td>
-                    <td>@Model[i].Resource</td>
+                    <td>@Model[i].Name</td>
                     <td>@Model[i].StartDate</td>
                     <td>@Model[i].EndDate</td>
-                    <td>@Model[i].WorkingHours</td>
-                    <td>@Model[i].Status</td>
+                    <td>@Model[i].RemainingHours</td>
                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
                         <td>

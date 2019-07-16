@@ -27,6 +27,10 @@
         [DateGreaterOrEqualThatPresent]
         public DateTime EndDate { get; set; }
 
+        [Required]
+        [Range(1, double.MaxValue)]
+        public double RequestedHours { get; set; }
+
         public virtual ICollection<Request> Requests { get; set; }
     }
 }

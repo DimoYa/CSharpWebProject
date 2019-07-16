@@ -1,0 +1,96 @@
+﻿@model MyResourcePlanning.Web.ViewModels.Project.ProjectCreateInputModel
+
+
+
+@{
+    ViewData["Title"] = "Create Project";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/js/jquery.datetimepicker.min.css" />
+    <script type="text/javascript" src="~/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="~/js/errorMessages.js"></script>
+
+</head>
+<div class="jumbotron">
+
+    <h1 class="text-center" mt-3>Create New Project</h1>
+    <form id="createForm" method="post" class="w-50 mx-auto">
+        <hr class="mt-3 bg-resources hr-2" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="d-flex justify-content-between">
+            <div class="form-group w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="StartDate" class="font-weight-bold"></label>
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-calendar-alt"></i></span>
+                    </div>
+                    <input asp-for="StartDate" autocomplete="off" id="startDate" class="form-control" placeholder="dd/MM/yyyy" />
+                </div>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="EndDate" class="font-weight-bold"></label>
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
+                    </div>
+                    <input asp-for="EndDate" autocomplete="off" id="endDate" class="form-control" placeholder="dd/MM/yyyy" />
+                </div>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Name" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-business-time"></i> </span>
+                </div>
+                <input asp-for="Name" class="form-control" placeholder="Enter working hours..." />
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="RequestedHours" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-clock"></i> </span>
+                </div>
+                <input asp-for="RequestedHours" class="form-control" type="number" step="any" placeholder="Enter working hours..." />
+            </div>
+            <span asp-validation-for="RequestedHours" class="text-danger"></span>
+        </div>
+        <hr class="mt-3 bg-eventures hr-2" />
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary btn-block" onclick=" getErrorMsgs('#createForm')";>
+                Create New Project
+            </button>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="~/js/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        window.onload = () => {
+            $('#startDate, #endDate').datetimepicker({
+                timepicker: false,
+                format: 'd/m/Y',
+                minDate: '-1970/01/01',
+                lang: 'en',
+                todayButton: true,
+                dayOfWeekStart: '1',
+            });
+        };
+    </script>
+    <script>
+        getErrorMsgs('#createForm');
+    </script>
+}

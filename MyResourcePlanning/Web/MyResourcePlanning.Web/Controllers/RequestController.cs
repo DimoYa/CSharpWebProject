@@ -10,13 +10,13 @@
     using MyResourcePlanning.Web.ViewModels.Request;
     using MyResourcePlanning.Web.ViewModels.User;
 
-    public class RequestsController : BaseController
+    public class RequestController : BaseController
     {
         private readonly IRequestService requestsService;
         private readonly IUserService userService;
         private readonly IProjectService projectService;
 
-        public RequestsController(
+        public RequestController(
             IRequestService requestsService,
             IUserService userService,
             IProjectService projectService)
@@ -28,11 +28,7 @@
 
         public async Task<IActionResult> Create()
         {
-            var requestCreateBaseViewModel = new RequestCreateBaseViewModel()
-            {
-                Resources = await this.userService.GetAllActiveResourcesAndTheirSkills<UsersWithSkillsViewModel>(),
-                Projects = await this.projectService.GetAllProjects<ProjectAllViewModel>(),
-            };
+            var requestCreateBaseViewModel = await this.GetRequestBaseModel();
 
             return this.View(requestCreateBaseViewModel);
         }
@@ -42,7 +38,9 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(bindingModel ?? new RequestCreateBindingModel());
+                var requestCreateBaseViewModel = await this.GetRequestBaseModel();
+
+                return this.View(requestCreateBaseViewModel);
             }
 
             await this.requestsService.Create(bindingModel);
@@ -54,6 +52,15 @@
         {
             var requests = await this.requestsService.GetAllRequests<RequestAllViewModel>();
             return this.View(requests);
+        }
+
+        private async Task<RequestCreateBaseViewModel> GetRequestBaseModel()
+        {
+            return new RequestCreateBaseViewModel()
+            {
+                Resources = await this.userService.GetAllActiveResourcesAndTheirSkills<UsersWithSkillsViewModel>(),
+                Projects = await this.projectService.GetAllProjects<ProjectAllViewModel>(),
+            };
         }
     }
 }
