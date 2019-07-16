@@ -5,11 +5,14 @@
 @{
     ViewData["Title"] = "Create";
 }
-<head>
-    <script src="~/js//jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="~/js/errorMessages.js"></script>
-    <script type="text/javascript" src="~/js/twoColumnDropDown.js"></script>
-</head>
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/js/jquery.datetimepicker.min.css" />
+        <script type="text/javascript" src="~/js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/js/popper.min.js"></script>
+        <script type="text/javascript" src="~/js/errorMessages.js"></script>
+        <script type="text/javascript" src="~/js/twoColumnDropDown.js"></script>
+    </head>
 <div class="jumbotron">
 
     <h1 class="text-center" mt-3>Create Request</h1>
@@ -51,11 +54,11 @@
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
                 @*<div class="editor-field">
-                    @Html.DropDownList("Resources",
-                    new SelectList(Model.Resources, "Id" , "FirstName", "LastName"),
-                    "Select Gender",
-                    new { @class = "form-control" })
-                </div>*@
+                        @Html.DropDownList("Resources",
+                        new SelectList(Model.Resources, "Id" , "FirstName", "LastName"),
+                        "Select Gender",
+                        new { @class = "form-control" })
+                    </div>*@
                 <select asp-for="BindingModel.Resource" id="dropdown" class="form-control">
                     <option selected disabled value="">ID;First Name;Last Name; Skills</option>
                     @foreach (var option in Model.Resources)
@@ -106,9 +109,7 @@
 </div>
 
 @section scripts{
-    *
-    <script src="~/js//jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript">getErrorMsgs('#createForm')</script>
+    <script type="text/javascript" src="~/js/jquery.datetimepicker.full.min.js"></script>
     <script>
         window.onload = () => {
             $('#startDate, #endDate').datetimepicker({
@@ -122,7 +123,9 @@
         };
     </script>
     <script>
-               // twoColumnDropDown('#dropdown option', ';', 0, 34);
-    </script>>
-
+        getErrorMsgs('#createForm')
+    </script>
+    <script>
+        //twoColumnDropDown('#dropdown option', ';', 0, 34);
+    </script>
 }

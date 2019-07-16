@@ -17,7 +17,6 @@
         <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
     </environment>
     <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
-    <link rel="stylesheet" type="text/css" href="~/js/jquery-datetimepicker/build/jquery.datetimepicker.min.css" />
 </head>
 <body>
     <header>
@@ -65,6 +64,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
         <script src="https://drvic10k.github.io/bootstrap-sortable/Scripts/bootstrap-sortable.js"></script>
 
+
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
@@ -74,6 +74,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+
 
     @this.RenderSection("Scripts", required: false)
 </body>
