@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyResourcePlanning.Data.Migrations
 {
-    public partial class rearrangeEntities : Migration
+    public partial class ChangeDBStructure : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,7 +91,8 @@ namespace MyResourcePlanning.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false)
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    RequestedHours = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {

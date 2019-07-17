@@ -5,18 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@this.ViewData["Title"] - MyResourcePlanning</title>
 
-    <environment names="Development">
-        <link href="~/css/reset-css.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
-    </environment>
-    <environment names="Staging,Production">
-        <link href="~/css/reset-css.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
-    </environment>
-    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/reset-css.css" rel="stylesheet"/>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="~/css/site.min.css" rel="stylesheet"/>
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet"/>
+    <link href="~/js/jquery.datetimepicker.min.css" rel="stylesheet"/>
+    <link href="https://drvic10k.github.io/bootstrap-sortable/Contents/bootstrap-sortable.css" rel="stylesheet"/>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/jquery-3.4.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/js/errorMessages.js"></script>
+    <script type="text/javascript" src="~/js/twoColumnDropDown.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
+    <script src="https://drvic10k.github.io/bootstrap-sortable/Scripts/bootstrap-sortable.js"></script>
 </head>
 <body>
     <header>
@@ -38,44 +45,17 @@
             </div>
         </nav>
     </header>
-
     <div class="container fill">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             <div id="map">@this.RenderBody()</div>
         </main>
     </div>
-
     <footer class="border-top footerexpand-sm text-muted bg-dark">
         <div class="container text-center">
             <span class="text-light"> &copy; @DateTime.Now.Year - MyResourcePlanning</span>
         </div>
     </footer>
-
-
-    <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
-
-        <link rel="stylesheet" href="https://drvic10k.github.io/bootstrap-sortable/Contents/bootstrap-sortable.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
-        <script src="https://drvic10k.github.io/bootstrap-sortable/Scripts/bootstrap-sortable.js"></script>
-
-
-    </environment>
-    <environment names="Staging,Production">
-        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
-
     @this.RenderSection("Scripts", required: false)
 </body>
 </html>

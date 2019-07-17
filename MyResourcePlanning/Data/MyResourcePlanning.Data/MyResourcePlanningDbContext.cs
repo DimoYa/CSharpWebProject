@@ -1,7 +1,7 @@
 ﻿namespace MyResourcePlanning.Data
 {
     using System.Linq;
-
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using MyResourcePlanning.Models;

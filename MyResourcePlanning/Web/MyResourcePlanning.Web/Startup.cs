@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Web
 {
+    using System.Globalization;
     using System.Reflection;
 
     using Microsoft.AspNetCore.Builder;
@@ -11,7 +12,6 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Data.Seeding;
     using MyResourcePlanning.Models;
@@ -119,6 +119,10 @@
                 routes.MapRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //var cultureInfo = new CultureInfo("en-EN");
+            //cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
         }
     }
 }

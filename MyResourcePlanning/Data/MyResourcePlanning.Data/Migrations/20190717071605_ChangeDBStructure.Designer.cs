@@ -10,8 +10,8 @@ using MyResourcePlanning.Data;
 namespace MyResourcePlanning.Data.Migrations
 {
     [DbContext(typeof(MyResourcePlanningDbContext))]
-    [Migration("20190715194343_rearrangeEntities")]
-    partial class rearrangeEntities
+    [Migration("20190717071605_ChangeDBStructure")]
+    partial class ChangeDBStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -143,6 +143,8 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<double>("RequestedHours");
 
                     b.Property<DateTime>("StartDate");
 

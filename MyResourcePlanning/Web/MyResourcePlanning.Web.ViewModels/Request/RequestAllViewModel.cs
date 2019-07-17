@@ -17,7 +17,7 @@
 
         public string EndDate { get; set; }
 
-        public double WorkingHours { get; set; }
+        public string WorkingHours { get; set; }
 
         public string Status { get; set; }
 
@@ -35,7 +35,10 @@
                     opt => opt.MapFrom(p => p.Project.Name))
                  .ForMember(
                     u => u.Resource,
-                    opt => opt.MapFrom(u => $"{u.User.FirstName} {u.User.LastName}"));
+                    opt => opt.MapFrom(u => $"{u.User.FirstName} {u.User.LastName}"))
+                 .ForMember(
+                    w => w.WorkingHours,
+                    opt => opt.MapFrom(w => w.WorkingHours.ToString("F2")));
         }
     }
 }
