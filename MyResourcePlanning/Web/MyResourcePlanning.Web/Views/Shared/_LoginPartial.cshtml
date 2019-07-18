@@ -11,24 +11,24 @@
             <li class="nav-item">
                 <a class="nav-link text-light font-weight-bold" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                    {<i class="fas fa-user-shield"></i>} &nbspHello @(this.User.Identity.Name)!
+                    {<i class="fas fa-user-shield pb-1"></i>} Hello @(this.User.Identity.Name)!
                 </a>
             </li>
         </cache>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                <button type="submit" class="nav-link btn btn-link text-light font-weight-bold"> <i class="fas fa-sign-out-alt"></i>&nbspLogout</button>
+                <button type="submit" class="nav-link btn btn-link text-light font-weight-bold"> <i class="fas fa-sign-out-alt p-1"></i>Logout</button>
             </form>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-light font-weight-bold" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus"></i>&nbspRegister</a>
+            <a class="nav-link text-light font-weight-bold" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus p-1"></i>Register</a>
 
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light font-weight-bold" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i>&nbspLogin</a>
+            <a class="nav-link text-light font-weight-bold" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt p-1"></i>Login</a>
         </li>
     }
 </ul>

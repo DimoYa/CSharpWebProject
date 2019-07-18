@@ -15,7 +15,7 @@
             }
             else
             {
-                return new ValidationResult("Date can not be in the past");
+                return new ValidationResult(this.ErrorMessage);
             }
         }
     }

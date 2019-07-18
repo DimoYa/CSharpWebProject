@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Create Request";
 }
-  
+
 <div class="jumbotron">
 
     <h1 class="text-center" mt-3>Create Request</h1>
@@ -35,7 +35,7 @@
                     </div>
                     <input asp-for="BindingModel.EndDate" autocomplete="off" id="endDate" class="form-control" placeholder="dd/MM/yyyy" />
                 </div>
-                <span asp-validation-for="BindingModel.EndDate" class="text-danger"></span>
+                <span asp-validation-for="BindingModel.EndDate" id="endDateError" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
