@@ -1,6 +1,5 @@
 ﻿namespace MyResourcePlanning.Services.Data.Project
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -35,6 +34,17 @@
             return result > 0;
         }
 
+        public async Task<bool> DeleteById(string id)
+        {
+            var projectToDelete = await this.GetProjectById(id);
+
+            projectToDelete.IsDeleted = true;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>()
         {
             var projects = this.context.Projects
@@ -42,6 +52,15 @@
                 .ToList();
 
             return projects;
+        }
+
+        private async Task<Project> GetProjectById(string id)
+        {
+            var currentProject = this.context
+                .Projects
+                .SingleOrDefault(p => p.Id == id);
+
+            return currentProject;
         }
     }
 }

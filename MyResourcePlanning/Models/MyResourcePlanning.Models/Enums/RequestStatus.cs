@@ -5,7 +5,7 @@
         InProgress = 1,
         Booked = 2,
         Rejected = 3,
-        Deleted = 4,
-        Finished = 5,
+        Returned = 4,
+        Deleted = 5,
     }
 }

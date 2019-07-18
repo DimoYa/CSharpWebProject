@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Http;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
+    using MyResourcePlanning.Models.Enums;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.ViewModels.Request;
 
@@ -43,13 +44,35 @@
             return result > 0;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllRequests<TViewModel>()
-    {
-        var requests = this.context.Requests
-            .To<TViewModel>()
-            .ToList();
+        public async Task<bool> DeleteById(string id)
+        {
+            var requestToDelete = await this.GetRequestById(id);
 
-        return requests;
+            requestToDelete.IsDeleted = true;
+            requestToDelete.Status = RequestStatus.Deleted;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+
+        public async Task<IEnumerable<TViewModel>> GetAllRequests<TViewModel>()
+        {
+            var requests = this.context.Requests
+                .To<TViewModel>()
+                .ToList();
+
+            return requests;
+        }
+
+        private async Task<Request> GetRequestById(string id)
+        {
+            var currentRequest = this.context
+               .Requests
+               .SingleOrDefault(p => p.Id == id);
+
+            return currentRequest;
+        }
     }
-}
 }

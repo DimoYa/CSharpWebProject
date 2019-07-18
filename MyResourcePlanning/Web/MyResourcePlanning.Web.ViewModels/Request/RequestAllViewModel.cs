@@ -9,6 +9,8 @@
 
     public class RequestAllViewModel : IMapFrom<Request>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string Project { get; set; }
 
         public string Resource { get; set; }
