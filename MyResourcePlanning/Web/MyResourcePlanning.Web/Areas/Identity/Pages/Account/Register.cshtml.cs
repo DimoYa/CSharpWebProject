@@ -15,24 +15,19 @@
     using MyResourcePlanning.Models;
 
     [AllowAnonymous]
-#pragma warning disable SA1649 // File name should match first type name
     public class RegisterModel : PageModel
-#pragma warning restore SA1649 // File name should match first type name
     {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
-        private readonly ILogger<RegisterModel> logger;
         private readonly IServiceProvider serviceProvider;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            ILogger<RegisterModel> logger,
             IServiceProvider serviceProvider)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.logger = logger;
             this.serviceProvider = serviceProvider;
         }
 
@@ -72,7 +67,6 @@
                         }
                     }
 
-                    this.logger.LogInformation("User created a new account with password.");
                     await this.signInManager.SignInAsync(user, isPersistent: false);
                     return this.LocalRedirect(returnUrl);
                 }
@@ -83,7 +77,6 @@
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return this.Page();
         }
 

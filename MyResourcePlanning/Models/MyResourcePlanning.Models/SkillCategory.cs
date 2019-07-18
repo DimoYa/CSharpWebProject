@@ -5,22 +5,18 @@
     using System.ComponentModel.DataAnnotations;
     using MyResourcePlanning.Models.BaseModels;
 
-    public class Skill : BaseDeletableModel<string>
+    public class SkillCategory : BaseDeletableModel<string>
     {
-        public Skill()
+        public SkillCategory()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Users = new HashSet<UserSkill>();
+            this.Skills = new HashSet<Skill>();
         }
 
         [Required]
         [StringLength(20, MinimumLength = 3)]
         public string Name { get; set; }
 
-        public string SkillCategoryId { get; set; }
-
-        public SkillCategory SkillCategory { get; set; }
-
-        public virtual ICollection<UserSkill> Users { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
     }
 }
