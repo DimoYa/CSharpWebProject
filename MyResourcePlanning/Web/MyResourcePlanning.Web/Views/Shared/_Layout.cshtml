@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@this.ViewData["Title"] - MyResourcePlanning</title>
+    <title>@this.ViewData["Title"] MyResourcePlanning</title>
 
     <link href="~/css/reset-css.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
@@ -12,18 +12,20 @@
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
     <link href="~/css/jquery.datetimepicker.min.css" rel="stylesheet" />
     <link href="~/css/bootstrap-sortable.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+    <script src="~/js/loadingAnimation.js"></script>
     <script src="~/js/popper.min.js"></script>
     <script src="~/js/jquery-3.4.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="~/js/errorMessages.js"></script>
-    <script type="text/javascript" src="~/js/twoColumnDropDown.js"></script>
+    <script src="~/js/errorMessages.js"></script>
+    <script src="~/js/twoColumnDropDown.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
 </head>
 <body>
+    <div class="se-pre-con"></div>
     <header>
         <nav class="navbar navbar-fixed-top navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
@@ -57,3 +59,4 @@
     @this.RenderSection("Scripts", required: false)
 </body>
 </html>
+
