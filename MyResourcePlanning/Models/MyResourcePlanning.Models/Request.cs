@@ -10,6 +10,7 @@
     {
         public Request()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.CreatedOn = DateTime.Now;
             this.Status = RequestStatus.InProgress;
         }

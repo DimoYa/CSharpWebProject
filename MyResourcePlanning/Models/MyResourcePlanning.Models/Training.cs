@@ -21,6 +21,9 @@
         [Required]
         public TrainingType Type { get; set; }
 
+        [Required]
+        public TrainingStatus Status { get; set; }
+
         public virtual ICollection<UserTraining> Users { get; set; }
     }
 }

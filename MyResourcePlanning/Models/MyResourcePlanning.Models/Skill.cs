@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using MyResourcePlanning.Models.BaseModels;
+    using MyResourcePlanning.Models.Enums;
 
     public class Skill : BaseDeletableModel<string>
     {
@@ -18,6 +19,9 @@
         public string Name { get; set; }
 
         public string SkillCategoryId { get; set; }
+
+        [Required]
+        public SkillLevel Level { get; set; }
 
         public SkillCategory SkillCategory { get; set; }
 
