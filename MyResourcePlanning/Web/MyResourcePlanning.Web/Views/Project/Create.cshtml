@@ -87,8 +87,6 @@
     getErrorMsgs('#createForm');
 </script>
 <script>
-    $("span:contains('End date must be greater than Start Date')").html(function (_, html) {
-        return html.replace(/(End date must be greater than Start Date)/g, '<span class="alert alert-danger">$1</span>');
-    });
+    wrapInASpan(['End date must be greater than Start Date', 'Date cannot be in the past'], 'alert alert-danger');
 </script>
 }

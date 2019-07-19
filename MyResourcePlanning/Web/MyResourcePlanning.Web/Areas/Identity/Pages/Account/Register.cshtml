@@ -9,6 +9,7 @@
     <h1 class="text-center" mt-3>Register</h1>
     <form id="registerForm" method="post" class="w-50 mx-auto">
         <hr class="mt-3 bg-resources hr-2" />
+        <div asp-validation-summary="ModelOnly" class="text-danger text-center"></div>
         <div class="d-flex justify-content-between">
             <div class="form-group w-45">
                 <div class="d-flex justify-content-center">
@@ -44,7 +45,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                     </div>
-                    <input asp-for="Input.Email" class="form-control" placeholder="Email address..." />
+                    <input asp-for="Input.Email" id="email" class="form-control" placeholder="Email address..." />
                 </div>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
@@ -110,8 +111,12 @@
 </div>
 
 @section scripts{
-    <script type="text/javascript" src="~/js/errorMessages.js"></script>
-    <script type="text/javascript">getErrorMsgs('#registerForm')</script>
+<script type="text/javascript" src="~/js/errorMessages.js"></script>
+<script type="text/javascript">getErrorMsgs('#registerForm')</script>
+<script>
+  
+    wrapInASpan(['User name \'admin@admin.bg\' is already taken.'], 'alert alert-danger');
+</script>
 }
 
 
