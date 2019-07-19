@@ -114,9 +114,12 @@
         };
     </script>
     <script>
-        getErrorMsgs('#createForm')
+        getErrorMsgs('#createForm');
     </script>
     <script>
         twoColumnDropDown('#dropdown option', ';', 0, 55);
+    </script>
+    <script>
+        wrapInASpan(['End date must be greater than Start Date', 'Date cannot be in the past'], 'alert alert-danger');
     </script>
 }
