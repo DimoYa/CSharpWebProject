@@ -34,6 +34,7 @@
     <ProjectReference Include="..\..\Models\MyResourcePlanning.Models\MyResourcePlanning.Models.csproj" />
     <ProjectReference Include="..\..\Services\MyResourcePlanning.Services.Data\MyResourcePlanning.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\MyResourcePlanning.Services.Mapping\MyResourcePlanning.Services.Mapping.csproj" />
+    <ProjectReference Include="..\MyResourcePlanning.Web.BindingModels\MyResourcePlanning.Web.BindingModels.csproj" />
     <ProjectReference Include="..\MyResourcePlanning.Web.Infrastructure\MyResourcePlanning.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\MyResourcePlanning.Web.ViewModels\MyResourcePlanning.Web.ViewModels.csproj" />
   </ItemGroup>

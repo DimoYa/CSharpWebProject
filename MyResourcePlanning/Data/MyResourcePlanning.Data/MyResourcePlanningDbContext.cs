@@ -22,6 +22,8 @@
 
         public DbSet<Skill> Skills { get; set; }
 
+        public DbSet<SkillCategory> SkillCategories { get; set; }
+
         public DbSet<Training> Trainings { get; set; }
 
         public DbSet<UserCalendar> UserCalendars { get; set; }

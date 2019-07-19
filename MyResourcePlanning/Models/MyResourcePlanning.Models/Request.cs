@@ -11,7 +11,7 @@
         public Request()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.CreatedOn = DateTime.Now;
+            this.CreatedOn = DateTime.UtcNow;
             this.Status = RequestStatus.InProgress;
         }
 

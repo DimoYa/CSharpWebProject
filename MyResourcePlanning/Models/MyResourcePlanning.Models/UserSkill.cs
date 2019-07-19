@@ -1,4 +1,7 @@
-﻿namespace MyResourcePlanning.Models
+﻿using MyResourcePlanning.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+
+namespace MyResourcePlanning.Models
 {
     public class UserSkill
     {
@@ -10,6 +13,8 @@
 
         public Skill Skill { get; set; }
 
-        public bool IsAllowedToAdd { get; set; }
+        [Required]
+        public SkillLevel Level { get; set; }
+
     }
 }

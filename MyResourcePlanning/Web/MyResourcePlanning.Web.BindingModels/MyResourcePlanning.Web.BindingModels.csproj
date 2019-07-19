@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Models\MyResourcePlanning.Models\MyResourcePlanning.Models.csproj" />
+    <ProjectReference Include="..\..\Services\MyResourcePlanning.Services.Mapping\MyResourcePlanning.Services.Mapping.csproj" />
+    <ProjectReference Include="..\MyResourcePlanning.Web.ViewModels\MyResourcePlanning.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
