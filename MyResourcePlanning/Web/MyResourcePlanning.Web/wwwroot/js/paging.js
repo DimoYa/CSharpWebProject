@@ -56,7 +56,7 @@ function getPagination(table) {
     }
 
     function getDefaultIndex() {
-        $('table tr:eq(0)').prepend('<th> ID </th>')
+        $('table tr:eq(0)').prepend('<th scope="col">#</th>')
 
         var id = 0;
 

@@ -8,14 +8,14 @@
     public class RequestCreateBindingModel
     {
         [Required]
-        [DateGreaterOrEqualThatPresent]
+        [DateGreaterOrEqualThatPresent(ErrorMessage = "Date cannot be in the past")]
         [Display(Name = "Start Date")]
         [DataType(DataType.Text)]
         public DateTime StartDate { get; set; }
 
         [Required]
-        [DateGreaterThan(nameof(StartDate))]
-        [DateGreaterOrEqualThatPresent]
+        [DateGreaterThan(nameof(StartDate), ErrorMessage = "End date must be greater than Start Date")]
+        [DateGreaterOrEqualThatPresent(ErrorMessage = "Date cannot be in the past")]
         [Display(Name = "End Date")]
         [DataType(DataType.Text)]
         public DateTime EndDate { get; set; }

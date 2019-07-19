@@ -10,5 +10,7 @@
         Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>();
 
         Task<bool> Create(ProjectCreateInputModel inputModel);
+
+        Task<bool> DeleteById(string id);
     }
 }

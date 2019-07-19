@@ -10,5 +10,7 @@
         Task<IEnumerable<TViewModel>> GetAllRequests<TViewModel>();
 
         Task<bool> Create(RequestCreateBindingModel requestCreateBindingModel);
+
+        Task<bool> DeleteById(string id);
     }
 }

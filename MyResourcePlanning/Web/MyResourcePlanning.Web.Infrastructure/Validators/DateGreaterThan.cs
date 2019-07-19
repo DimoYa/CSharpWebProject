@@ -22,7 +22,7 @@
             }
             else
             {
-                return new ValidationResult("End date should not be before start date");
+                return new ValidationResult(this.ErrorMessage);
             }
         }
     }
