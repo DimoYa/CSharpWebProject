@@ -53,6 +53,7 @@
         public async Task<IEnumerable<TViewModel>> GetAllSkillsByCategories<TViewModel>()
         {
             var skillsByCategories = this.context.SkillCategories
+                 .OrderBy(s => s.Name)
                  .To<TViewModel>()
                  .ToList();
 
@@ -62,6 +63,7 @@
         public async Task<IEnumerable<TViewModel>> GetAllSkillsCategories<TViewModel>()
         {
             var skillsCategories = this.context.SkillCategories
+                 .OrderBy(s => s.Name)
                  .To<TViewModel>()
                  .ToList();
 

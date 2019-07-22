@@ -54,6 +54,13 @@
             return this.RedirectToAction("All");
         }
 
+        public async Task<IActionResult> All()
+        {
+            var skills = await this.skillService
+                .GetAllSkillsByCategories<SkillsByCategoryViewModel>();
+            return this.View(skills);
+        }
+
         private async Task<SkillCreateBaseModel> GetSkillCreateBaseModel()
         {
             return new SkillCreateBaseModel()
