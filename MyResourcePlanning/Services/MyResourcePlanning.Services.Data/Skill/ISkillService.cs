@@ -9,10 +9,12 @@
     {
         Task<IEnumerable<TViewModel>> GetAllSkillsByCategories<TViewModel>();
 
-        Task<IEnumerable<TViewModel>> GetAllSkillsCategories<TViewModel>();
-
         Task<bool> CreateCategory(SkillCategoryCreateBindingModel model);
 
         Task<bool> Create(SkillCreateBaseModel model);
+
+        Task<bool> DeleteSkill(string id);
+
+        Task<bool> DeleteCategory(string id);
     }
 }

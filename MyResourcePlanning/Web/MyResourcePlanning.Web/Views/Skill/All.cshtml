@@ -14,14 +14,25 @@
                 <div class="panel panel-default">
 
                     <div class="panel-heading card text-white bg-info mb-3 cl" id="headingOne">
-                        <h4 class="mb-0">@Model[i].Name</h4>
+                        <div>
+                            <h4 class="mb-0 text-center">
+                                <span class="center-block">@Model[i].Name</span>
+                                <a asp-action="DeleteCategory" asp-route-id="@Model[i].Id" class="btn bg-transparent float-right"><i class="far fa-trash-alt" data-placement="top" title="Delete Category and all skills beyound it"></i></a>
+                            </h4>
+                        </div>
                         <button type="button" data-toggle="collapse" data-target="#@("collapseOne"+i)"><i class="fa fa-plus"></i></button>
                     </div>
                     <div id="@("collapseOne"+i)" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <ul class="list-group mb-3">
                             @foreach (var skill in @Model[i].Skills.OrderBy(s => s.Name))
                             {
-                                <li class="list-group-item">@skill.Name</li>
+                                <li class="list-group-item">
+                                    @skill.Name
+                                    <div class="float-right">
+                                        <a asp-action="DeleteSkill" asp-route-id="@skill.Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
+                                        <a asp-action="DeleteSkill" asp-route-id="@skill.Id" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
+                                    </div>
+                                </li>
                             }
                         </ul>
                     </div>

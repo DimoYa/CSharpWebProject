@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Services.Data.Skill
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -50,24 +51,50 @@
             return result > 0;
         }
 
+        public async Task<bool> DeleteCategory(string id)
+        {
+            var skillCategoryForDeletion = this.context.SkillCategories
+                .SingleOrDefault(s => s.Id == id);
+
+            skillCategoryForDeletion.IsDeleted = true;
+            skillCategoryForDeletion.DeletedOn = DateTime.UtcNow;
+
+            var skillsUnderTheCategory = this.context.Skills
+                .Where(s => s.SkillCategoryId == skillCategoryForDeletion.Id);
+
+            foreach (var skill in skillsUnderTheCategory)
+            {
+                skill.IsDeleted = true;
+                skill.DeletedOn = DateTime.UtcNow;
+            }
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> DeleteSkill(string id)
+        {
+            var skillForDeletion = this.context.Skills
+                .SingleOrDefault(s => s.Id == id);
+
+            skillForDeletion.IsDeleted = true;
+            skillForDeletion.DeletedOn = DateTime.UtcNow;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllSkillsByCategories<TViewModel>()
         {
             var skillsByCategories = this.context.SkillCategories
-                 .OrderBy(s => s.Name)
+                 .Where(s => s.IsDeleted == false)
+                 .OrderBy(x => x.Name)
                  .To<TViewModel>()
                  .ToList();
 
             return skillsByCategories;
-        }
-
-        public async Task<IEnumerable<TViewModel>> GetAllSkillsCategories<TViewModel>()
-        {
-            var skillsCategories = this.context.SkillCategories
-                 .OrderBy(s => s.Name)
-                 .To<TViewModel>()
-                 .ToList();
-
-            return skillsCategories;
         }
     }
 }

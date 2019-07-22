@@ -61,11 +61,23 @@
             return this.View(skills);
         }
 
+        public async Task<IActionResult> DeleteSkill(string id)
+        {
+            await this.skillService.DeleteSkill(id);
+            return this.RedirectToAction("All");
+        }
+
+        public async Task<IActionResult> DeleteCategory(string id)
+        {
+            await this.skillService.DeleteCategory(id);
+            return this.RedirectToAction("All");
+        }
+
         private async Task<SkillCreateBaseModel> GetSkillCreateBaseModel()
         {
             return new SkillCreateBaseModel()
             {
-                SkillCategories = await this.skillService.GetAllSkillsCategories<SkillCategoryViewModel>(),
+                SkillCategories = await this.skillService.GetAllSkillsByCategories<SkillCategoryViewModel>(),
             };
         }
     }
