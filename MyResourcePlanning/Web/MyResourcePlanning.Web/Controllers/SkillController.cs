@@ -1,8 +1,9 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
     using System.Threading.Tasks;
-
+    using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
+    using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Data.Skill;
     using MyResourcePlanning.Web.BindingModels.Skill;
     using MyResourcePlanning.Web.ViewModels.Skill;
@@ -59,6 +60,26 @@
             var skills = await this.skillService
                 .GetAllSkillsByCategories<SkillsByCategoryViewModel>();
             return this.View(skills);
+        }
+
+        public async Task<IActionResult> EditSkill(string id)
+        {
+           var skillForUpdate = await this.skillService.GetSkillById<SkillEditBindingModel>(id);
+
+            return this.View(skillForUpdate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSkill(SkillEditBindingModel model, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model ?? new SkillEditBindingModel());
+            }
+
+            await this.skillService.EditSkill(model, id);
+
+            return this.RedirectToAction("All");
         }
 
         public async Task<IActionResult> DeleteSkill(string id)

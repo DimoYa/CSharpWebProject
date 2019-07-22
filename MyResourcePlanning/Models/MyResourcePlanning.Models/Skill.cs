@@ -15,10 +15,8 @@
         }
 
         [Required]
-        [StringLength(20, MinimumLength = 3)]
+        [StringLength(20, MinimumLength = 1)]
         public string Name { get; set; }
-
-       
 
         public string SkillCategoryId { get; set; }
 

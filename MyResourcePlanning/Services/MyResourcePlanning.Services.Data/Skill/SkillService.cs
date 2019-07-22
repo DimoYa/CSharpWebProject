@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using AutoMapper;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
@@ -33,6 +33,25 @@
             };
 
             this.context.Skills.Add(skill);
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> EditSkill(SkillEditBindingModel model, string id)
+        {
+            var skillForUpdate = this.context
+                .Skills
+                .SingleOrDefault(s => s.Id == id);
+
+            var categoryId = this.context
+                .SkillCategories
+                .SingleOrDefault(c => c.Name == model.Name)
+                .Id;
+
+            skillForUpdate.Name = model.Name;
+            skillForUpdate.SkillCategoryId = categoryId;
+
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;
@@ -88,6 +107,7 @@
 
         public async Task<IEnumerable<TViewModel>> GetAllSkillsByCategories<TViewModel>()
         {
+
             var skillsByCategories = this.context.SkillCategories
                  .Where(s => s.IsDeleted == false)
                  .OrderBy(x => x.Name)
@@ -95,6 +115,16 @@
                  .ToList();
 
             return skillsByCategories;
+        }
+
+        public async Task<TViewModel> GetSkillById<TViewModel>(string id)
+        {
+            var skillForUpdate = this.context.Skills
+                  .Where(s => s.Id == id)
+                  .To<TViewModel>()
+                  .SingleOrDefault();
+
+            return skillForUpdate;
         }
     }
 }

@@ -13,6 +13,10 @@
 
         Task<bool> Create(SkillCreateBaseModel model);
 
+        Task<bool> EditSkill(SkillEditBindingModel model, string id);
+
+        Task<TViewModel> GetSkillById<TViewModel>(string id);
+
         Task<bool> DeleteSkill(string id);
 
         Task<bool> DeleteCategory(string id);
