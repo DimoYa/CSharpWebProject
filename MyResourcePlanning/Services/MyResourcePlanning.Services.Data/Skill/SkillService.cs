@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using AutoMapper;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
@@ -19,12 +18,9 @@
             this.context = context;
         }
 
-        public async Task<bool> Create(SkillCreateBaseModel model)
+        public async Task<bool> CreateSkill(SkillCreateBaseModel model)
         {
-            var skillCategory = this.context
-                .SkillCategories
-                .Where(s => s.IsDeleted == false)
-                .SingleOrDefault(s => s.Name == model.BindingModel.SkillCategory);
+            var skillCategory = await GetSkillCategoryByName(model.BindingModel.SkillCategory);
 
             Skill skill = new Skill
             {
@@ -44,12 +40,10 @@
                 .Skills
                 .SingleOrDefault(s => s.Id == id);
 
-            var category = this.context
-                .SkillCategories
-                .SingleOrDefault(c => c.Name == model.Name);
+            var skillCategory = await GetSkillCategoryByName(model.SkillCategory);
 
             skillForUpdate.Name = model.Name;
-            skillForUpdate.SkillCategory = category;
+            skillForUpdate.SkillCategory = skillCategory;
 
             int result = await this.context.SaveChangesAsync();
 
@@ -106,7 +100,6 @@
 
         public async Task<IEnumerable<TViewModel>> GetAllSkillsByCategories<TViewModel>()
         {
-
             var skillsByCategories = this.context.SkillCategories
                  .Where(s => s.IsDeleted == false)
                  .OrderBy(x => x.Name)
@@ -122,7 +115,23 @@
                   .Where(s => s.Id == id)
                   .SingleOrDefault();
 
+            var skillCategory = this.context
+                .SkillCategories
+                .SingleOrDefault(s => s.Id == skillForUpdate.SkillCategoryId);
+
+            skillForUpdate.SkillCategory = skillCategory;
+
             return skillForUpdate;
+        }
+
+        private async Task<SkillCategory> GetSkillCategoryByName(string categoryName)
+        {
+            var category = this.context
+                               .SkillCategories
+                               .Where(s => s.IsDeleted == false)
+                               .SingleOrDefault(s => s.Name == categoryName);
+
+            return category;
         }
     }
 }

@@ -3,10 +3,11 @@
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Models;
     using System.ComponentModel.DataAnnotations;
-    using AutoMapper;
+    using System.Collections.Generic;
+    using MyResourcePlanning.Web.ViewModels.Skill;
 
-    public class SkillEditBindingModel 
-        {
+    public class SkillEditBindingModel : IMapFrom<Skill>
+    {
         [Required]
         [StringLength(20, MinimumLength = 1)]
         [Display(Name = "Name")]
@@ -15,6 +16,9 @@
 
         [Required]
         [Display(Name = "Skill Category")]
-        public SkillCategory SkillCategory { get; set; }
+        public string SkillCategory { get; set; }
+
+        public IEnumerable<SkillCategoryViewModel> SkillCategories { get; set; }
+
     }
 }

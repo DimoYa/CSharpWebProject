@@ -12,7 +12,7 @@
 
         Task<bool> CreateCategory(SkillCategoryCreateBindingModel model);
 
-        Task<bool> Create(SkillCreateBaseModel model);
+        Task<bool> CreateSkill(SkillCreateBaseModel model);
 
         Task<bool> EditSkill(SkillEditBindingModel model, string id);
 

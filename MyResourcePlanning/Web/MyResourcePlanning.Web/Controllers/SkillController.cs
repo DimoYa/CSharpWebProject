@@ -32,7 +32,7 @@
 
             await this.skillService.CreateCategory(inputModel);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> CreateSkill()
@@ -50,7 +50,7 @@
                 return this.View(inputModel ?? new SkillCreateBaseModel());
             }
 
-            await this.skillService.Create(inputModel);
+            await this.skillService.CreateSkill(inputModel);
 
             return this.RedirectToAction("All");
         }
@@ -64,18 +64,19 @@
 
         public async Task<IActionResult> EditSkill(string id)
         {
-           var skillForUpdate = await this.skillService.GetSkillById(id);
+            var skillForUpdate = await this.skillService.GetSkillById(id);
+            var skillEdutBaseModel = await this.GetSkillEditBaseModel(skillForUpdate);
 
-           return this.View(skillForUpdate);
+            return this.View(skillEdutBaseModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditSkill(SkillEditBindingModel model, string id)
         {
-            //if (!this.ModelState.IsValid)
-            //{
-            //    return this.View(model ?? new SkillEditBindingModel());
-            //}
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model ?? new SkillEditBindingModel());
+            }
 
             await this.skillService.EditSkill(model, id);
 
@@ -98,6 +99,16 @@
         {
             return new SkillCreateBaseModel()
             {
+                SkillCategories = await this.skillService.GetAllSkillsByCategories<SkillCategoryViewModel>(),
+            };
+        }
+
+        private async Task<SkillEditBindingModel> GetSkillEditBaseModel(Skill skillForUpdate)
+        {
+            return new SkillEditBindingModel()
+            {
+                Name = skillForUpdate.Name,
+                SkillCategory = skillForUpdate.SkillCategory.Name,
                 SkillCategories = await this.skillService.GetAllSkillsByCategories<SkillCategoryViewModel>(),
             };
         }
