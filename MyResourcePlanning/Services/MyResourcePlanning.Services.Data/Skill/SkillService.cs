@@ -21,15 +21,15 @@
 
         public async Task<bool> Create(SkillCreateBaseModel model)
         {
-            var skillCategoryID = this.context
+            var skillCategory = this.context
                 .SkillCategories
-                .SingleOrDefault(s => s.Name == model.BindingModel.SkillCategory)
-                .Id;
+                .Where(s => s.IsDeleted == false)
+                .SingleOrDefault(s => s.Name == model.BindingModel.SkillCategory);
 
             Skill skill = new Skill
             {
                 Name = model.BindingModel.Name,
-                SkillCategoryId = skillCategoryID,
+                SkillCategory = skillCategory,
             };
 
             this.context.Skills.Add(skill);
@@ -44,13 +44,12 @@
                 .Skills
                 .SingleOrDefault(s => s.Id == id);
 
-            var categoryId = this.context
+            var category = this.context
                 .SkillCategories
-                .SingleOrDefault(c => c.Name == model.Name)
-                .Id;
+                .SingleOrDefault(c => c.Name == model.Name);
 
             skillForUpdate.Name = model.Name;
-            skillForUpdate.SkillCategoryId = categoryId;
+            skillForUpdate.SkillCategory = category;
 
             int result = await this.context.SaveChangesAsync();
 
@@ -117,11 +116,10 @@
             return skillsByCategories;
         }
 
-        public async Task<TViewModel> GetSkillById<TViewModel>(string id)
+        public async Task<Skill> GetSkillById(string id)
         {
             var skillForUpdate = this.context.Skills
                   .Where(s => s.Id == id)
-                  .To<TViewModel>()
                   .SingleOrDefault();
 
             return skillForUpdate;

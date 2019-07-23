@@ -64,18 +64,18 @@
 
         public async Task<IActionResult> EditSkill(string id)
         {
-           var skillForUpdate = await this.skillService.GetSkillById<SkillEditBindingModel>(id);
+           var skillForUpdate = await this.skillService.GetSkillById(id);
 
-            return this.View(skillForUpdate);
+           return this.View(skillForUpdate);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditSkill(SkillEditBindingModel model, string id)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model ?? new SkillEditBindingModel());
-            }
+            //if (!this.ModelState.IsValid)
+            //{
+            //    return this.View(model ?? new SkillEditBindingModel());
+            //}
 
             await this.skillService.EditSkill(model, id);
 

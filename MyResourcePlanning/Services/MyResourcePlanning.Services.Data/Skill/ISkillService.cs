@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using MyResourcePlanning.Web.BindingModels.Skill;
+    using MyResourcePlanning.Models;
 
     public interface ISkillService
     {
@@ -15,7 +16,7 @@
 
         Task<bool> EditSkill(SkillEditBindingModel model, string id);
 
-        Task<TViewModel> GetSkillById<TViewModel>(string id);
+        Task<Skill> GetSkillById(string id);
 
         Task<bool> DeleteSkill(string id);
 
