@@ -22,7 +22,7 @@
                         </div>
                         <button type="button" data-toggle="collapse" data-target="#@("collapseOne"+i)"><i class="fa fa-plus"></i></button>
                     </div>
-                    <div id="@("collapseOne"+i)" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div id="@("collapseOne"+i)" class="collapse" aria-labelledby="headingOne">
                         <ul class="list-group mb-3">
                             @foreach (var skill in @Model[i].Skills.OrderBy(s => s.Name))
                             {
