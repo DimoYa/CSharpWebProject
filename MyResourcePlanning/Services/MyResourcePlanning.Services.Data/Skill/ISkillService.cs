@@ -12,11 +12,15 @@
 
         Task<bool> CreateCategory(SkillCategoryCreateBindingModel model);
 
+        Task<bool> EditCategory(SkillCategoryEditBindingModel model, string id);
+
         Task<bool> CreateSkill(SkillCreateBaseModel model);
 
         Task<bool> EditSkill(SkillEditBindingModel model, string id);
 
         Task<Skill> GetSkillById(string id);
+
+        Task<SkillCategory> GetCategoryById(string id);
 
         Task<bool> DeleteSkill(string id);
 

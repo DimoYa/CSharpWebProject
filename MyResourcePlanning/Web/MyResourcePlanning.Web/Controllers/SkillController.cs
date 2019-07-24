@@ -1,6 +1,7 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
     using System.Threading.Tasks;
+
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using MyResourcePlanning.Models;
@@ -79,6 +80,26 @@
             }
 
             await this.skillService.EditSkill(model, id);
+
+            return this.RedirectToAction("All");
+        }
+
+        public async Task<IActionResult> EditCategory(string id)
+        {
+            var categoryForUpdate = await this.skillService.GetCategoryById(id);
+
+            return this.View(categoryForUpdate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCategory(SkillCategoryEditBindingModel model, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model ?? new SkillCategoryEditBindingModel());
+            }
+
+            await this.skillService.EditCategory(model, id);
 
             return this.RedirectToAction("All");
         }
