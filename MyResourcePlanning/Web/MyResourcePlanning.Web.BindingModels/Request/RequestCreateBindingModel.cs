@@ -1,4 +1,4 @@
-﻿namespace MyResourcePlanning.Web.ViewModels.Request
+﻿namespace MyResourcePlanning.Web.BindingModels.Request
 {
     using System;
     using System.ComponentModel.DataAnnotations;

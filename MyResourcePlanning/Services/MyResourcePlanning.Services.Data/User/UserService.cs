@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Http;
     using MyResourcePlanning.Common;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Services.Mapping;
@@ -11,10 +12,14 @@
     public class UserService : IUserService
     {
         private readonly MyResourcePlanningDbContext context;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public UserService(MyResourcePlanningDbContext context)
+        public UserService(
+            MyResourcePlanningDbContext context,
+            IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllActiveResourcesAndTheirSkills<TViewModel>()
@@ -27,6 +32,17 @@
                 .ToList();
 
             return userWithSkills;
+        }
+
+        public async Task<string> GetCurrentUserId()
+        {
+            var currentUser = this.httpContextAccessor
+                .HttpContext
+                .User
+                .FindFirst(ClaimTypes.NameIdentifier)
+                .Value;
+
+            return currentUser;
         }
 
         public async Task<string> GetRoleIdByName(string roleName)

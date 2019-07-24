@@ -6,6 +6,7 @@
     using MyResourcePlanning.Services.Data.Project;
     using MyResourcePlanning.Services.Data.Request;
     using MyResourcePlanning.Services.Data.User;
+    using MyResourcePlanning.Web.BindingModels.Request;
     using MyResourcePlanning.Web.ViewModels.Project;
     using MyResourcePlanning.Web.ViewModels.Request;
     using MyResourcePlanning.Web.ViewModels.User;

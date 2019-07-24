@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc;
-using MyResourcePlanning.Services.Data.Project;
-using MyResourcePlanning.Web.ViewModels.Project;
-
-namespace MyResourcePlanning.Web.Controllers
+﻿namespace MyResourcePlanning.Web.Controllers
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using MyResourcePlanning.Services.Data.Project;
+    using MyResourcePlanning.Web.BindingModels.Project;
+    using MyResourcePlanning.Web.ViewModels.Project;
+
     public class ProjectController : BaseController
     {
         private readonly IProjectService projectService;
@@ -21,11 +22,11 @@ namespace MyResourcePlanning.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProjectCreateInputModel inputModel)
+        public async Task<IActionResult> Create(ProjectCreateBindingModel inputModel)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(inputModel ?? new ProjectCreateInputModel());
+                return this.View(inputModel ?? new ProjectCreateBindingModel());
             }
 
             await this.projectService.Create(inputModel);

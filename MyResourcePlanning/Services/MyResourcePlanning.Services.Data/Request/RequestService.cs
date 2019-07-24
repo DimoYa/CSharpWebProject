@@ -10,20 +10,21 @@
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Models.Enums;
+    using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
-    using MyResourcePlanning.Web.ViewModels.Request;
+    using MyResourcePlanning.Web.BindingModels.Request;
 
     public class RequestService : IRequestService
     {
         private readonly MyResourcePlanningDbContext context;
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IUserService userService;
 
         public RequestService(
             MyResourcePlanningDbContext context,
-            IHttpContextAccessor httpContextAccessor)
+            IUserService userService)
         {
             this.context = context;
-            this.httpContextAccessor = httpContextAccessor;
+            this.userService = userService;
         }
 
         public async Task<bool> Create(RequestCreateBindingModel model)
@@ -35,7 +36,7 @@
                 ProjectId = model.Project.Split(';')[0],
                 UserId = model.Resource.Split(';')[0],
                 WorkingHours = model.WorkingHours,
-                CreatedBy = this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                CreatedBy = await this.userService.GetCurrentUserId(),
             };
 
             this.context.Requests.Add(request);
@@ -55,7 +56,6 @@
 
             return result > 0;
         }
-
 
         public async Task<IEnumerable<TViewModel>> GetAllRequests<TViewModel>()
         {

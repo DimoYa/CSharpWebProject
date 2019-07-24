@@ -8,5 +8,7 @@
         Task<IEnumerable<TViewModel>> GetAllActiveResourcesAndTheirSkills<TViewModel>();
 
         Task<string> GetRoleIdByName(string roleName);
+
+        Task<string> GetCurrentUserId();
     }
 }

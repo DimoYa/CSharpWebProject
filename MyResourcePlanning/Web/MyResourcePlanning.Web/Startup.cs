@@ -18,6 +18,7 @@
     using MyResourcePlanning.Services.Data.Project;
     using MyResourcePlanning.Services.Data.Request;
     using MyResourcePlanning.Services.Data.Skill;
+    using MyResourcePlanning.Services.Data.SkillCategory;
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.ViewModels;
@@ -81,6 +82,7 @@
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProjectService, ProjectService>();
             services.AddTransient<ISkillService, SkillService>();
+            services.AddTransient<ISkillCategoryService, SkillCategoryService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

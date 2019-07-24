@@ -7,6 +7,7 @@
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
+    using MyResourcePlanning.Web.BindingModels.Project;
     using MyResourcePlanning.Web.ViewModels.Project;
 
     public class ProjectService : IProjectService
@@ -18,7 +19,7 @@
             this.context = context;
         }
 
-        public async Task<bool> Create(ProjectCreateInputModel model)
+        public async Task<bool> Create(ProjectCreateBindingModel model)
         {
             Project project = new Project
             {

@@ -3,27 +3,23 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using MyResourcePlanning.Web.BindingModels.Skill;
     using MyResourcePlanning.Models;
+    using MyResourcePlanning.Web.BindingModels.Skill;
 
     public interface ISkillService
     {
         Task<IEnumerable<TViewModel>> GetAllSkillsByCategories<TViewModel>();
 
-        Task<bool> CreateCategory(SkillCategoryCreateBindingModel model);
-
-        Task<bool> EditCategory(SkillCategoryEditBindingModel model, string id);
-
         Task<bool> CreateSkill(SkillCreateBaseModel model);
 
         Task<bool> EditSkill(SkillEditBindingModel model, string id);
 
-        Task<Skill> GetSkillById(string id);
-
-        Task<SkillCategory> GetCategoryById(string id);
-
         Task<bool> DeleteSkill(string id);
 
-        Task<bool> DeleteCategory(string id);
+        Task<bool> AddSkill(string id, SkillAddBindingModel model);
+
+        Task<Skill> GetSkillById(string id);
+
+        Task<IList<string>> UserSkillsId();
     }
 }

@@ -1,11 +1,11 @@
-﻿namespace MyResourcePlanning.Web.ViewModels.Project
+﻿namespace MyResourcePlanning.Web.BindingModels.Project
 {
     using System;
     using System.ComponentModel.DataAnnotations;
 
     using MyResourcePlanning.Web.Infrastructure.Validators;
 
-    public class ProjectCreateInputModel
+    public class ProjectCreateBindingModel
     {
         [Required]
         [StringLength(100, MinimumLength = 3)]

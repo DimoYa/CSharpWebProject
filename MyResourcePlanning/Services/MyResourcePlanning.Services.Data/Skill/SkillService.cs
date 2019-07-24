@@ -7,21 +7,30 @@
 
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
+    using MyResourcePlanning.Services.Data.SkillCategory;
+    using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.BindingModels.Skill;
 
     public class SkillService : ISkillService
     {
         private readonly MyResourcePlanningDbContext context;
+        private readonly ISkillCategoryService skillCategoryService;
+        private readonly IUserService userService;
 
-        public SkillService(MyResourcePlanningDbContext context)
+        public SkillService(
+            MyResourcePlanningDbContext context,
+            ISkillCategoryService skillCategoryService,
+            IUserService userService)
         {
             this.context = context;
+            this.skillCategoryService = skillCategoryService;
+            this.userService = userService;
         }
 
         public async Task<bool> CreateSkill(SkillCreateBaseModel model)
         {
-            var skillCategory = await GetSkillCategoryByName(model.BindingModel.SkillCategory);
+            var skillCategory = await this.skillCategoryService.GetCategoryByName(model.BindingModel.SkillCategory);
 
             Skill skill = new Skill
             {
@@ -41,45 +50,10 @@
                 .Skills
                 .SingleOrDefault(s => s.Id == id);
 
-            var skillCategory = await GetSkillCategoryByName(model.SkillCategory);
+            var skillCategory = await this.skillCategoryService.GetCategoryByName(model.SkillCategory);
 
             skillForUpdate.Name = model.Name;
             skillForUpdate.SkillCategory = skillCategory;
-
-            int result = await this.context.SaveChangesAsync();
-
-            return result > 0;
-        }
-
-        public async Task<bool> CreateCategory(SkillCategoryCreateBindingModel model)
-        {
-            SkillCategory skillCategory = new SkillCategory
-            {
-                Name = model.Name,
-            };
-
-            this.context.SkillCategories.Add(skillCategory);
-            int result = await this.context.SaveChangesAsync();
-
-            return result > 0;
-        }
-
-        public async Task<bool> DeleteCategory(string id)
-        {
-            var skillCategoryForDeletion = this.context.SkillCategories
-                .SingleOrDefault(s => s.Id == id);
-
-            skillCategoryForDeletion.IsDeleted = true;
-            skillCategoryForDeletion.DeletedOn = DateTime.UtcNow;
-
-            var skillsUnderTheCategory = this.context.Skills
-                .Where(s => s.SkillCategoryId == skillCategoryForDeletion.Id);
-
-            foreach (var skill in skillsUnderTheCategory)
-            {
-                skill.IsDeleted = true;
-                skill.DeletedOn = DateTime.UtcNow;
-            }
 
             int result = await this.context.SaveChangesAsync();
 
@@ -94,6 +68,23 @@
             skillForDeletion.IsDeleted = true;
             skillForDeletion.DeletedOn = DateTime.UtcNow;
 
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> AddSkill(string id, SkillAddBindingModel model)
+        {
+            var currentUserId = await this.userService.GetCurrentUserId();
+
+            UserSkill userSkill = new UserSkill
+            {
+                UserId = currentUserId,
+                SkillId = id,
+                Level = model.SkillLevel,
+            };
+
+            this.context.UserSkills.Add(userSkill);
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;
@@ -125,35 +116,16 @@
             return skillForUpdate;
         }
 
-        private async Task<SkillCategory> GetSkillCategoryByName(string categoryName)
+        public async Task<IList<string>> UserSkillsId()
         {
-            var category = this.context
-                               .SkillCategories
-                               .Where(s => s.IsDeleted == false)
-                               .SingleOrDefault(s => s.Name == categoryName);
+            var currentUserId = await this.userService.GetCurrentUserId();
 
-            return category;
-        }
+            var userSkillsId = this.context.UserSkills
+                .Where(u => u.UserId == currentUserId)
+                .Select(s => s.SkillId)
+                .ToList();
 
-        public async Task<bool> EditCategory(SkillCategoryEditBindingModel model, string id)
-        {
-            var categoryForUpdate = await this.GetCategoryById(id);
-
-            categoryForUpdate.Name = model.Name;
-
-            int result = await this.context.SaveChangesAsync();
-
-            return result > 0;
-        }
-
-        public async Task<SkillCategory> GetCategoryById(string id)
-        {
-            var category = this.context
-                              .SkillCategories
-                              .Where(s => s.IsDeleted == false)
-                              .SingleOrDefault(s => s.Id == id);
-
-            return category;
+            return userSkillsId;
         }
     }
 }
