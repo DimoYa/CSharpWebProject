@@ -3,7 +3,7 @@
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
     using System.ComponentModel.DataAnnotations;
-    public class SkillCreateBindingModel : IMapFrom<Skill>
+    public class SkillCreateBindingModel 
     {
         [Required]
         [StringLength(20, MinimumLength = 1)]

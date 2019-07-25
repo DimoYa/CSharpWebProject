@@ -11,6 +11,8 @@ namespace MyResourcePlanning.Models
 
         public string SkillId { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public Skill Skill { get; set; }
 
         [Required]

@@ -10,6 +10,8 @@
     {
         Task<IEnumerable<TViewModel>> GetAllSkillsByCategories<TViewModel>();
 
+        Task<IEnumerable<TViewModel>> GetUserSkillsByCategories<TViewModel>();
+
         Task<bool> CreateSkill(SkillCreateBaseModel model);
 
         Task<bool> EditSkill(SkillEditBindingModel model, string id);
@@ -20,6 +22,6 @@
 
         Task<Skill> GetSkillById(string id);
 
-        Task<IList<string>> UserSkillsId();
+        Task<IList<string>> GetUserSkillsId();
     }
 }

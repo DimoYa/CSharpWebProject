@@ -1,14 +1,10 @@
-﻿using MyResourcePlanning.Models;
-using MyResourcePlanning.Models.Enums;
-using MyResourcePlanning.Services.Mapping;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace MyResourcePlanning.Web.BindingModels.Skill
+﻿namespace MyResourcePlanning.Web.BindingModels.Skill
 {
-    public class SkillAddBindingModel : IMapFrom<UserSkill>
+    using MyResourcePlanning.Models.Enums;
+    using MyResourcePlanning.Models;
+    using System.ComponentModel.DataAnnotations;
+
+    public class SkillAddBindingModel 
     {
         public string Id { get; set; }
 
@@ -19,9 +15,11 @@ namespace MyResourcePlanning.Web.BindingModels.Skill
         public string Name { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Select skill level")]
+        [EnumDataType(typeof(SkillLevel))]
         [Display(Name = "Skill Level")]
         public SkillLevel SkillLevel { get; set; }
+
+        public Skill SkillToAdd { get; set; }
 
     }
 }

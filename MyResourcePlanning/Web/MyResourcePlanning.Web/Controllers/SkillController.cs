@@ -1,8 +1,8 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
     using System;
-    using System.Threading.Tasks;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using MyResourcePlanning.Models;
@@ -119,7 +119,9 @@
         {
             var skillToAdd = await this.skillService.GetSkillById(id);
 
-            return this.View(skillToAdd);
+            var baseAddSkillModel = await this.GetSkillAddBaseModel(skillToAdd);
+
+            return this.View(baseAddSkillModel);
         }
 
         [HttpPost]
@@ -140,16 +142,24 @@
             var skills = await this.skillService
                 .GetAllSkillsByCategories<SkillsByCategoryViewModel>();
 
-            var currentUserSkills = await this.skillService.UserSkillsId();
+            var currentUserSkills = await this.skillService.GetUserSkillsId();
 
             return this.View(Tuple.Create(skills.ToList(), currentUserSkills));
+        }
+
+        public async Task<IActionResult> MySkills()
+        {
+            var userSkills = await this.skillService
+                .GetUserSkillsByCategories<UserSkillsByCategoryViewModel>();
+
+            return this.View(userSkills);
         }
 
         private async Task<SkillCreateBaseModel> GetSkillCreateBaseModel()
         {
             return new SkillCreateBaseModel()
             {
-                SkillCategories = await this.skillService.GetAllSkillsByCategories<SkillCategoryViewModel>(),
+                SkillCategories = await this.skillService.GetUserSkillsByCategories<SkillCategoryViewModel>(),
             };
         }
 
@@ -159,7 +169,15 @@
             {
                 Name = skillForUpdate.Name,
                 SkillCategory = skillForUpdate.SkillCategory.Name,
-                SkillCategories = await this.skillService.GetAllSkillsByCategories<SkillCategoryViewModel>(),
+                SkillCategories = await this.skillService.GetUserSkillsByCategories<SkillCategoryViewModel>(),
+            };
+        }
+
+        private async Task<SkillAddBindingModel> GetSkillAddBaseModel(Skill skillToAdd)
+        {
+            return new SkillAddBindingModel()
+            {
+                Name = skillToAdd.Name,
             };
         }
     }

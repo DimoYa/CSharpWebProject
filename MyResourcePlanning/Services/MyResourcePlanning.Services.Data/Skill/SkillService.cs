@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Data.SkillCategory;
@@ -101,22 +102,36 @@
             return skillsByCategories;
         }
 
+        public async Task<IEnumerable<TViewModel>> GetUserSkillsByCategories<TViewModel>()
+        {
+            var currentUserId = await this.userService.GetCurrentUserId();
+
+            var skillsByCategories = this.context.UserSkills
+                 .Include(us => us.Skill).ThenInclude(c=> c.SkillCategory)
+                 .Where(us => us.UserId == currentUserId)
+                 .Where(us => us.IsDeleted == false)
+                 .To<TViewModel>()
+                 .ToList();
+
+            return skillsByCategories;
+        }
+
         public async Task<Skill> GetSkillById(string id)
         {
-            var skillForUpdate = this.context.Skills
+            var skill = this.context.Skills
                   .Where(s => s.Id == id)
                   .SingleOrDefault();
 
             var skillCategory = this.context
                 .SkillCategories
-                .SingleOrDefault(s => s.Id == skillForUpdate.SkillCategoryId);
+                .SingleOrDefault(s => s.Id == skill.SkillCategoryId);
 
-            skillForUpdate.SkillCategory = skillCategory;
+            skill.SkillCategory = skillCategory;
 
-            return skillForUpdate;
+            return skill;
         }
 
-        public async Task<IList<string>> UserSkillsId()
+        public async Task<IList<string>> GetUserSkillsId()
         {
             var currentUserId = await this.userService.GetCurrentUserId();
 

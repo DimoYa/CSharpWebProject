@@ -1,0 +1,58 @@
+﻿@model List<MyResourcePlanning.Web.ViewModels.Skill.UserSkillsByCategoryViewModel>
+
+@{
+    ViewData["Title"] = "My Skills";
+}
+
+<div class="jumbotron">
+    <h1 class="text-center">All Skills by categories</h1>
+    <hr class="bg-resources hr-2" />
+    <div class="accordion" id="accordionExample">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="panel-group">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading card text-white bg-info mb-3 cl" id="headingOne">
+                        <div>
+                            <h4 class="mb-0 text-center">
+                                <span class="center-block">@Model[i].SkillCategoryName</span>
+                            </h4>
+                        </div>
+                        <button type="button" data-toggle="collapse" data-target="#@("collapseOne"+i)"><i class="far fa-object-ungroup fa-2x text-success"></i></button>
+                    </div>
+                    <div id="@("collapseOne"+i)" class="collapse" aria-labelledby="headingOne">
+                        <ul class="list-group mb-3">
+                            @*@foreach (var skill in @Model[i].Skills.OrderBy(s => s.Name))
+                            {
+                            <li class="list-group-item">
+                                @skill.Name - @skill.Level
+                                <div class="float-right">
+                                    <a asp-action="EditSkill" asp-route-id="@skill.Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill level in my profile"></i></a>
+                                    <a asp-action="DeleteSkill" asp-route-id="@skill.Id" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill from my profile"></i></a>
+                                </div>
+                            </li>*@
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".collapse.show").each(function () {
+                $(this).prev(".panel-heading").find(".far").addClass("fa-object-group").removeClass("fa-object-ungroup");
+            });
+
+            $(".collapse").on('show.bs.collapse', function () {
+                $(this).prev(".panel-heading").find(".far").removeClass("fa-object-ungroup").addClass("fa-object-group");
+            }).on('hide.bs.collapse', function () {
+                $(this).prev(".panel-heading").find(".far").removeClass("fa-object-group").addClass("fa-object-ungroup");
+            });
+        });
+    </script>
+}
