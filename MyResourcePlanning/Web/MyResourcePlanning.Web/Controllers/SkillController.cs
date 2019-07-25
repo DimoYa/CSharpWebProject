@@ -59,7 +59,7 @@
 
             await this.skillCategoryService.EditCategory(model, id);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> DeleteCategory(string id)
@@ -70,7 +70,7 @@
 
         public async Task<IActionResult> CreateSkill()
         {
-            var skillCreateBaseModel = await this.GetSkillCreateBaseModel();
+            var skillCreateBaseModel = await this.skillService.GetSkillCreateBaseModel();
 
             return this.View(skillCreateBaseModel);
         }
@@ -91,7 +91,7 @@
         public async Task<IActionResult> EditSkill(string id)
         {
             var skillForUpdate = await this.skillService.GetSkillById(id);
-            var skillEdutBaseModel = await this.GetSkillEditBaseModel(skillForUpdate);
+            var skillEdutBaseModel = await this.skillService.GetSkillEditBaseModel(skillForUpdate);
 
             return this.View(skillEdutBaseModel);
         }
@@ -106,20 +106,20 @@
 
             await this.skillService.EditSkill(model, id);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> DeleteSkill(string id)
         {
             await this.skillService.DeleteSkill(id);
-            return this.RedirectToAction("All");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> AddSkill(string id)
         {
             var skillToAdd = await this.skillService.GetSkillById(id);
 
-            var baseAddSkillModel = await this.GetSkillAddBaseModel(skillToAdd);
+            var baseAddSkillModel = await this.skillService.GetSkillAddBaseModel(skillToAdd);
 
             return this.View(baseAddSkillModel);
         }
@@ -132,9 +132,36 @@
                 return this.View(inputModel ?? new SkillAddBindingModel());
             }
 
-            await this.skillService.AddSkill(id, inputModel);
+            await this.skillService.AddSkillToMyProfile(id, inputModel);
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.RedirectToAction(nameof(this.MySkills));
+        }
+
+        public async Task<IActionResult> RemoveSkill(string id)
+        {
+            await this.skillService.RemoveSkillFromProfile(id);
+            return this.RedirectToAction(nameof(this.MySkills));
+        }
+
+        public async Task<IActionResult> EditSkilllevel(string id)
+        {
+            var skillForUpdate = await this.skillService.GetCurrentuserSkillById(id);
+            var skillEditBaseModel = await this.skillService.GetSkillEditLevelBaseModel(skillForUpdate);
+
+            return this.View(skillEditBaseModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSkilllevel(SkillEditLevelBindingModel model, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model ?? new SkillEditLevelBindingModel());
+            }
+
+            await this.skillService.EditSkillLevel(model, id);
+
+            return this.RedirectToAction(nameof(this.MySkills));
         }
 
         public async Task<IActionResult> All()
@@ -152,33 +179,15 @@
             var userSkills = await this.skillService
                 .GetUserSkillsByCategories<UserSkillsByCategoryViewModel>();
 
-            return this.View(userSkills);
-        }
+            var groupedUserSkillInfo = userSkills.GroupBy(u => u.SkillCategoryName)
+                                      .Select(grp => new GroupedUserSkillsViewModel
+                                      {
+                                          CategoryName = grp.Key,
+                                          SkillInfo = grp.ToList(),
+                                      })
+                                      .ToList();
 
-        private async Task<SkillCreateBaseModel> GetSkillCreateBaseModel()
-        {
-            return new SkillCreateBaseModel()
-            {
-                SkillCategories = await this.skillService.GetUserSkillsByCategories<SkillCategoryViewModel>(),
-            };
-        }
-
-        private async Task<SkillEditBindingModel> GetSkillEditBaseModel(Skill skillForUpdate)
-        {
-            return new SkillEditBindingModel()
-            {
-                Name = skillForUpdate.Name,
-                SkillCategory = skillForUpdate.SkillCategory.Name,
-                SkillCategories = await this.skillService.GetUserSkillsByCategories<SkillCategoryViewModel>(),
-            };
-        }
-
-        private async Task<SkillAddBindingModel> GetSkillAddBaseModel(Skill skillToAdd)
-        {
-            return new SkillAddBindingModel()
-            {
-                Name = skillToAdd.Name,
-            };
+            return this.View(groupedUserSkillInfo);
         }
     }
 }

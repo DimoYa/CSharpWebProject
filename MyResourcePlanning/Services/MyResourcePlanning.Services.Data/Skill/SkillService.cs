@@ -12,6 +12,7 @@
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.BindingModels.Skill;
+    using MyResourcePlanning.Web.ViewModels.Skill;
 
     public class SkillService : ISkillService
     {
@@ -61,6 +62,17 @@
             return result > 0;
         }
 
+        public async Task<bool> EditSkillLevel(SkillEditLevelBindingModel model, string id)
+        {
+            var skillForUpdate = await this.GetCurrentuserSkillById(id);
+
+            skillForUpdate.Level = model.SkillLevel;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<bool> DeleteSkill(string id)
         {
             var skillForDeletion = this.context.Skills
@@ -74,7 +86,7 @@
             return result > 0;
         }
 
-        public async Task<bool> AddSkill(string id, SkillAddBindingModel model)
+        public async Task<bool> AddSkillToMyProfile(string id, SkillAddBindingModel model)
         {
             var currentUserId = await this.userService.GetCurrentUserId();
 
@@ -86,6 +98,16 @@
             };
 
             this.context.UserSkills.Add(userSkill);
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> RemoveSkillFromProfile(string id)
+        {
+            var skillToRemove = await this.GetCurrentuserSkillById(id);
+
+            this.context.UserSkills.Remove(skillToRemove);
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;
@@ -107,9 +129,9 @@
             var currentUserId = await this.userService.GetCurrentUserId();
 
             var skillsByCategories = this.context.UserSkills
-                 .Include(us => us.Skill).ThenInclude(c=> c.SkillCategory)
+                 .Include(us => us.Skill).ThenInclude(c => c.SkillCategory)
                  .Where(us => us.UserId == currentUserId)
-                 .Where(us => us.IsDeleted == false)
+                 .Where(s => s.Skill.IsDeleted == false)
                  .To<TViewModel>()
                  .ToList();
 
@@ -131,6 +153,17 @@
             return skill;
         }
 
+        public async Task<UserSkill> GetCurrentuserSkillById(string id)
+        {
+            var currentUser = await this.userService.GetCurrentUserId();
+
+            var skill = this.context.UserSkills
+                  .Where(s => s.SkillId == id && s.UserId == currentUser)
+                  .SingleOrDefault();
+
+            return skill;
+        }
+
         public async Task<IList<string>> GetUserSkillsId()
         {
             var currentUserId = await this.userService.GetCurrentUserId();
@@ -141,6 +174,42 @@
                 .ToList();
 
             return userSkillsId;
+        }
+
+        public async Task<SkillCreateBaseModel> GetSkillCreateBaseModel()
+        {
+            return new SkillCreateBaseModel()
+            {
+                SkillCategories = await this.GetAllSkillsByCategories<SkillCategoryViewModel>(),
+            };
+        }
+
+        public async Task<SkillEditBindingModel> GetSkillEditBaseModel(Skill skillForUpdate)
+        {
+            return new SkillEditBindingModel()
+            {
+                Name = skillForUpdate.Name,
+                SkillCategory = skillForUpdate.SkillCategory.Name,
+                SkillCategories = await this.GetAllSkillsByCategories<SkillCategoryViewModel>(),
+            };
+        }
+
+        public async Task<SkillEditLevelBindingModel> GetSkillEditLevelBaseModel(UserSkill skillForUpdate)
+        {
+            var skillById = await this.GetSkillById(skillForUpdate.SkillId);
+            return new SkillEditLevelBindingModel()
+            {
+                Name = skillById.Name,
+                SkillLevel = skillForUpdate.Level,
+            };
+        }
+
+        public async Task<SkillAddBindingModel> GetSkillAddBaseModel(Skill skillToAdd)
+        {
+            return new SkillAddBindingModel()
+            {
+                Name = skillToAdd.Name,
+            };
         }
     }
 }

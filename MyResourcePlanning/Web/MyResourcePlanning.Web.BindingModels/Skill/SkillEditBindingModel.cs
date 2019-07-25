@@ -6,7 +6,7 @@
     using System.Collections.Generic;
     using MyResourcePlanning.Web.ViewModels.Skill;
 
-    public class SkillEditBindingModel : IMapFrom<Skill>
+    public class SkillEditBindingModel
     {
         [Required]
         [StringLength(20, MinimumLength = 1)]

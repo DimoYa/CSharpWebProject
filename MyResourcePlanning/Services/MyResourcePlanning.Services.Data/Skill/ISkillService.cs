@@ -18,10 +18,24 @@
 
         Task<bool> DeleteSkill(string id);
 
-        Task<bool> AddSkill(string id, SkillAddBindingModel model);
+        Task<bool> AddSkillToMyProfile(string id, SkillAddBindingModel model);
+
+        Task<bool> RemoveSkillFromProfile(string id);
 
         Task<Skill> GetSkillById(string id);
 
+        Task<UserSkill> GetCurrentuserSkillById(string id);
+
+        Task<bool> EditSkillLevel(SkillEditLevelBindingModel model, string id);
+
         Task<IList<string>> GetUserSkillsId();
+
+        Task<SkillCreateBaseModel> GetSkillCreateBaseModel();
+
+        Task<SkillEditBindingModel> GetSkillEditBaseModel(Skill skillForUpdate);
+
+        Task<SkillEditLevelBindingModel> GetSkillEditLevelBaseModel(UserSkill skillForUpdate);
+
+        Task<SkillAddBindingModel> GetSkillAddBaseModel(Skill skillToAdd);
     }
 }

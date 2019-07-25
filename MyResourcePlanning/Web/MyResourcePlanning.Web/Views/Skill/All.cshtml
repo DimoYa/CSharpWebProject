@@ -35,7 +35,7 @@
                                     <div class="float-right">
                                         @if (!Model.Item2.Any(s=> s == @skill.Id))
                                         {
-                                            <a asp-action="AddSkill" asp-route-id="@skill.Id" class="btn bg-transparent"><i class="fa fa-plus" data-placement="top" title="Add skill to my profile"></i></a>
+                                            <a asp-action="AddSkill" asp-route-id="@skill.Id" class="btn bg-transparent"><i class="fas fa-user-plus" data-placement="top" title="Add skill to my profile"></i></a>
                                         }
                                         <a asp-action="EditSkill" asp-route-id="@skill.Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
                                         <a asp-action="DeleteSkill" asp-route-id="@skill.Id" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
