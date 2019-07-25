@@ -1,4 +1,4 @@
-﻿@model MyResourcePlanning.Web.BindingModels.Skill.SkillAddBindingModel
+﻿@model MyResourcePlanning.Models.Skill
 
 @{
     ViewData["Title"] = "AddSkill";
@@ -18,9 +18,9 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SkillLevel" class="control-label"></label>
-                <input asp-for="SkillLevel" class="form-control" />
-                <span asp-validation-for="SkillLevel" class="text-danger"></span>
+                <label asp-for="Level" class="control-label"></label>
+                <input asp-for="Level" class="form-control" />
+                <span asp-validation-for="Level" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
