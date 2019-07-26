@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="float-right">
                                             <a asp-action="EditSkilllevel" asp-route-id="@skill.SkillId" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill level in my profile"></i></a>
-                                            <a asp-action="RemoveSkill" asp-route-id="@skill.SkillId" class="btn bg-transparent"><i class="fas fa-user-minus" data-placement="top" title="Remove skill from my profile"></i></a>
+                                            <a onclick="deleteConfirmation('@skill.SkillId', 'Skill', 'RemoveSkill')" class="btn bg-transparent"><i class="fas fa-user-minus" data-placement="top" title="Remove skill from my profile"></i></a>
                                         </div>
                                     </div>
                                 </li>
@@ -58,19 +58,24 @@
         }
     </div>
 </div>
+<div class="modal" tabindex="-1" role="dialog" id="mi-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure?</h5>
+            </div>
+            <div class="modal-body">
+                <p>The skill will be removed from your profile</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="modal-btn-si">Save changes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="modal-btn-no">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts{
-    <script>
-        $(document).ready(function () {
-            $(".collapse.show").each(function () {
-                $(this).prev(".panel-heading").find(".far").addClass("fa-object-group").removeClass("fa-object-ungroup");
-            });
-
-            $(".collapse").on('show.bs.collapse', function () {
-                $(this).prev(".panel-heading").find(".far").removeClass("fa-object-ungroup").addClass("fa-object-group");
-            }).on('hide.bs.collapse', function () {
-                $(this).prev(".panel-heading").find(".far").removeClass("fa-object-group").addClass("fa-object-ungroup");
-            });
-        });
-    </script>
+    <script src="~/js/addGrouping.js"></script>
+    <script src="~/js/deleteNotificationMsg.js"></script>
 }
