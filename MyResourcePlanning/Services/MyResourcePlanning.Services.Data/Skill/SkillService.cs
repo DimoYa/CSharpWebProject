@@ -48,9 +48,7 @@
 
         public async Task<bool> EditSkill(SkillEditBindingModel model, string id)
         {
-            var skillForUpdate = this.context
-                .Skills
-                .SingleOrDefault(s => s.Id == id);
+            var skillForUpdate = await this.GetSkillById(id);
 
             var skillCategory = await this.skillCategoryService.GetCategoryByName(model.SkillCategory);
 
@@ -75,8 +73,7 @@
 
         public async Task<bool> DeleteSkill(string id)
         {
-            var skillForDeletion = this.context.Skills
-                .SingleOrDefault(s => s.Id == id);
+            var skillForDeletion = await this.GetSkillById(id);
 
             skillForDeletion.IsDeleted = true;
             skillForDeletion.DeletedOn = DateTime.UtcNow;

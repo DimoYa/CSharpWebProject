@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Data.Skill;
     using MyResourcePlanning.Services.Data.SkillCategory;
     using MyResourcePlanning.Web.BindingModels.Skill;

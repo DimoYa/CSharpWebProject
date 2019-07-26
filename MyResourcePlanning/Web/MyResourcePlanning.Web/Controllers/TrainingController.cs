@@ -1,5 +1,7 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -34,10 +36,59 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        public async Task<IActionResult> Edit(string id)
+        {
+            var categoryForUpdate = await this.trainingService.GetTrainingById(id);
+
+            return this.View(categoryForUpdate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(TrainingEditBindingModel model, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(await this.trainingService.GetTrainingById(id));
+            }
+
+            await this.trainingService.Edit(model, id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.trainingService.Delete(id);
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Request(string id)
+        {
+            var skillToAdd = await this.trainingService.GetTrainingById(id);
+
+            return this.View(skillToAdd);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Request(TrainingRequestBindingModel inputModel, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel ?? new TrainingRequestBindingModel());
+            }
+
+            await this.trainingService.Request(id, inputModel);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         public async Task<IActionResult> All()
         {
-            var requests = await this.trainingService.GetAllTrainings<TrainingAllViewModel>();
-            return this.View(requests);
+            var trainings = await this.trainingService.GetAllTrainings<TrainingAllViewModel>();
+
+            var currentUserTrainings = await this.trainingService.GetUserTrainingsId();
+
+            return this.View(Tuple.Create(trainings.ToList(), currentUserTrainings));
         }
     }
 }

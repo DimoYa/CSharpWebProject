@@ -1,4 +1,4 @@
-﻿@model List<MyResourcePlanning.Web.ViewModels.Training.TrainingAllViewModel>
+﻿@model Tuple<List<MyResourcePlanning.Web.ViewModels.Training.TrainingAllViewModel>, IList<string>>
 
 @{
     ViewData["Title"] = "All trainings";
@@ -33,7 +33,7 @@
     <table class="table table-striped table-bordered table-sm sortable" cellspacing="0" width="100%" id="table-id">
         <thead>
             <tr>
-                <th scope="col" width="160">Name</th>
+                <th scope="col">Name</th>
                 <th scope="col">Type</th>
                 <th scope="col">Status</th>
                 <th scope="col">Due Date</th>
@@ -44,20 +44,21 @@
             </tr>
         </thead>
         <tbody id="myTable">
-            @for (int i = 0; i < Model.Count; i++)
+            @for (int i = 0; i < Model.Item1.Count; i++)
             {
                 <tr>
-                    <td>@Model[i].Name</td>
-                    <td>@Model[i].Type</td>
-                    <td>@Model[i].Status</td>
-                    <td>@Model[i].DueDate</td>
+                    <td>@Model.Item1[i].Name</td>
+                    <td>@Model.Item1[i].Type</td>
+                    <td>@Model.Item1[i].Status</td>
+                    <td>@Model.Item1[i].DueDate</td>
                     <td>
-                        <div>
-                            <button class="btn bg-transparent form-group w-25"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                            <button class="btn bg-transparent form-group w-25"><i class="far fa-trash-alt" data-placement="top" title="Delete Request"></i></button>
-                            <button class="btn bg-transparent form-group w-25"><i class="fas fa-edit" data-placement="top" title="Edit Request"></i></button>
-                        </div>
-                    </td>
+                        @if (!Model.Item2.Any(s => s == Model.Item1[i].Id))
+                        {
+                            <a asp-action="Request" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-user-plus" data-placement="top" title="Assign training to my profile"></i></a>
+                        }
+                            <a asp-action="Edit" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-edit fa-1x" data-placement="top" title="Edit training"></i></a>
+                            <a onclick="deleteConfirmation('@Model.Item1[i].Id', 'Training', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt fa-1x" data-placement="top" title="Delete training"></i></a>
+                        </td>
                 </tr>
             }
         </tbody>
@@ -71,9 +72,11 @@
         <div id="paginationRowsCount" class="rows_count">Showing 11 to 20 of 91 entries</div>
     </div>
 </div>
+<partial name="_DeleteNotificationPartial" />
 @section scripts{
     <script type="text/javascript" src="~/js/paging.js"></script>
     <script type="text/javascript" src="~/js/search.js"></script>
     <script type="text/javascript" src="~/js/bootstrap-sortable.js"></script>
     <script type="text/javascript" src="~/js/moment.min.js"></script>
+    <script src="~/js/deleteNotificationMsg.js"></script>
 }
