@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using MyResourcePlanning.Models.BaseModels;
     using MyResourcePlanning.Models.Enums;
+    using MyResourcePlanning.Web.Infrastructure.Validators;
 
     public class Training : BaseDeletableModel<string>
     {
@@ -15,7 +16,7 @@
         }
 
         [Required]
-        [StringLength(20, MinimumLength = 3)]
+        [StringLength(20, MinimumLength = 2)]
         public string Name { get; set; }
 
         [Required]
@@ -23,6 +24,10 @@
 
         [Required]
         public TrainingStatus Status { get; set; }
+
+        [Required]
+        [DateGreaterOrEqualThatPresent]
+        public DateTime DueDate { get; set; }
 
         public virtual ICollection<UserTraining> Users { get; set; }
     }

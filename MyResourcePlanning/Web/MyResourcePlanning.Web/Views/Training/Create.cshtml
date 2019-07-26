@@ -1,0 +1,94 @@
+﻿@model MyResourcePlanning.Web.BindingModels.Training.TrainingCreateBindingModel
+
+@{
+    ViewData["Title"] = "Create training";
+}
+
+<div class="jumbotron">
+
+    <h1 class="text-center" mt-3>Create new training</h1>
+    <form id="createTraining" method="post" class="w-50 mx-auto">
+        <hr class="mt-3 bg-resources hr-2" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Name" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-user-graduate"></i> </span>
+                </div>
+                <input asp-for="Name" class="form-control" placeholder="Enter training name..."/>
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Type" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-chalkboard-teacher"></i> </span>
+                </div>
+                <select asp-for="Type" asp-items="Html.GetEnumSelectList<TrainingType>()" class="form-control">
+                    <option selected disabled value="">Training type</option>
+                </select>
+            </div>
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Status" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-universal-access"></i> </span>
+                </div>
+                <select asp-for="Status" asp-items="Html.GetEnumSelectList<TrainingStatus>()" class="form-control">
+                    <option selected disabled value="">Training status</option>
+                </select>
+            </div>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <div class="form-group input-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="DueDate" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-calendar-alt"></i></span>
+                </div>
+                <input asp-for="DueDate" autocomplete="off" id="dueDate" class="form-control" placeholder="dd/MM/yyyy" />
+            </div>
+            <span asp-validation-for="DueDate" class="text-danger"></span>
+        </div>
+        <hr class="mt-3 bg-resources hr-2" />
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary btn-block">
+                Create training
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        window.onload = () => {
+            $('#dueDate').datetimepicker({
+                timepicker: false,
+                format: 'd/m/Y',
+                minDate: '-1970/01/01',
+                lang: 'en',
+                todayButton: true,
+                dayOfWeekStart: '1',
+            });
+        };
+    </script>
+    <script>
+        getErrorMsgs('#createTraining');
+    </script>
+    <script>
+        wrapInASpan(['Date cannot be in the past'], 'alert alert-danger');
+    </script>
+}

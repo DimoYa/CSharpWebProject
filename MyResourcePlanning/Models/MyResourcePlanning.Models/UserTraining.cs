@@ -10,8 +10,8 @@
 
         public string TrainingId { get; set; }
 
-        public Training Training { get; set; }
+        public UserTrainingStatus Training { get; set; }
 
-        public TrainingStatus Status { get; set; }
+        public UserTrainingStatus Status { get; set; }
     }
 }

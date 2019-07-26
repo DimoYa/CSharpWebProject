@@ -60,6 +60,7 @@
         public async Task<IEnumerable<TViewModel>> GetAllRequests<TViewModel>()
         {
             var requests = this.context.Requests
+                .Where(r => r.IsDeleted == false)
                 .To<TViewModel>()
                 .ToList();
 

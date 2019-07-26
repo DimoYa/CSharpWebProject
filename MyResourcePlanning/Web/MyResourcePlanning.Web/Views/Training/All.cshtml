@@ -1,0 +1,79 @@
+﻿@model List<MyResourcePlanning.Web.ViewModels.Training.TrainingAllViewModel>
+
+@{
+    ViewData["Title"] = "All trainings";
+}
+
+
+<div class="jumbotron">
+    <h1 class="text-center">All Trainings</h1>
+    <hr class="bg-resources hr-2" />
+    <div class="table-responsive">
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="active-pink-3 active-pink-4 w-100">
+            <form class="form-inline active-purple-3 active-purple-4">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input id="search_input_all" oninput="getFilteredData()" class="form-control form-control-sm ml-3 mb-2" type="search" placeholder="Search after the second character..."
+                       aria-label="Search">
+            </form>
+        </div>
+        <div class="active-pink-3 active-pink-4 mb-2">
+            <select class="form-control" name="state" id="maxRows">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="70">70</option>
+                <option value="100">100</option>
+                <option value="5000">Show ALL Rows</option>
+            </select>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered table-sm sortable" cellspacing="0" width="100%" id="table-id">
+        <thead>
+            <tr>
+                <th scope="col" width="160">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Due Date</th>
+                @if (true)
+                {
+                    <th scope="col">Action</th>
+                }
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].Name</td>
+                    <td>@Model[i].Type</td>
+                    <td>@Model[i].Status</td>
+                    <td>@Model[i].DueDate</td>
+                    <td>
+                        <div>
+                            <button class="btn bg-transparent form-group w-25"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
+                            <button class="btn bg-transparent form-group w-25"><i class="far fa-trash-alt" data-placement="top" title="Delete Request"></i></button>
+                            <button class="btn bg-transparent form-group w-25"><i class="fas fa-edit" data-placement="top" title="Edit Request"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-between">
+        <div id="paginationDiv" class="pagination-container">
+            <nav>
+                <ul class="pagination"></ul>
+            </nav>
+        </div>
+        <div id="paginationRowsCount" class="rows_count">Showing 11 to 20 of 91 entries</div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="~/js/paging.js"></script>
+    <script type="text/javascript" src="~/js/search.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-sortable.js"></script>
+    <script type="text/javascript" src="~/js/moment.min.js"></script>
+}
