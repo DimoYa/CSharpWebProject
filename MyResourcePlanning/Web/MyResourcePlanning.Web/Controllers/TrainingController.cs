@@ -64,9 +64,9 @@
 
         public async Task<IActionResult> Request(string id)
         {
-            var skillToAdd = await this.trainingService.GetTrainingById(id);
+            var trainingToAdd = await this.trainingService.GetTrainingById(id);
 
-            return this.View(skillToAdd);
+            return this.View(trainingToAdd);
         }
 
         [HttpPost]
@@ -79,7 +79,36 @@
 
             await this.trainingService.Request(id, inputModel);
 
+            return this.RedirectToAction(nameof(this.MyTrainings));
+        }
+
+        public async Task<IActionResult> AssignToUser(string id)
+        {
+            var trainingToAssign = await this.trainingService.GetTrainingById(id);
+            var assignTrainingModel = await this.trainingService.GetTrainingAssignBaseModel(id);
+
+            return this.View(assignTrainingModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignTouser(TrainingAssignBindingModel inputModel, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel ?? new TrainingAssignBindingModel());
+            }
+
+            await this.trainingService.AssignToUser(id, inputModel);
+
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> MyTrainings()
+        {
+            var userTrainings = await this.trainingService
+                .GetUserTrainings<TrainingUserViewModel>();
+
+            return this.View(userTrainings);
         }
 
         public async Task<IActionResult> All()

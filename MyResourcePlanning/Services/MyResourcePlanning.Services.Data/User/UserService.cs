@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Http;
     using MyResourcePlanning.Common;
     using MyResourcePlanning.Data;
+    using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
 
     public class UserService : IUserService
@@ -23,7 +24,7 @@
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllActiveResourcesAndTheirSkills<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetAllActiveResources<TViewModel>()
         {
             var resourceRoleId = await this.GetRoleIdByName(GlobalConstants.ResourceRoleName);
 
@@ -44,6 +45,14 @@
                 .Value;
 
             return currentUser;
+        }
+
+        public async Task<User> GetUserByName(string firstName, string lastName)
+        {
+            var user = this.context.Users
+                .SingleOrDefault(u => u.FirstName == firstName && u.LastName == lastName);
+
+            return user;
         }
 
         public async Task<string> GetRoleIdByName(string roleName)

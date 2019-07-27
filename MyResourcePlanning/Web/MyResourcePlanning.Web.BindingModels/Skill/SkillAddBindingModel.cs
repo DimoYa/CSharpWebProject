@@ -4,7 +4,7 @@
     using MyResourcePlanning.Models;
     using System.ComponentModel.DataAnnotations;
 
-    public class SkillAddBindingModel 
+    public class SkillAddBindingModel
     {
         public string Id { get; set; }
 

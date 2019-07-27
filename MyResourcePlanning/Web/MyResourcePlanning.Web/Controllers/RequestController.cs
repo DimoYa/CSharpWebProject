@@ -59,7 +59,7 @@
         {
             return new RequestCreateBaseViewModel()
             {
-                Resources = await this.userService.GetAllActiveResourcesAndTheirSkills<UsersWithSkillsViewModel>(),
+                Resources = await this.userService.GetAllActiveResources<UsersViewModel>(),
                 Projects = await this.projectService.GetAllProjects<ProjectAllViewModel>(),
             };
         }

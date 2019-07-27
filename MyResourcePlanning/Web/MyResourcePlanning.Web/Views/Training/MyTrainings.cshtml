@@ -1,12 +1,11 @@
-﻿@model Tuple<List<MyResourcePlanning.Web.ViewModels.Training.TrainingAllViewModel>, IList<string>>
+﻿@model List<MyResourcePlanning.Web.ViewModels.Training.TrainingUserViewModel>
 
 @{
-    ViewData["Title"] = "All trainings";
+    ViewData["Title"] = "My Trainings";
 }
 
-
 <div class="jumbotron">
-    <h1 class="text-center">All Trainings</h1>
+    <h1 class="text-center">My Trainings</h1>
     <hr class="bg-resources hr-2" />
     <div class="table-responsive">
     </div>
@@ -37,30 +36,19 @@
                 <th scope="col">Type</th>
                 <th scope="col">Status</th>
                 <th scope="col">Due Date</th>
-                @if (true)
-                {
-                    <th scope="col">Action</th>
-                }
+                <th scope="col">State</th>
             </tr>
         </thead>
         <tbody id="myTable">
-            @for (int i = 0; i < Model.Item1.Count; i++)
+            @for (int i = 0; i < Model.Count; i++)
             {
-                <tr>
-                    <td>@Model.Item1[i].Name</td>
-                    <td>@Model.Item1[i].Type</td>
-                    <td>@Model.Item1[i].Status</td>
-                    <td>@Model.Item1[i].DueDate</td>
-                    <td>
-                        <a asp-action="AssignToUser" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-user-plus" data-placement="top" title="Assign training to user"></i></a>
-                        @if (!Model.Item2.Any(s => s == Model.Item1[i].Id))
-                        {
-                            <a asp-action="Request" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-plus" data-placement="top" title="Assign training to my profile"></i></a>
-                        }
-                        <a asp-action="Edit" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-edit fa-1x" data-placement="top" title="Edit training"></i></a>
-                        <a onclick="deleteConfirmation('@Model.Item1[i].Id', 'Training', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt fa-1x" data-placement="top" title="Delete training"></i></a>
-                    </td>
-                </tr>
+            <tr>
+                <td>@Model[i].TrainingName</td>
+                <td>@Model[i].TrainingType</td>
+                <td>@Model[i].TrainingStatus</td>
+                <td>@Model[i].TrainingDueDate</td>
+                <td>@Model[i].Status</td>
+            </tr>
             }
         </tbody>
     </table>
@@ -79,5 +67,4 @@
     <script type="text/javascript" src="~/js/search.js"></script>
     <script type="text/javascript" src="~/js/bootstrap-sortable.js"></script>
     <script type="text/javascript" src="~/js/moment.min.js"></script>
-    <script src="~/js/deleteNotificationMsg.js"></script>
 }

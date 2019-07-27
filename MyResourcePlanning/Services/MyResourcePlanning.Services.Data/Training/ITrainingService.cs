@@ -18,8 +18,14 @@
 
         Task<bool> Request(string id, TrainingRequestBindingModel model);
 
+        Task<bool> AssignToUser(string trainingId, TrainingAssignBindingModel model);
+
+        Task<IEnumerable<TViewModel>> GetUserTrainings<TViewModel>();
+
         Task<IList<string>> GetUserTrainingsId();
 
         Task<Training> GetTrainingById(string id);
+
+        Task<TrainingAssignBindingModel> GetTrainingAssignBaseModel(string trainingId);
     }
 }

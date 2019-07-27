@@ -7,7 +7,7 @@
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
 
-    public class UsersWithSkillsViewModel : IMapFrom<User>, IHaveCustomMappings
+    public class UsersViewModel : IMapFrom<User>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -17,12 +17,17 @@
 
         public List<string> Skills { get; set; }
 
+        public List<string> Trainings { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<User, UsersWithSkillsViewModel>()
+            configuration.CreateMap<User, UsersViewModel>()
                 .ForMember(
                     u => u.Skills,
-                    opt => opt.MapFrom(u => u.Skills.Select(s => s.Skill.Name).ToList()));
+                    opt => opt.MapFrom(u => u.Skills.Select(s => s.Skill.Name).ToList()))
+                .ForMember(
+                    u => u.Trainings,
+                    opt => opt.MapFrom(u => u.Trainings.Select(t => t.Training.Name).ToList()));
         }
     }
 }

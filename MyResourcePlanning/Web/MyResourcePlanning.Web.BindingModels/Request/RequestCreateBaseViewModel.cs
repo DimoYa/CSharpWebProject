@@ -9,7 +9,7 @@
     {
         public IEnumerable<ProjectAllViewModel> Projects { get; set; }
 
-        public IEnumerable<UsersWithSkillsViewModel> Resources { get; set; }
+        public IEnumerable<UsersViewModel> Resources { get; set; }
 
         public RequestCreateBindingModel BindingModel { get; set; }
     }

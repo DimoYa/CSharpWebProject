@@ -31,7 +31,7 @@
         public string Resource { get; set; }
 
         [Required]
-        [Range(1, double.MaxValue, ErrorMessage ="Please input positive hours")]
+        [Range(1, double.MaxValue, ErrorMessage = "Please input positive hours")]
         [Display(Name = "Working Hours")]
         public double WorkingHours { get; set; }
     }

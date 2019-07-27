@@ -45,8 +45,8 @@
                                             <span>@skill.Level</span>
                                         </div>
                                         <div class="float-right">
+                                            <a onclick="deleteConfirmation('@skill.SkillId', 'Skill', 'RemoveSkill')" class="btn bg-transparent"><i class="fas fa-minus" data-placement="top" title="Remove skill from my profile"></i></a>
                                             <a asp-action="EditSkilllevel" asp-route-id="@skill.SkillId" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill level in my profile"></i></a>
-                                            <a onclick="deleteConfirmation('@skill.SkillId', 'Skill', 'RemoveSkill')" class="btn bg-transparent"><i class="fas fa-user-minus" data-placement="top" title="Remove skill from my profile"></i></a>
                                         </div>
                                     </div>
                                 </li>

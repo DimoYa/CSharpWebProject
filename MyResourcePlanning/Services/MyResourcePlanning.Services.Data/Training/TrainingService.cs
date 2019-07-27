@@ -11,6 +11,7 @@
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.BindingModels.Training;
+    using MyResourcePlanning.Web.ViewModels.User;
 
     public class TrainingService : ITrainingService
     {
@@ -70,14 +71,40 @@
 
         public async Task<bool> Request(string id, TrainingRequestBindingModel model)
         {
-            var trainigToAssign = await this.GetTrainingById(id);
+            var trainigToRequest = await this.GetTrainingById(id);
             var currentUser = await this.userService.GetCurrentUserId();
 
             UserTraining userTraining = new UserTraining
             {
-               UserId = currentUser,
-               TrainingId = trainigToAssign.Id,
-               Status = UserTrainingStatus.Requested,
+                UserId = currentUser,
+                TrainingId = trainigToRequest.Id,
+                Status = UserTrainingStatus.Requested,
+            };
+
+            this.context.UserTrainings.Add(userTraining);
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> AssignToUser(string trainingId, TrainingAssignBindingModel model)
+        {
+            var trainigToAssign = await this.GetTrainingById(trainingId);
+
+            var resourceName = model.Resource
+                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var firstName = resourceName[0];
+            var lastName = resourceName[1];
+
+            var userToAssign = await this.userService.GetUserByName(firstName, lastName);
+
+            UserTraining userTraining = new UserTraining
+            {
+                UserId = userToAssign.Id,
+                TrainingId = trainigToAssign.Id,
+                Status = UserTrainingStatus.Assigned,
             };
 
             this.context.UserTrainings.Add(userTraining);
@@ -99,6 +126,20 @@
             return userTrainingssId;
         }
 
+        public async Task<IEnumerable<TViewModel>> GetUserTrainings<TViewModel>()
+        {
+            var currentUserId = await this.userService.GetCurrentUserId();
+
+            var trainingsByCategories = this.context.UserTrainings
+                 .Where(d => d.Training.DueDate >= DateTime.Now)
+                 .Where(ut => ut.UserId == currentUserId)
+                 .Where(s => s.Training.IsDeleted == false)
+                 .To<TViewModel>()
+                 .ToList();
+
+            return trainingsByCategories;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllTrainings<TViewModel>()
         {
             var trainings = this.context.Trainings
@@ -116,6 +157,22 @@
                 .SingleOrDefault(t => t.Id == id);
 
             return training;
+        }
+
+        public async Task<TrainingAssignBindingModel> GetTrainingAssignBaseModel(string trainingId)
+        {
+            var trainingById = await this.GetTrainingById(trainingId);
+            var allResources = await this.userService.GetAllActiveResources<UsersViewModel>();
+
+            var resourcesToAssign = allResources
+                .Where(x => x.Trainings.All(t => t != trainingById.Name))
+                .ToList();
+
+            return new TrainingAssignBindingModel()
+            {
+                Name = trainingById.Name,
+                Resources = resourcesToAssign,
+            };
         }
     }
 }

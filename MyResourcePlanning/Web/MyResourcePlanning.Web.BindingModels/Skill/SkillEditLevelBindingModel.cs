@@ -3,7 +3,7 @@
     using MyResourcePlanning.Models.Enums;
     using System.ComponentModel.DataAnnotations;
 
-    public class SkillEditLevelBindingModel 
+    public class SkillEditLevelBindingModel
     {
         [Display(Name = "Name")]
         public string Name { get; set; }
