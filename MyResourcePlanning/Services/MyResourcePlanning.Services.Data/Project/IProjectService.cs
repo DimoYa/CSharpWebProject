@@ -3,14 +3,21 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using MyResourcePlanning.Models;
     using MyResourcePlanning.Web.BindingModels.Project;
 
     public interface IProjectService
     {
-        Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>();
-
         Task<bool> Create(ProjectCreateBindingModel inputModel);
 
-        Task<bool> DeleteById(string id);
+        Task<bool> Edit(ProjectEditBindingModel model, string id);
+
+        Task<bool> Delete(string id);
+
+        Task<Project> GetProjectById(string id);
+
+        Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>();
+
+        Task<TViewModel> MapProject<TViewModel>(string id);
     }
 }

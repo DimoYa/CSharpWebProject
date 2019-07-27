@@ -31,7 +31,34 @@
 
             await this.projectService.Create(inputModel);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            var projectForUpdate = await this.projectService.MapProject<ProjectAllViewModel>(id);
+
+            return this.View(projectForUpdate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProjectEditBindingModel model, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(new ProjectAllViewModel());
+            }
+
+            await this.projectService.Edit(model, id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.projectService.Delete(id);
+
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> All()

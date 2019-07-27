@@ -91,6 +91,9 @@
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
@@ -125,10 +128,6 @@
                 routes.MapRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
-
-            //var cultureInfo = new CultureInfo("en-EN");
-            //cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
         }
     }
 }

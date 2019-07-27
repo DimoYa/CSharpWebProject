@@ -16,7 +16,7 @@
 
         public string EndDate { get; set; }
 
-        public string RemainingHours { get; set; }
+        public string RequestedHours { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
@@ -28,7 +28,7 @@
                     e => e.EndDate,
                     opt => opt.MapFrom(e => e.EndDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)))
                 .ForMember(
-                    w => w.RemainingHours,
+                    w => w.RequestedHours,
                     opt => opt.MapFrom(e => e.RequestedHours.ToString("F2")));
         }
     }
