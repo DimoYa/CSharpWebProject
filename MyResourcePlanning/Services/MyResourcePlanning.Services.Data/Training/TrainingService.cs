@@ -11,6 +11,7 @@
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.BindingModels.Training;
+    using MyResourcePlanning.Web.ViewModels.Training;
     using MyResourcePlanning.Web.ViewModels.User;
 
     public class TrainingService : ITrainingService
@@ -114,6 +115,18 @@
             return result > 0;
         }
 
+        public async Task<bool> ChangeUserTrainingStatus(TrainingStatusChangeBindingModel model, string trainingId, string userId)
+        {
+            var userTrainingForUpdate = this.context.UserTrainings
+                .SingleOrDefault(x => x.TrainingId == trainingId && x.UserId == userId);
+
+            userTrainingForUpdate.Status = model.Status;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<IList<string>> GetUserTrainingsId()
         {
             var currentUserId = await this.userService.GetCurrentUserId();
@@ -130,14 +143,26 @@
         {
             var currentUserId = await this.userService.GetCurrentUserId();
 
-            var trainingsByCategories = this.context.UserTrainings
+            var trainings = this.context.UserTrainings
                  .Where(d => d.Training.DueDate >= DateTime.Now)
                  .Where(ut => ut.UserId == currentUserId)
                  .Where(s => s.Training.IsDeleted == false)
                  .To<TViewModel>()
                  .ToList();
 
-            return trainingsByCategories;
+            return trainings;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllUsersTrainings<TViewModel>()
+        {
+
+            var trainings = this.context.UserTrainings
+                 .Where(d => d.Training.DueDate >= DateTime.Now)
+                 .Where(s => s.Training.IsDeleted == false)
+                 .To<TViewModel>()
+                 .ToList();
+
+            return trainings;
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllTrainings<TViewModel>()
@@ -151,10 +176,21 @@
             return trainings;
         }
 
+        public async Task<TViewModel> GetUserTrainingByIds<TViewModel>(string trainingId, string userId)
+        {
+            var userTrainingToUpdate = this.context.UserTrainings
+                .Where(x => x.UserId == userId && x.TrainingId == trainingId)
+                .To<TViewModel>()
+                .FirstOrDefault();
+
+            return userTrainingToUpdate;
+        }
+
         public async Task<Training> GetTrainingById(string id)
         {
             var training = this.context.Trainings
-                .SingleOrDefault(t => t.Id == id);
+                .Where(t => t.Id == id)
+                .SingleOrDefault();
 
             return training;
         }

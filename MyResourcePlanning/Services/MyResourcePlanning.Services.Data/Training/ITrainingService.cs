@@ -8,8 +8,6 @@
 
     public interface ITrainingService
     {
-        Task<IEnumerable<TViewModel>> GetAllTrainings<TViewModel>();
-
         Task<bool> Create(TrainingCreateBindingModel inputModel);
 
         Task<bool> Edit(TrainingEditBindingModel model, string id);
@@ -20,7 +18,15 @@
 
         Task<bool> AssignToUser(string trainingId, TrainingAssignBindingModel model);
 
+        Task<bool> ChangeUserTrainingStatus(TrainingStatusChangeBindingModel model, string trainingId, string userId);
+
+        Task<IEnumerable<TViewModel>> GetAllTrainings<TViewModel>();
+
         Task<IEnumerable<TViewModel>> GetUserTrainings<TViewModel>();
+
+        Task<IEnumerable<TViewModel>> GetAllUsersTrainings<TViewModel>();
+
+        Task<TViewModel> GetUserTrainingByIds<TViewModel>(string trainingId, string userId);
 
         Task<IList<string>> GetUserTrainingsId();
 

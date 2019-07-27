@@ -1,0 +1,103 @@
+﻿@model MyResourcePlanning.Web.ViewModels.Training.TrainingAllUsersView
+
+@{
+    ViewData["Title"] = "ChangeUserTrainingStatus";
+}
+
+<div class="jumbotron">
+
+    <h1 class="text-center" mt-3>Manage training status</h1>
+    <form id="statusChange" method="post" class="w-50 mx-auto">
+        <hr class="mt-3 bg-resources hr-2" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="TrainingName" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-user-graduate"></i> </span>
+                </div>
+                <input asp-for="TrainingName" readonly class="form-control" placeholder="Enter training name..." />
+            </div>
+            <span asp-validation-for="TrainingName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="UserName" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <input asp-for="UserName" readonly class="form-control" placeholder="Enter training name..." />
+            </div>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="TrainingType" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-chalkboard-teacher"></i> </span>
+                </div>
+                <input asp-for="TrainingType" readonly class="form-control" placeholder="Enter training name..." />
+            </div>
+            <span asp-validation-for="TrainingType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="TrainingStatus" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-universal-access"></i> </span>
+                </div>
+                <input asp-for="TrainingStatus" readonly class="form-control" placeholder="Enter training name..." />
+            </div>
+            <span asp-validation-for="TrainingStatus" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="TrainingDueDate" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-calendar-alt"></i></span>
+                </div>
+                <input asp-for="TrainingDueDate" readonly autocomplete="off" id="dueDate" class="form-control" placeholder="dd/MM/yyyy" type="text" />
+            </div>
+            <span asp-validation-for="TrainingDueDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Status" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-universal-access"></i> </span>
+                </div>
+                <select asp-for="Status" asp-items="Html.GetEnumSelectList<UserTrainingStatus>()" class="form-control">
+                    <option selected disabled value="">Training status</option>
+                </select>
+            </div>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <hr class="mt-3 bg-resources hr-2" />
+        <div class="d-flex justify-content-between">
+            <div class="form-group w-45">
+                <button type="submit" class="btn btn-success btn-block mr-3">Save</button>
+            </div>
+            <div class="form-group w-45">
+                <button type="button" class="btn btn-danger btn-block mr-3" value="Cancel" onclick="window.history.back()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        getErrorMsgs('#statusChange');
+    </script>
+}

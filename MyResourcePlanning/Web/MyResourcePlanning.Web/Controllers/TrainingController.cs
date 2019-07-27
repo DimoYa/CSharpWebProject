@@ -59,6 +59,7 @@
         public async Task<IActionResult> Delete(string id)
         {
             await this.trainingService.Delete(id);
+
             return this.RedirectToAction(nameof(this.All));
         }
 
@@ -84,7 +85,6 @@
 
         public async Task<IActionResult> AssignToUser(string id)
         {
-            var trainingToAssign = await this.trainingService.GetTrainingById(id);
             var assignTrainingModel = await this.trainingService.GetTrainingAssignBaseModel(id);
 
             return this.View(assignTrainingModel);
@@ -103,12 +103,50 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        public async Task<IActionResult> ChangeUserTrainingStatus(string id)
+        {
+            var identifiers = SplitId(id, '_');
+
+            var trainingId = identifiers[0];
+            var userId = identifiers[1];
+
+            var userTrainings = await this.trainingService.GetUserTrainingByIds<TrainingAllUsersView>(trainingId, userId);
+
+            return this.View(userTrainings);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeUserTrainingStatus(TrainingStatusChangeBindingModel model, string id)
+        {
+            var identifiers = SplitId(id, '_');
+
+            var trainingId = identifiers[0];
+            var userId = identifiers[1];
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model ?? new TrainingStatusChangeBindingModel());
+            }
+
+            await this.trainingService.ChangeUserTrainingStatus(model, trainingId, userId);
+
+            return this.RedirectToAction(nameof(this.AllUsersTrainings));
+        }
+
         public async Task<IActionResult> MyTrainings()
         {
             var userTrainings = await this.trainingService
                 .GetUserTrainings<TrainingUserViewModel>();
 
             return this.View(userTrainings);
+        }
+
+        public async Task<IActionResult> AllUsersTrainings()
+        {
+            var allUsersTrainings = await this.trainingService
+                .GetAllUsersTrainings<TrainingAllUsersView>();
+
+            return this.View(allUsersTrainings);
         }
 
         public async Task<IActionResult> All()
@@ -118,6 +156,12 @@
             var currentUserTrainings = await this.trainingService.GetUserTrainingsId();
 
             return this.View(Tuple.Create(trainings.ToList(), currentUserTrainings));
+        }
+
+        private static string[] SplitId(string id, char splitter)
+        {
+            return id
+                .Split(new[] { splitter }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

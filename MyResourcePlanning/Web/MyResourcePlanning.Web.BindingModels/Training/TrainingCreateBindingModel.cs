@@ -24,7 +24,7 @@ namespace MyResourcePlanning.Web.BindingModels.Training
         public TrainingStatus Status { get; set; }
 
         [Required]
-        [DateGreaterOrEqualThatPresent]
+        [DateGreaterOrEqualThatPresent(ErrorMessage = "Date cannot be in the past")]
         [Display(Name = "Due date")]
         [DataType(DataType.Text)]
         public DateTime DueDate { get; set; }
