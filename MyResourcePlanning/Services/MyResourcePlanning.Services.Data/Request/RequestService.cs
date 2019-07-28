@@ -3,10 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Claims;
+    using System.Text;
     using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Http;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Models.Enums;
@@ -80,6 +78,48 @@
             return result > 0;
         }
 
+        public async Task<bool> Approve(string id, string comment)
+        {
+            var requestToApprove = await this.GetRequestById(id);
+
+            var commentToAdd = await this.AddCommentToRequest(requestToApprove, comment);
+
+            requestToApprove.Status = RequestStatus.Booked;
+            requestToApprove.Comment = commentToAdd;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> Reject(string id, string comment)
+        {
+            var requestToReject = await this.GetRequestById(id);
+
+            var commentToAdd = await this.AddCommentToRequest(requestToReject, comment);
+
+            requestToReject.Status = RequestStatus.Rejected;
+            requestToReject.Comment = commentToAdd;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> Return(string id, string comment)
+        {
+            var requestToReturn = await this.GetRequestById(id);
+
+            var commentToAdd = await this.AddCommentToRequest(requestToReturn, comment);
+
+            requestToReturn.Status = RequestStatus.Returned;
+            requestToReturn.Comment = commentToAdd;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<TViewModel> MapRequest<TViewModel>(string id)
         {
             var currentRequest = this.context.Requests
@@ -121,6 +161,22 @@
             var resourceLastName = getResource[1].Trim();
             var resource = await this.userService.GetUserByName(resourceFirstName, resourceLastName);
             return resource;
+        }
+
+        private async Task<string> AddCommentToRequest(Request requestToApprove, string comment)
+        {
+            var sb = new StringBuilder();
+            var commentHistory = requestToApprove.Comment;
+
+            sb.AppendLine(commentHistory);
+
+            var currentUser = await this.userService.GetCurrentUserEmail();
+
+            var commentToAppend = $"{DateTime.UtcNow} {currentUser} {Environment.NewLine} {comment}";
+
+            sb.AppendLine(commentToAppend);
+
+            return sb.ToString();
         }
     }
 }

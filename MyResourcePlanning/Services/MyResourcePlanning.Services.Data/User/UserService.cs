@@ -47,6 +47,17 @@
             return currentUser;
         }
 
+        public async Task<string> GetCurrentUserEmail()
+        {
+            var currentUser = this.httpContextAccessor
+                .HttpContext
+                .User
+                .FindFirst(ClaimTypes.Email)
+                .Value;
+
+            return currentUser;
+        }
+
         public async Task<User> GetUserByName(string firstName, string lastName)
         {
             var user = this.context.Users

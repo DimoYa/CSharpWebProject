@@ -55,7 +55,7 @@
                     {
                 <td>
                     <a asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
-                    <a onclick="deleteConfirmation('@Model[i].Id', 'Project', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
+                    <a onclick="actionConfirmation('@Model[i].Id', 'Project', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
                 </td>
                     }
                 </tr>
@@ -78,5 +78,5 @@
     <script type="text/javascript" src="~/js/search.js"></script>
     <script type="text/javascript" src="~/js/bootstrap-sortable.js"></script>
     <script type="text/javascript" src="~/js/moment.min.js"></script>
-    <script src="~/js/deleteNotificationMsg.js"></script>
+    <script src="~/js/notificationMsg.js"></script>
 }

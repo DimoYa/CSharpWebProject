@@ -7,7 +7,7 @@
 }
 
 <div class="jumbotron">
-    <h1 class="text-center">All Requests</h1>
+    <h1 id="title" class="text-center">All Requests</h1>
     <hr class="bg-resources hr-2" />
     <div class="table-responsive">
     </div>
@@ -70,7 +70,7 @@
                     {
                 <td>
                     <a asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit request"></i></a>
-                    <a onclick="deleteConfirmation('@Model[i].Id', 'Request', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete request"></i></a>
+                    <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete request"></i></a>
                 </td>
                     }
                 </tr>
@@ -93,5 +93,5 @@
     <script type="text/javascript" src="~/js/search.js"></script>
     <script type="text/javascript" src="~/js/bootstrap-sortable.js"></script>
     <script type="text/javascript" src="~/js/moment.min.js"></script>
-    <script src="~/js/deleteNotificationMsg.js"></script>
+    <script src="~/js/notificationMsg.js"></script>
 }

@@ -76,6 +76,27 @@
             return this.RedirectToAction(nameof(this.PlannnerRequests));
         }
 
+        public async Task<IActionResult> Approve(string id, string comment)
+        {
+            await this.requestsService.Approve(id, comment);
+
+            return this.RedirectToAction(nameof(this.PlannnerRequests));
+        }
+
+        public async Task<IActionResult> Reject(string id, string comment)
+        {
+            await this.requestsService.Reject(id, comment);
+
+            return this.RedirectToAction(nameof(this.PlannnerRequests));
+        }
+
+        public async Task<IActionResult> Return(string id, string comment)
+        {
+            await this.requestsService.Return(id, comment);
+
+            return this.RedirectToAction(nameof(this.PlannnerRequests));
+        }
+
         public async Task<IActionResult> PlannnerRequests()
         {
             var requests = await this.requestsService.GetAllRequests<RequestAllViewModel>();

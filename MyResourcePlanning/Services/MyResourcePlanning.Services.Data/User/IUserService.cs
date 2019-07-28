@@ -13,6 +13,8 @@
 
         Task<string> GetCurrentUserId();
 
+        Task<string> GetCurrentUserEmail();
+
         Task<User> GetUserByName(string firstName, string lastName);
     }
 }

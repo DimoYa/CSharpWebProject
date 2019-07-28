@@ -2,7 +2,7 @@
 {
     using System.Globalization;
     using System.Reflection;
-
+    using System.Threading;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -91,8 +91,9 @@
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            //CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-            //CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+            var cultureInfo = new CultureInfo("en-EN");
+            cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

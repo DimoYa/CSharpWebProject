@@ -38,7 +38,7 @@ button {
     cursor: not-allowed;
 }
 
-h1 {
+h1,h5 {
     margin: 5px auto;
     padding: 3.5px;
     font-weight: bold;

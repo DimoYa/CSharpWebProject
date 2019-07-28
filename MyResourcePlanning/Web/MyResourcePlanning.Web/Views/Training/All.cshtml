@@ -58,7 +58,7 @@
                             <a asp-action="Request" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-plus" data-placement="top" title="Assign training to my profile"></i></a>
                         }
                         <a asp-action="Edit" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-edit fa-1x" data-placement="top" title="Edit training"></i></a>
-                        <a onclick="deleteConfirmation('@Model.Item1[i].Id', 'Training', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt fa-1x" data-placement="top" title="Delete training"></i></a>
+                        <a onclick="actionConfirmation('@Model.Item1[i].Id', 'Training', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt fa-1x" data-placement="top" title="Delete training"></i></a>
                     </td>
                 </tr>
             }
@@ -79,5 +79,5 @@
     <script type="text/javascript" src="~/js/search.js"></script>
     <script type="text/javascript" src="~/js/bootstrap-sortable.js"></script>
     <script type="text/javascript" src="~/js/moment.min.js"></script>
-    <script src="~/js/deleteNotificationMsg.js"></script>
+    <script src="~/js/notificationMsg.js"></script>
 }
