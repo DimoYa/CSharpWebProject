@@ -5,7 +5,7 @@
     using MyResourcePlanning.Web.ViewModels.Project;
     using MyResourcePlanning.Web.ViewModels.User;
 
-    public class RequestCreateBaseViewModel
+    public class RequestCreateBaseBindingModel
     {
         public IEnumerable<ProjectAllViewModel> Projects { get; set; }
 

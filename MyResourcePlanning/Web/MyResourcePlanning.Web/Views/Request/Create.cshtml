@@ -1,4 +1,4 @@
-﻿@model MyResourcePlanning.Web.BindingModels.Request.RequestCreateBaseViewModel
+﻿@model MyResourcePlanning.Web.BindingModels.Request.RequestCreateBaseBindingModel
 
 @{
     ViewData["Title"] = "Create Request";
@@ -19,7 +19,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fas fa-calendar-alt"></i></span>
                     </div>
-                    <input asp-for="BindingModel.StartDate" autocomplete="off" id="startDate" class="form-control" placeholder="dd/MM/yyyy" />
+                    <input asp-for="BindingModel.StartDate" autocomplete="off" id="startDate" class="form-control" placeholder="dd/MM/yyyy" type="text" />
                 </div>
                 <span asp-validation-for="BindingModel.StartDate" class="text-danger"></span>
             </div>
@@ -31,7 +31,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
                     </div>
-                    <input asp-for="BindingModel.EndDate" autocomplete="off" id="endDate" class="form-control" placeholder="dd/MM/yyyy" />
+                    <input asp-for="BindingModel.EndDate" autocomplete="off" id="endDate" class="form-control" placeholder="dd/MM/yyyy" type="text" />
                 </div>
                 <span asp-validation-for="BindingModel.EndDate" id="endDateError" class="text-danger"></span>
             </div>
@@ -44,17 +44,12 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                @*<div class="editor-field">
-                        @Html.DropDownList("Resources",
-                        new SelectList(Model.Resources, "Id" , "FirstName", "LastName"),
-                        "Select Gender",
-                        new { @class = "form-control" })
-                    </div>*@
+
                 <select asp-for="BindingModel.Resource" id="dropdown" class="form-control">
-                    <option selected disabled value="">ID;First Name;Last Name; Skills</option>
+                    <option selected disabled value="">First Name;Last Name</option>
                     @foreach (var option in Model.Resources)
                     {
-                        <option>@option.Id;@option.FirstName; @option.LastName; @string.Join("\n", @option.Skills)</option>
+                        <option>@option.FirstName;@option.LastName</option>
                     }
                 </select>
             </div>
@@ -69,10 +64,10 @@
                     <span class="input-group-text"> <i class="fas fa-business-time"></i> </span>
                 </div>
                 <select asp-for="BindingModel.Project" id="dropdown" class="form-control">
-                    <option selected disabled value="">ID;Project Name;Start Date;End Date</option>
+                    <option selected disabled value="">Project (Hours);Period</option>
                     @foreach (var option in Model.Projects)
                     {
-                        <option>@option.Id;@option.Name;@option.StartDate;@option.EndDate</option>
+                        <option>@option.Name (@option.RequestedHours) ;@option.StartDate -> @option.EndDate</option>
                     }
                 </select>
             </div>
@@ -117,7 +112,7 @@
         getErrorMsgs('#createForm');
     </script>
     <script>
-        twoColumnDropDown('#dropdown option', ';', 0, 55);
+        twoColumnDropDown('#dropdown option', ';', 5, 30);
     </script>
     <script>
         wrapInASpan(['End date must be greater than Start Date', 'Date cannot be in the past'], 'alert alert-danger');

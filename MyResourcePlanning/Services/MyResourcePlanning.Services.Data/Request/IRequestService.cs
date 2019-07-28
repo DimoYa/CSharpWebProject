@@ -4,14 +4,20 @@
     using System.Threading.Tasks;
 
     using MyResourcePlanning.Web.BindingModels.Request;
-    using MyResourcePlanning.Web.ViewModels.Request;
+    using MyResourcePlanning.Models;
 
     public interface IRequestService
     {
-        Task<IEnumerable<TViewModel>> GetAllRequests<TViewModel>();
-
         Task<bool> Create(RequestCreateBindingModel requestCreateBindingModel);
 
-        Task<bool> DeleteById(string id);
+        Task<bool> Edit(RequestEditBindingModel model, string id);
+
+        Task<bool> Delete(string id);
+
+        Task<Request> GetRequestById(string id);
+
+        Task<TViewModel> MapRequest<TViewModel>(string id);
+
+        Task<IEnumerable<TViewModel>> GetAllRequests<TViewModel>();
     }
 }

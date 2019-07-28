@@ -1,11 +1,13 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.Request
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Globalization;
 
     using AutoMapper;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
+    using MyResourcePlanning.Web.Infrastructure.Validators;
 
     public class RequestAllViewModel : IMapFrom<Request>, IHaveCustomMappings
     {
@@ -15,10 +17,18 @@
 
         public string Resource { get; set; }
 
+        [Required]
+        [Display(Name = "Start Date")]
         public string StartDate { get; set; }
 
+        [Required]
+        [DateGreaterThan(nameof(StartDate), ErrorMessage = "End date must be greater than Start Date")]
+        [Display(Name = "End Date")]
         public string EndDate { get; set; }
 
+        [Required]
+        [Range(1, double.MaxValue, ErrorMessage = "Please input positive hours")]
+        [Display(Name = "Working Hours")]
         public string WorkingHours { get; set; }
 
         public string Status { get; set; }
@@ -28,10 +38,10 @@
             configuration.CreateMap<Request, RequestAllViewModel>()
                 .ForMember(
                     s => s.StartDate,
-                    opt => opt.MapFrom(s => s.StartDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)))
+                    opt => opt.MapFrom(s => s.StartDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
                 .ForMember(
                     e => e.EndDate,
-                    opt => opt.MapFrom(e => e.EndDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)))
+                    opt => opt.MapFrom(e => e.EndDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
                  .ForMember(
                     p => p.Project,
                     opt => opt.MapFrom(p => p.Project.Name))

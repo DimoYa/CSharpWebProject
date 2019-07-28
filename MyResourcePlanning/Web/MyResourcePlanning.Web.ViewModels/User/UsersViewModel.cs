@@ -27,7 +27,7 @@
                     opt => opt.MapFrom(u => u.Skills.Select(s => s.Skill.Name).ToList()))
                 .ForMember(
                     u => u.Trainings,
-                    opt => opt.MapFrom(u => u.Trainings.Select(t => t.Training.Name).ToList()));
+                    opt => opt.MapFrom(u => u.Trainings.Select(s => s.Training.Name).ToList()));
         }
     }
 }

@@ -46,18 +46,45 @@
 
             await this.requestsService.Create(bindingModel);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction(nameof(this.PlannnerRequests));
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> Edit(string id)
+        {
+            var requestForUpdate = await this.requestsService.MapRequest<RequestAllViewModel>(id);
+
+            return this.View(requestForUpdate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(RequestEditBindingModel model, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(new RequestAllViewModel());
+            }
+
+            await this.requestsService.Edit(model, id);
+
+            return this.RedirectToAction(nameof(this.PlannnerRequests));
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.requestsService.Delete(id);
+
+            return this.RedirectToAction(nameof(this.PlannnerRequests));
+        }
+
+        public async Task<IActionResult> PlannnerRequests()
         {
             var requests = await this.requestsService.GetAllRequests<RequestAllViewModel>();
             return this.View(requests);
         }
 
-        private async Task<RequestCreateBaseViewModel> GetRequestBaseModel()
+        private async Task<RequestCreateBaseBindingModel> GetRequestBaseModel()
         {
-            return new RequestCreateBaseViewModel()
+            return new RequestCreateBaseBindingModel()
             {
                 Resources = await this.userService.GetAllActiveResources<UsersViewModel>(),
                 Projects = await this.projectService.GetAllProjects<ProjectAllViewModel>(),

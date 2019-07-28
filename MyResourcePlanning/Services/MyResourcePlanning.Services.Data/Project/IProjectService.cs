@@ -16,6 +16,8 @@
 
         Task<Project> GetProjectById(string id);
 
+        Task<Project> GetProjectByName(string name);
+
         Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>();
 
         Task<TViewModel> MapProject<TViewModel>(string id);

@@ -85,7 +85,18 @@
         {
             var currentProject = this.context
                 .Projects
+                .Where(p => p.IsDeleted == false)
                 .SingleOrDefault(p => p.Id == id);
+
+            return currentProject;
+        }
+
+        public async Task<Project> GetProjectByName(string name)
+        {
+            var currentProject = this.context
+                .Projects
+                .Where(p => p.IsDeleted == false)
+                .FirstOrDefault(p => p.Name == name);
 
             return currentProject;
         }

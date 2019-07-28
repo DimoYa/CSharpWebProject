@@ -9,14 +9,11 @@
     var padLength = biggestLength + magicNumber;
     $(dd).each(function () {
         var parts = $(this).text().split(separatorChars);
-        var strLength = parts[1].length;
+        var strLength = parts[0].length;
         for (var x = 0; x < (padLength - strLength); x++) {
-            parts[1] = parts[1] + ' ';
+            parts[0] = parts[0] + ' ';
         }
-        var strLengthLastChar = parts[2].length;
-        for (var x = 0; x < (padLength - strLengthLastChar); x++) {
-            parts[2] = parts[2] + ' ';
-        }
-        $(this).text(parts[1].replace(/ /g, '\u00a0') + parts[2].replace(/ /g, '\u00a0') + parts[3]).text;
+        
+        $(this).text(parts[0].replace(/ /g, '\u00a0') + parts[1]).text;
     });
 }
