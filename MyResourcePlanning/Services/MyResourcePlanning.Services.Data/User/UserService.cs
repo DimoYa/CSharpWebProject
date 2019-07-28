@@ -47,12 +47,12 @@
             return currentUser;
         }
 
-        public async Task<string> GetCurrentUserEmail()
+        public async Task<string> GetCurrentUserName()
         {
             var currentUser = this.httpContextAccessor
                 .HttpContext
                 .User
-                .FindFirst(ClaimTypes.Email)
+                .FindFirst(ClaimTypes.Name)
                 .Value;
 
             return currentUser;

@@ -4,7 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Models.Enums;
@@ -31,7 +34,7 @@
 
         public async Task<bool> Create(RequestCreateBindingModel model)
         {
-            var getResource = model.Resource.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var getResource = Regex.Split(model.Resource, @"\s\s+");
             User resource = await this.GetResourceFromString(getResource);
 
             var getProject = model.Project.Split(new[] { '(' }, StringSplitOptions.RemoveEmptyEntries);
@@ -60,6 +63,7 @@
             requestToUpdate.StartDate = model.StartDate;
             requestToUpdate.EndDate = model.EndDate;
             requestToUpdate.WorkingHours = model.WorkingHours;
+            requestToUpdate.Status = RequestStatus.InProgress;
 
             int result = await this.context.SaveChangesAsync();
 
@@ -82,10 +86,14 @@
         {
             var requestToApprove = await this.GetRequestById(id);
 
-            var commentToAdd = await this.AddCommentToRequest(requestToApprove, comment);
+            if (!string.IsNullOrEmpty(comment))
+            {
+                var commentToAdd = await this.AddCommentToRequest(requestToApprove, comment);
+                requestToApprove.Comment = commentToAdd;
+            }
 
             requestToApprove.Status = RequestStatus.Booked;
-            requestToApprove.Comment = commentToAdd;
+            requestToApprove.Project.RequestedHours -= requestToApprove.WorkingHours;
 
             int result = await this.context.SaveChangesAsync();
 
@@ -96,10 +104,13 @@
         {
             var requestToReject = await this.GetRequestById(id);
 
-            var commentToAdd = await this.AddCommentToRequest(requestToReject, comment);
+            if (!string.IsNullOrEmpty(comment))
+            {
+                var commentToAdd = await this.AddCommentToRequest(requestToReject, comment);
+                requestToReject.Comment = commentToAdd;
+            }
 
             requestToReject.Status = RequestStatus.Rejected;
-            requestToReject.Comment = commentToAdd;
 
             int result = await this.context.SaveChangesAsync();
 
@@ -110,10 +121,13 @@
         {
             var requestToReturn = await this.GetRequestById(id);
 
-            var commentToAdd = await this.AddCommentToRequest(requestToReturn, comment);
+            if (!string.IsNullOrEmpty(comment))
+            {
+                var commentToAdd = await this.AddCommentToRequest(requestToReturn, comment);
+                requestToReturn.Comment = commentToAdd;
+            }
 
             requestToReturn.Status = RequestStatus.Returned;
-            requestToReturn.Comment = commentToAdd;
 
             int result = await this.context.SaveChangesAsync();
 
@@ -130,19 +144,66 @@
             return currentRequest;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllRequests<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetAllPlannerRequests<TViewModel>()
         {
+            var currentUser = await this.userService.GetCurrentUserId();
+
             var requests = this.context.Requests
+                .Where(r => r.CreatedBy == currentUser)
                 .To<TViewModel>()
                 .ToList();
 
             return requests;
         }
 
-        public async Task<Request> GetRequestById(string id)
+        public async Task<IEnumerable<TViewModel>> GetAllApproverRequests<TViewModel>()
+        {
+            var currentUser = await this.userService.GetCurrentUserId();
+
+            var requests = this.context.Requests
+                .Where(r => r.User.ApproverId == currentUser)
+                .To<TViewModel>()
+                .ToList();
+
+            return requests;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllResourceRequests<TViewModel>()
+        {
+            var currentUser = await this.userService.GetCurrentUserId();
+
+            var requests = this.context.Requests
+                .Where(r => r.UserId == currentUser)
+                .Where(r => r.IsDeleted == false)
+                .To<TViewModel>()
+                .ToList();
+
+            return requests;
+        }
+
+        public async Task<List<string>> GetRequestCommentsById(string id)
+        {
+            var currentRequest = await this.GetRequestById(id);
+
+            var comments = currentRequest
+                .Comment;
+
+            if (comments == null)
+            {
+                return new List<string>();
+            }
+
+            return comments
+                .Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
+        }
+
+        private async Task<Request> GetRequestById(string id)
         {
             var currentRequest = this.context
                .Requests
+               .Include(p => p.Project)
+               .Include(u => u.User)
                .SingleOrDefault(r => r.Id == id);
 
             return currentRequest;
@@ -168,15 +229,15 @@
             var sb = new StringBuilder();
             var commentHistory = requestToApprove.Comment;
 
-            sb.AppendLine(commentHistory);
+            sb.Append(commentHistory);
 
-            var currentUser = await this.userService.GetCurrentUserEmail();
+            var currentUser = await this.userService.GetCurrentUserName();
 
-            var commentToAppend = $"{DateTime.UtcNow} {currentUser} {Environment.NewLine} {comment}";
+            var commentToAppend = $"{DateTime.UtcNow} {currentUser} {Environment.NewLine} {comment} -";
 
             sb.AppendLine(commentToAppend);
 
-            return sb.ToString();
+            return sb.ToString().Trim();
         }
     }
 }

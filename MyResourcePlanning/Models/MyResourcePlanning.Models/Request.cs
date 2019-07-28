@@ -34,7 +34,7 @@
         [Required]
         public RequestStatus Status { get; set; }
 
-        [StringLength(20, MinimumLength = 1)]
+        [MinLength(1)]
         public string Comment { get; set; }
 
         public string UserId { get; set; }

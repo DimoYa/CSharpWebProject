@@ -1,0 +1,61 @@
+﻿@model List<MyResourcePlanning.Web.ViewModels.Request.RequestAllViewModel>
+@using MyResourcePlanning.Common
+
+@{
+    ViewData["Title"] = "Planners requests";
+}
+
+<div class="jumbotron">
+    <h1 id="title" class="text-center">Approver Requests</h1>
+    <partial name="_SearchAndFilterHeaderPartial" />
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered sortable" id="table-id">
+            <thead>
+                <tr>
+                    <th scope="col">Project</th>
+                    <th scope="col">Resource</th>
+                    <th scope="col">Start</th>
+                    <th scope="col">End</th>
+                    <th scope="col">Hours</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                <tr>
+                    <td>@Model[i].Project</td>
+                    <td>@Model[i].Resource</td>
+                    <td>@Model[i].StartDate</td>
+                    <td>@Model[i].EndDate</td>
+                    <td>@Model[i].WorkingHours</td>
+                    <td>@Model[i].Status</td>
+                    <td>
+                        @if (Model[i].Status != RequestStatus.Rejected.ToString()
+                          && Model[i].Status != RequestStatus.Booked.ToString()
+                          && Model[i].Status != RequestStatus.Returned.ToString()
+                          && Model[i].Status != RequestStatus.Deleted.ToString())
+                        {
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Approve')" class="btn bg-transparent"><i class="far fa-thumbs-up" data-placement="top" title="Book Request"></i></a>
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Reject')" class="btn bg-transparent"><i class="far fa-thumbs-down" data-placement="top" title="Reject Request"></i></a>
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Return')" class="btn bg-transparent"><i class="fas fa-exchange-alt" data-placement="top" title="Return Request"></i></a>
+                        }
+                            <a asp-action="ShowComments" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-comment-dots" data-placement="top" title="Show comments"></i></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <partial name="_SearchAndFilterFooterPartial" />
+</div>
+<partial name="_NotificationPartial" />
+
+@section scripts{
+    <script type="text/javascript" src="~/js/paging.js"></script>
+    <script type="text/javascript" src="~/js/search.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-sortable.js"></script>
+    <script type="text/javascript" src="~/js/moment.min.js"></script>
+    <script src="~/js/notificationMsg.js"></script>
+}

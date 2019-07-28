@@ -64,7 +64,18 @@
         public async Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>()
         {
             var projects = this.context.Projects
-                .Where(p => p.IsDeleted == false)
+                .To<TViewModel>()
+                .ToList();
+
+            return projects;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllProjectsForRequest<TViewModel>()
+        {
+            var projects = this.context.Projects
+                .Where(p => p.IsDeleted == false
+                && p.RequestedHours > 0
+                && p.EndDate >= DateTime.Now)
                 .To<TViewModel>()
                 .ToList();
 

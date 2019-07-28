@@ -20,10 +20,14 @@
 
         Task<bool> Delete(string id);
 
-        Task<Request> GetRequestById(string id);
+        Task<List<string>> GetRequestCommentsById(string id);
 
         Task<TViewModel> MapRequest<TViewModel>(string id);
 
-        Task<IEnumerable<TViewModel>> GetAllRequests<TViewModel>();
+        Task<IEnumerable<TViewModel>> GetAllPlannerRequests<TViewModel>();
+
+        Task<IEnumerable<TViewModel>> GetAllApproverRequests<TViewModel>();
+
+        Task<IEnumerable<TViewModel>> GetAllResourceRequests<TViewModel>();
     }
 }

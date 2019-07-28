@@ -1,92 +1,54 @@
 ﻿@model List<MyResourcePlanning.Web.ViewModels.Request.RequestAllViewModel>
 @using MyResourcePlanning.Common
 
-
 @{
-    ViewData["Title"] = "All Requests";
+    ViewData["Title"] = "Planners Requests";
 }
 
 <div class="jumbotron">
-    <h1 id="title" class="text-center">All Requests</h1>
-    <hr class="bg-resources hr-2" />
+    <h1 id="title" class="text-center">Planner Requests</h1>
+    <partial name="_SearchAndFilterHeaderPartial" />
     <div class="table-responsive">
-    </div>
-    <div class="d-flex justify-content-between">
-        <div class="active-pink-3 active-pink-4 w-100">
-            <form class="form-inline active-purple-3 active-purple-4">
-                <i class="fas fa-search" aria-hidden="true"></i>
-                <input id="search_input_all" oninput="getFilteredData()" class="form-control form-control-sm ml-3 mb-2" type="search" placeholder="Search after the second character..."
-                       aria-label="Search">
-            </form>
-        </div>
-        <div class="active-pink-3 active-pink-4 mb-2">
-            <select class="form-control" name="state" id="maxRows">
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="70">70</option>
-                <option value="100">100</option>
-                <option value="5000">Show ALL Rows</option>
-            </select>
-        </div>
-    </div>
-    <table class="table table-striped table-bordered table-sm sortable" cellspacing="0" width="100%" id="table-id">
-        <thead>
-            <tr>
-                <th scope="col">Project</th>
-                <th scope="col">Resource</th>
-                <th scope="col">Start</th>
-                <th scope="col">End</th>
-                <th scope="col">Hours</th>
-                <th scope="col">Status</th>
-                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
-                {
-                    <th scope="col">Action</th>
-                }
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            @for (int i = 0; i < Model.Count; i++)
-            {
+        <table class="table table-striped table-bordered sortable" id="table-id">
+            <thead>
                 <tr>
-                    <td>@Model[i].Project</td>
-                    <td>@Model[i].Resource</td>
-                    <td>@Model[i].StartDate</td>
-                    <td>@Model[i].EndDate</td>
-                    <td>@Model[i].WorkingHours</td>
-                    <td>@Model[i].Status</td>
-                    @if (this.User.IsInRole(GlobalConstants.ApproverRoleName))
-                    {
+                    <th scope="col">Project</th>
+                    <th scope="col">Resource</th>
+                    <th scope="col">Start</th>
+                    <th scope="col">End</th>
+                    <th scope="col">Hours</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@Model[i].Project</td>
+                        <td>@Model[i].Resource</td>
+                        <td>@Model[i].StartDate</td>
+                        <td>@Model[i].EndDate</td>
+                        <td>@Model[i].WorkingHours</td>
+                        <td>@Model[i].Status</td>
                         <td>
-                            <button class="btn bg-transparent"><i class="far fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Book Request"></i></button>
-                            <button class="btn bg-transparent"><i class="far fa-thumbs-down" data-toggle="tooltip" data-placement="top" title="Reject Request"></i></button>
-                        </td>
-                    }
-                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) 
-                                    && Model[i].Status != RequestStatus.Booked.ToString() 
+                            @if (Model[i].Status != RequestStatus.Booked.ToString()
                                     && Model[i].Status != RequestStatus.Rejected.ToString()
                                     && Model[i].Status != RequestStatus.Deleted.ToString())
-                    {
-                <td>
-                    <a asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit request"></i></a>
-                    <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete request"></i></a>
-                </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div class="d-flex justify-content-between">
-        <div id="paginationDiv" class="pagination-container">
-            <nav>
-                <ul class="pagination"></ul>
-            </nav>
-        </div>
-        <div id="paginationRowsCount" class="rows_count">Showing 11 to 20 of 91 entries</div>
+                            {
+                                <a asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit request"></i></a>
+                                <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete request"></i></a>
+                            }
+                                <a asp-action="ShowComments" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-comment-dots" data-placement="top" title="Show comments"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
+    <partial name="_SearchAndFilterFooterPartial" />
 </div>
-<partial name="_DeleteNotificationPartial" />
+<partial name="_NotificationPartial" />
 
 @section scripts{
     <script type="text/javascript" src="~/js/paging.js"></script>

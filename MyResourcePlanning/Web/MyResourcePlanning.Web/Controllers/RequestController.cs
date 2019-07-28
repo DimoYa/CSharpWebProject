@@ -80,27 +80,45 @@
         {
             await this.requestsService.Approve(id, comment);
 
-            return this.RedirectToAction(nameof(this.PlannnerRequests));
+            return this.RedirectToAction(nameof(this.ApproverRequests));
         }
 
         public async Task<IActionResult> Reject(string id, string comment)
         {
             await this.requestsService.Reject(id, comment);
 
-            return this.RedirectToAction(nameof(this.PlannnerRequests));
+            return this.RedirectToAction(nameof(this.ApproverRequests));
         }
 
         public async Task<IActionResult> Return(string id, string comment)
         {
             await this.requestsService.Return(id, comment);
 
-            return this.RedirectToAction(nameof(this.PlannnerRequests));
+            return this.RedirectToAction(nameof(this.ApproverRequests));
         }
 
         public async Task<IActionResult> PlannnerRequests()
         {
-            var requests = await this.requestsService.GetAllRequests<RequestAllViewModel>();
+            var requests = await this.requestsService.GetAllPlannerRequests<RequestAllViewModel>();
             return this.View(requests);
+        }
+
+        public async Task<IActionResult> ApproverRequests()
+        {
+            var requests = await this.requestsService.GetAllApproverRequests<RequestAllViewModel>();
+            return this.View(requests);
+        }
+
+        public async Task<IActionResult> ResourceRequests()
+        {
+            var requests = await this.requestsService.GetAllResourceRequests<RequestAllViewModel>();
+            return this.View(requests);
+        }
+
+        public async Task<IActionResult> ShowComments(string id)
+        {
+            var comments = await this.requestsService.GetRequestCommentsById(id);
+            return this.View(comments);
         }
 
         private async Task<RequestCreateBaseBindingModel> GetRequestBaseModel()
@@ -108,7 +126,7 @@
             return new RequestCreateBaseBindingModel()
             {
                 Resources = await this.userService.GetAllActiveResources<UsersViewModel>(),
-                Projects = await this.projectService.GetAllProjects<ProjectAllViewModel>(),
+                Projects = await this.projectService.GetAllProjectsForRequest<ProjectAllViewModel>(),
             };
         }
     }

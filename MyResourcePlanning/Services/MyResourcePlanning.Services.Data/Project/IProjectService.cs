@@ -20,6 +20,8 @@
 
         Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>();
 
+        Task<IEnumerable<TViewModel>> GetAllProjectsForRequest<TViewModel>();
+
         Task<TViewModel> MapProject<TViewModel>(string id);
     }
 }

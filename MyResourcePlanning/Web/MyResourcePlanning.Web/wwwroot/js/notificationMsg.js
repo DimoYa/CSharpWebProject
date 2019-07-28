@@ -1,11 +1,19 @@
 ﻿function actionConfirmation(id, controller, actionName) {
 
-    var comment = '';
+    let comment = '';
 
     var modalConfirm = function (callback) {
 
-        if (actionName != 'Reject' || actionName != 'Return') {
-            $("#commentSection").hide();
+        switch (actionName) {
+
+            case 'Approve': $("#commentLabel").text('This item will be booked');
+                break;
+            case 'Reject': $("#commentLabel").text('This item will be rejected');
+                break;
+            case 'Return': $("#commentLabel").text('This item will be returned to planner');
+                break;
+            default: $("#commentSection").hide();
+                break;
         }
 
         $("#modalWin").modal('show');
@@ -14,11 +22,13 @@
             comment = $("#comment").val();
             callback(true);
             $("#modalWin").modal('hide');
+            $("#comment").val('');
         });
 
         $("#modal-btn-no").on("click", function () {
             callback(false);
             $("#modalWin").modal('hide');
+            $("#comment").val('');
         });
     };
 

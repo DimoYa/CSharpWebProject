@@ -1,0 +1,46 @@
+﻿@model List<MyResourcePlanning.Web.ViewModels.Request.RequestAllViewModel>
+@using MyResourcePlanning.Common
+
+@{
+    ViewData["Title"] = "Planners Requests";
+}
+
+<div class="jumbotron">
+    <h1 id="title" class="text-center">Resource requests</h1>
+    <partial name="_SearchAndFilterHeaderPartial" />
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered sortable" id="table-id">
+            <thead>
+                <tr>
+                    <th scope="col">Project</th>
+                    <th scope="col">Start</th>
+                    <th scope="col">End</th>
+                    <th scope="col">Hours</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                <tr>
+                    <td>@Model[i].Project</td>
+                    <td>@Model[i].StartDate</td>
+                    <td>@Model[i].EndDate</td>
+                    <td>@Model[i].WorkingHours</td>
+                    <td>@Model[i].Status</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <partial name="_SearchAndFilterFooterPartial" />
+</div>
+<partial name="_NotificationPartial" />
+
+@section scripts{
+    <script type="text/javascript" src="~/js/paging.js"></script>
+    <script type="text/javascript" src="~/js/search.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-sortable.js"></script>
+    <script type="text/javascript" src="~/js/moment.min.js"></script>
+    <script src="~/js/notificationMsg.js"></script>
+}
