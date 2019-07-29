@@ -26,4 +26,8 @@
     <ProjectReference Include="..\MyResourcePlanning.Services.Mapping\MyResourcePlanning.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Calendar\" />
+  </ItemGroup>
+
 </Project>
