@@ -92,7 +92,7 @@
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            var cultureInfo = new CultureInfo("en-EN");
+            var cultureInfo = new CultureInfo("en-GB");
             cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
 
