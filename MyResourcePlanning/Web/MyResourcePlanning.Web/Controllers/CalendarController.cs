@@ -40,9 +40,9 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        public async Task<IActionResult> All(CalnedarViewPeriodBindingModel model)
+        public async Task<IActionResult> All()
         {
-            var requests = await this.calendarService.GetAllDays<CalendarAllViewModel>(model);
+            var requests = await this.calendarService.GetAllDays<CalendarAllViewModel>();
             return this.View(requests);
         }
     }

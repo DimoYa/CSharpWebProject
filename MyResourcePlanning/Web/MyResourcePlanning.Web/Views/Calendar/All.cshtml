@@ -1,0 +1,90 @@
+﻿@model List<MyResourcePlanning.Web.ViewModels.Calendar.CalendarAllViewModel>
+
+@{
+    ViewData["Title"] = "All";
+}
+
+    <div class="jumbotron">
+        <h1 class="text-center">All calendar days</h1>
+        <hr class="bg-resources hr-2" />
+        <table border="0" cellspacing="5" cellpadding="5">
+            <tbody>
+                <tr>
+                    <td>Minimum age:</td>
+                    <td><input type="text" id="min" name="min"></td>
+                </tr>
+                <tr>
+                    <td>Maximum age:</td>
+                    <td><input type="text" id="max" name="max"></td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th scope="col">Day</th>
+                    <th scope="col">Public holiday</th>
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
+                    {
+                        <th scope="col">Action</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@Model[i].Day</td>
+                        <td>@Model[i].IspublicHoliday</td>
+                        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
+                                <a onclick="actionConfirmation('@Model[i].Id', 'Project', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table><table id="example" class="display" style="width:100%">
+            <tfoot>
+                <tr>
+                    <th scope="col">Day</th>
+                    <th scope="col">Public holiday</th>
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
+                    {
+                        <th scope="col">Action</th>
+                    }
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+@section scripts{
+    <script>
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = parseInt($('#min').val(), 10);
+                var max = parseInt($('#max').val(), 10);
+                var age = parseInt(data[0]) || 0; // use data for the age column
+
+                if ((isNaN(min) && isNaN(max)) ||
+                    (isNaN(min) && age <= max) ||
+                    (min <= age && isNaN(max)) ||
+                    (min <= age && age <= max)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            var table = $('#example').DataTable();
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#min, #max').keyup(function () {
+                table.draw();
+            });
+        });
+    </script>
+}

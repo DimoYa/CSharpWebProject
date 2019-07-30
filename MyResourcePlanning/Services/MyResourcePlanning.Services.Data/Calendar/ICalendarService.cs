@@ -12,6 +12,6 @@
 
         Task<bool> CheckIfPeriodExist(CalnedarCreatePeriodBindingModel inputModel);
 
-        Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>(CalnedarViewPeriodBindingModel model);
+        Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>();
     }
 }

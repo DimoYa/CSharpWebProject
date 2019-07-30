@@ -19,7 +19,7 @@
             configuration.CreateMap<Calendar, CalendarAllViewModel>()
                 .ForMember(
                     e => e.Day,
-                    opt => opt.MapFrom(e => e.Day.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)));
+                    opt => opt.MapFrom(e => e.Day.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)));
         }
     }
 }

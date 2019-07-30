@@ -63,10 +63,10 @@
             return result > 0;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>(CalnedarViewPeriodBindingModel model)
+        public async Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>()
         {
             var calendaDays = this.context.Calendars
-                .Where(c => c.Day >= model.StartDate && c.Day <= model.EndDate)
+                .OrderByDescending(c => c.Day)
                 .To<TViewModel>()
                 .ToList();
 
