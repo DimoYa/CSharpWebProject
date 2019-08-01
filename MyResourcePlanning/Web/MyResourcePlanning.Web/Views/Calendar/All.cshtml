@@ -4,63 +4,75 @@
     ViewData["Title"] = "All";
 }
 
-    <div class="jumbotron">
-        <h1 class="text-center">All calendar days</h1>
-        <hr class="bg-resources hr-2" />
-        <table border="0" cellspacing="5" cellpadding="5">
-            <tbody>
-                <tr>
-                    <td>Minimum age:</td>
-                    <td><input type="text" id="min" name="min"></td>
-                </tr>
-                <tr>
-                    <td>Maximum age:</td>
-                    <td><input type="text" id="max" name="max"></td>
-                </tr>
-            </tbody>
-        </table>
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th scope="col">Day</th>
-                    <th scope="col">Public holiday</th>
-                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
-                    {
-                        <th scope="col">Action</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.Count; i++)
+<div class="jumbotron">
+    <h1 class="text-center">All calendar days</h1>
+    <hr class="bg-resources hr-2" />
+    <table border="0" cellspacing="5" cellpadding="5">
+        <tbody>
+            <tr>
+                <td>From date:</td>
+                <td><input type="text" id="min" name="min"></td>
+            </tr>
+            <tr>
+                <td>To date:</td>
+                <td><input type="text" id="max" name="max"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Public holiday</th>
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
                 {
-                    <tr>
-                        <td>@Model[i].Day</td>
-                        <td>@Model[i].IspublicHoliday</td>
-                        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                        {
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
-                                <a onclick="actionConfirmation('@Model[i].Id', 'Project', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
-                            </td>
-                        }
-                    </tr>
+                    <th scope="col">Action</th>
                 }
-            </tbody>
-        </table><table id="example" class="display" style="width:100%">
-            <tfoot>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
                 <tr>
-                    <th scope="col">Day</th>
-                    <th scope="col">Public holiday</th>
-                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
+                    <td>@Model[i].Day</td>
+                    <td>@Model[i].IspublicHoliday</td>
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
-                        <th scope="col">Action</th>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Project', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
+                        </td>
                     }
                 </tr>
-            </tfoot>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table><table id="example" class="display" style="width:100%">
+        <tfoot>
+            <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Public holiday</th>
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
+                {
+                    <th scope="col">Action</th>
+                }
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
 @section scripts{
+    <script type="text/javascript" src="~/js/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        window.onload = () => {
+            $('#min, #max').datetimepicker({
+                timepicker: false,
+                format: 'd/m/Y',
+                lang: 'en',
+                todayButton: true,
+                dayOfWeekStart: '1',
+            });
+        };
+    </script>
     <script>
         $.fn.dataTable.ext.search.push(
             function (settings, data, dataIndex) {
@@ -81,8 +93,7 @@
         $(document).ready(function () {
             var table = $('#example').DataTable();
 
-            // Event listener to the two range filtering inputs to redraw on input
-            $('#min, #max').keyup(function () {
+            $('#min, #max').change(function () {
                 table.draw();
             });
         });
