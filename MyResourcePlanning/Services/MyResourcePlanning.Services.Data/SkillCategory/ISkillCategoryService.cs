@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Services.Data.SkillCategory
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using MyResourcePlanning.Models;
@@ -16,5 +17,7 @@
         Task<SkillCategory> GetCategoryByName(string name);
 
         Task<SkillCategory> GetCategoryById(string id);
+
+        Task<IEnumerable<TViewModel>> GetAllSkillCategories<TViewModel>();
     }
 }

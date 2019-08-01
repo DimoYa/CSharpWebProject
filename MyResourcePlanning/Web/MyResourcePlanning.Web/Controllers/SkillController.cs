@@ -69,17 +69,15 @@
 
         public async Task<IActionResult> CreateSkill()
         {
-            var skillCreateBaseModel = await this.skillService.GetSkillCreateBaseModel();
-
-            return this.View(skillCreateBaseModel);
+            return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSkill(SkillCreateBaseModel inputModel)
+        public async Task<IActionResult> CreateSkill(SkillCreateBindingModel inputModel)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(inputModel ?? new SkillCreateBaseModel());
+                return this.View(inputModel ?? new SkillCreateBindingModel());
             }
 
             await this.skillService.CreateSkill(inputModel);
@@ -90,9 +88,9 @@
         public async Task<IActionResult> EditSkill(string id)
         {
             var skillForUpdate = await this.skillService.GetSkillById(id);
-            var skillEdutBaseModel = await this.skillService.GetSkillEditBaseModel(skillForUpdate);
+            var skillEditBaseModel = await this.skillService.GetSkillEditBaseModel(skillForUpdate);
 
-            return this.View(skillEdutBaseModel);
+            return this.View(skillEditBaseModel);
         }
 
         [HttpPost]

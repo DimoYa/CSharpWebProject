@@ -30,13 +30,13 @@
             this.userService = userService;
         }
 
-        public async Task<bool> CreateSkill(SkillCreateBaseModel model)
+        public async Task<bool> CreateSkill(SkillCreateBindingModel model)
         {
-            var skillCategory = await this.skillCategoryService.GetCategoryByName(model.BindingModel.SkillCategory);
+            var skillCategory = await this.skillCategoryService.GetCategoryByName(model.SkillCategory);
 
             Skill skill = new Skill
             {
-                Name = model.BindingModel.Name,
+                Name = model.Name,
                 SkillCategory = skillCategory,
             };
 
@@ -173,11 +173,13 @@
             return userSkillsId;
         }
 
-        public async Task<SkillCreateBaseModel> GetSkillCreateBaseModel()
+        public async Task<SkillEditLevelBindingModel> GetSkillEditLevelBaseModel(UserSkill skillForUpdate)
         {
-            return new SkillCreateBaseModel()
+            var skillById = await this.GetSkillById(skillForUpdate.SkillId);
+            return new SkillEditLevelBindingModel()
             {
-                SkillCategories = await this.GetAllSkillsByCategories<SkillCategoryViewModel>(),
+                Name = skillById.Name,
+                SkillLevel = skillForUpdate.Level,
             };
         }
 
@@ -188,16 +190,6 @@
                 Name = skillForUpdate.Name,
                 SkillCategory = skillForUpdate.SkillCategory.Name,
                 SkillCategories = await this.GetAllSkillsByCategories<SkillCategoryViewModel>(),
-            };
-        }
-
-        public async Task<SkillEditLevelBindingModel> GetSkillEditLevelBaseModel(UserSkill skillForUpdate)
-        {
-            var skillById = await this.GetSkillById(skillForUpdate.SkillId);
-            return new SkillEditLevelBindingModel()
-            {
-                Name = skillById.Name,
-                SkillLevel = skillForUpdate.Level,
             };
         }
 

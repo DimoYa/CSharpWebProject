@@ -64,6 +64,7 @@
         public async Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>()
         {
             var projects = this.context.Projects
+                .Where(p => p.IsDeleted == false)
                 .To<TViewModel>()
                 .ToList();
 

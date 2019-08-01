@@ -1,12 +1,15 @@
 ﻿namespace MyResourcePlanning.Services.Data.SkillCategory
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Web.BindingModels.Skill;
+    using MyResourcePlanning.Services.Mapping;
+
 
     public class SkillCategoryService : ISkillCategoryService
     {
@@ -81,6 +84,17 @@
                               .SingleOrDefault(s => s.Id == id);
 
             return category;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllSkillCategories<TViewModel>()
+        {
+            var categories = this.context
+                              .SkillCategories
+                              .Where(s => s.IsDeleted == false)
+                              .To<TViewModel>()
+                              .ToList();
+
+            return categories;
         }
     }
 }

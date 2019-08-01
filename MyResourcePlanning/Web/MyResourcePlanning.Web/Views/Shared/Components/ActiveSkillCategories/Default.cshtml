@@ -1,0 +1,7 @@
+﻿@model IEnumerable<MyResourcePlanning.Web.ViewModels.Skill.SkillCategoryViewModel>
+
+<option selected disabled value="">Select skill category</option>
+@foreach (var option in Model)
+{
+    <option>@option.Name</option>
+}

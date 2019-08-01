@@ -7,9 +7,7 @@
     using MyResourcePlanning.Services.Data.Request;
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Web.BindingModels.Request;
-    using MyResourcePlanning.Web.ViewModels.Project;
     using MyResourcePlanning.Web.ViewModels.Request;
-    using MyResourcePlanning.Web.ViewModels.User;
 
     public class RequestController : BaseController
     {
@@ -29,9 +27,7 @@
 
         public async Task<IActionResult> Create()
         {
-            var requestCreateBaseViewModel = await this.GetRequestBaseModel();
-
-            return this.View(requestCreateBaseViewModel);
+            return this.View();
         }
 
         [HttpPost]
@@ -39,9 +35,8 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var requestCreateBaseViewModel = await this.GetRequestBaseModel();
 
-                return this.View(requestCreateBaseViewModel);
+                return this.View(bindingModel ?? new RequestCreateBindingModel());
             }
 
             await this.requestsService.Create(bindingModel);
@@ -61,7 +56,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(new RequestAllViewModel());
+                return this.View(new RequestEditBindingModel());
             }
 
             await this.requestsService.Edit(model, id);
@@ -119,15 +114,6 @@
         {
             var comments = await this.requestsService.GetRequestCommentsById(id);
             return this.View(comments);
-        }
-
-        private async Task<RequestCreateBaseBindingModel> GetRequestBaseModel()
-        {
-            return new RequestCreateBaseBindingModel()
-            {
-                Resources = await this.userService.GetAllActiveResources<UsersViewModel>(),
-                Projects = await this.projectService.GetAllProjectsForRequest<ProjectAllViewModel>(),
-            };
         }
     }
 }

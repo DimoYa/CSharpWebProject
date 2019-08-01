@@ -1,4 +1,4 @@
-﻿@model MyResourcePlanning.Web.BindingModels.Skill.SkillCreateBaseModel
+﻿@model MyResourcePlanning.Web.BindingModels.Skill.SkillCreateBindingModel
 
 @{
     ViewData["Title"] = "Create Skill";
@@ -12,33 +12,30 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <div class="d-flex justify-content-center">
-                <label asp-for="BindingModel.Name" class="font-weight-bold"></label>
+                <label asp-for="Name" class="font-weight-bold"></label>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fas fa-graduation-cap"></i> </span>
                 </div>
-                <input asp-for="BindingModel.Name" class="form-control" placeholder="Enter skill name..." />
+                <input asp-for="Name" class="form-control" placeholder="Enter skill name..." />
             </div>
-            <span asp-validation-for="BindingModel.Name" class="text-danger"></span>
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group">
             <div class="d-flex justify-content-center">
-                <label asp-for="BindingModel.SkillCategory" class="font-weight-bold"></label>
+                <label asp-for="SkillCategory" class="font-weight-bold"></label>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fas fa-layer-group"></i> </span>
                 </div>
-                <select asp-for="BindingModel.SkillCategory" class="form-control">
-                    <option selected disabled value="">Select skill category</option>
-                    @foreach (var option in Model.SkillCategories)
-                    {
-                        <option class="p-4">@option.Name</option>
-                    }
+                <select asp-for="SkillCategory" class="form-control">
+                    <vc:active-skill-categories>
+                    </vc:active-skill-categories>
                 </select>
             </div>
-            <span asp-validation-for="BindingModel.SkillCategory" class="text-danger"></span>
+            <span asp-validation-for="SkillCategory" class="text-danger"></span>
         </div>
         <hr class="mt-3 bg-resources hr-2" />
         <div class="d-flex justify-content-center">
