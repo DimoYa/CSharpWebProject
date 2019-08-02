@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace MyResourcePlanning.Data.Migrations
+﻿namespace MyResourcePlanning.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class DBChangesTrainingRemoveEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

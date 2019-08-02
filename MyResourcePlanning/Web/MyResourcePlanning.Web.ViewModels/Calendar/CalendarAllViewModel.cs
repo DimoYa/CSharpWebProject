@@ -4,7 +4,8 @@
 
     using AutoMapper;
     using MyResourcePlanning.Services.Mapping;
-    using Calendar = Models.Calendar;
+
+    using Calendar = MyResourcePlanning.Models.Calendar;
 
     public class CalendarAllViewModel : IMapFrom<Calendar>, IHaveCustomMappings
     {

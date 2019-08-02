@@ -1,9 +1,9 @@
-﻿namespace MyResourcePlanning.Web.BindingModels.Project
-{
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using MyResourcePlanning.Web.Infrastructure.Validators;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using MyResourcePlanning.Web.Infrastructure.Validators;
 
+namespace MyResourcePlanning.Web.BindingModels.Project
+{
     public class ProjectEditBindingModel 
     {
         [Required]

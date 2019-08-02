@@ -110,7 +110,7 @@
             return result > 0;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllSkillsByCategories<TViewModel>()
+        public Task<IEnumerable<TViewModel>> GetAllSkillsByCategories<TViewModel>()
         {
             var skillsByCategories = this.context.SkillCategories
                  .Where(s => s.IsDeleted == false)
@@ -118,7 +118,7 @@
                  .To<TViewModel>()
                  .ToList();
 
-            return skillsByCategories;
+            return Task.FromResult(skillsByCategories.AsEnumerable());
         }
 
         public async Task<IEnumerable<TViewModel>> GetUserSkillsByCategories<TViewModel>()
@@ -135,7 +135,7 @@
             return skillsByCategories;
         }
 
-        public async Task<Skill> GetSkillById(string id)
+        public Task<Skill> GetSkillById(string id)
         {
             var skill = this.context.Skills
                   .Where(s => s.Id == id)
@@ -147,7 +147,7 @@
 
             skill.SkillCategory = skillCategory;
 
-            return skill;
+            return Task.FromResult(skill);
         }
 
         public async Task<UserSkill> GetCurrentuserSkillById(string id)
@@ -193,12 +193,12 @@
             };
         }
 
-        public async Task<SkillAddBindingModel> GetSkillAddBaseModel(Skill skillToAdd)
+        public Task<SkillAddBindingModel> GetSkillAddBaseModel(Skill skillToAdd)
         {
-            return new SkillAddBindingModel()
+            return Task.FromResult(new SkillAddBindingModel()
             {
                 Name = skillToAdd.Name,
-            };
+            });
         }
     }
 }

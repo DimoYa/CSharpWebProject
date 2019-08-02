@@ -1,10 +1,10 @@
-﻿namespace MyResourcePlanning.Web.BindingModels.Request
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+using MyResourcePlanning.Web.Infrastructure.Validators;
+
+namespace MyResourcePlanning.Web.BindingModels.Request
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-
-    using MyResourcePlanning.Web.Infrastructure.Validators;
-
     public class RequestEditBindingModel
     {
         [Required]

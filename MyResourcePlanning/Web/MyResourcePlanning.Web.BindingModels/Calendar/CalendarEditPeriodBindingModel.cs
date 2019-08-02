@@ -3,8 +3,7 @@
     using MyResourcePlanning.Services.Mapping;
     using System;
     using System.ComponentModel.DataAnnotations;
-    using Calendar = Models.Calendar;
-
+    using Calendar = MyResourcePlanning.Models.Calendar;
     public class CalendarEditPeriodBindingModel : IMapFrom<Calendar>
     {
         [Display(Name = "Date")]

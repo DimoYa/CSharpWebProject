@@ -35,7 +35,6 @@
         {
             if (!this.ModelState.IsValid)
             {
-
                 return this.View(bindingModel ?? new RequestCreateBindingModel());
             }
 

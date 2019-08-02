@@ -1,7 +1,7 @@
-﻿using MyResourcePlanning.Models.Enums;
-
-namespace MyResourcePlanning.Models
+﻿namespace MyResourcePlanning.Models
 {
+    using MyResourcePlanning.Models.Enums;
+
     public class UserCalendar
     {
         public string UserId { get; set; }

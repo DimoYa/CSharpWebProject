@@ -1,6 +1,5 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.Skill
 {
-
     using AutoMapper;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;

@@ -1,11 +1,11 @@
-﻿namespace MyResourcePlanning.Web.BindingModels.Training
-{
-    using AutoMapper;
-    using MyResourcePlanning.Services.Mapping;
-    using MyResourcePlanning.Models;
-    using System.Globalization;
-    using MyResourcePlanning.Models.Enums;
+﻿using AutoMapper;
+using MyResourcePlanning.Services.Mapping;
+using MyResourcePlanning.Models;
+using System.Globalization;
+using MyResourcePlanning.Models.Enums;
 
+namespace MyResourcePlanning.Web.BindingModels.Training
+{
     public class TrainingStatusChangeBindingModel : IMapFrom<UserTraining>, IHaveCustomMappings
     {
         public string TrainingId { get; set; }

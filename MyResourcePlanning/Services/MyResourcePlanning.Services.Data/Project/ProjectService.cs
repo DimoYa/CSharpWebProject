@@ -61,17 +61,17 @@
             return result > 0;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>()
+        public Task<IEnumerable<TViewModel>> GetAllProjects<TViewModel>()
         {
             var projects = this.context.Projects
                 .Where(p => p.IsDeleted == false)
                 .To<TViewModel>()
                 .ToList();
 
-            return projects;
+            return Task.FromResult(projects.AsEnumerable());
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllProjectsForRequest<TViewModel>()
+        public Task<IEnumerable<TViewModel>> GetAllProjectsForRequest<TViewModel>()
         {
             var projects = this.context.Projects
                 .Where(p => p.IsDeleted == false
@@ -80,37 +80,37 @@
                 .To<TViewModel>()
                 .ToList();
 
-            return projects;
+            return Task.FromResult(projects.AsEnumerable());
         }
 
-        public async Task<TViewModel> MapProject<TViewModel>(string id)
+        public Task<TViewModel> MapProject<TViewModel>(string id)
         {
             var currentProject = this.context.Projects
                  .Where(p => p.Id == id)
                  .To<TViewModel>()
                  .SingleOrDefault();
 
-            return currentProject;
+            return Task.FromResult(currentProject);
         }
 
-        public async Task<Project> GetProjectById(string id)
+        public Task<Project> GetProjectById(string id)
         {
             var currentProject = this.context
                 .Projects
                 .Where(p => p.IsDeleted == false)
                 .SingleOrDefault(p => p.Id == id);
 
-            return currentProject;
+            return Task.FromResult(currentProject);
         }
 
-        public async Task<Project> GetProjectByName(string name)
+        public Task<Project> GetProjectByName(string name)
         {
             var currentProject = this.context
                 .Projects
                 .Where(p => p.IsDeleted == false)
                 .FirstOrDefault(p => p.Name == name);
 
-            return currentProject;
+            return Task.FromResult(currentProject);
         }
     }
 }

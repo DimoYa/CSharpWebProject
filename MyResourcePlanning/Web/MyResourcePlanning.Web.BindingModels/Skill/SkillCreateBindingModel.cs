@@ -1,6 +1,7 @@
-﻿namespace MyResourcePlanning.Web.BindingModels.Skill
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MyResourcePlanning.Web.BindingModels.Skill
 {
-    using System.ComponentModel.DataAnnotations;
     public class SkillCreateBindingModel
     {
         [Required]

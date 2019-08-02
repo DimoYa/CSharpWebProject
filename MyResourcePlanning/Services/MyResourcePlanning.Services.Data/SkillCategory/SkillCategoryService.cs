@@ -7,9 +7,8 @@
 
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
-    using MyResourcePlanning.Web.BindingModels.Skill;
     using MyResourcePlanning.Services.Mapping;
-
+    using MyResourcePlanning.Web.BindingModels.Skill;
 
     public class SkillCategoryService : ISkillCategoryService
     {
@@ -66,27 +65,27 @@
             return result > 0;
         }
 
-        public async Task<SkillCategory> GetCategoryByName(string categoryName)
+        public Task<SkillCategory> GetCategoryByName(string categoryName)
         {
             var category = this.context
                                .SkillCategories
                                .Where(s => s.IsDeleted == false)
                                .SingleOrDefault(s => s.Name == categoryName);
 
-            return category;
+            return Task.FromResult(category);
         }
 
-        public async Task<SkillCategory> GetCategoryById(string id)
+        public Task<SkillCategory> GetCategoryById(string id)
         {
             var category = this.context
                               .SkillCategories
                               .Where(s => s.IsDeleted == false)
                               .SingleOrDefault(s => s.Id == id);
 
-            return category;
+            return Task.FromResult(category);
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllSkillCategories<TViewModel>()
+        public Task<IEnumerable<TViewModel>> GetAllSkillCategories<TViewModel>()
         {
             var categories = this.context
                               .SkillCategories
@@ -94,7 +93,7 @@
                               .To<TViewModel>()
                               .ToList();
 
-            return categories;
+            return Task.FromResult(categories.AsEnumerable());
         }
     }
 }

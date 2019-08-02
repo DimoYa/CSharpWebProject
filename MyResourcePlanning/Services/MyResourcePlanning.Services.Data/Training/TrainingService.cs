@@ -152,19 +152,18 @@
             return trainings;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllUsersTrainings<TViewModel>()
+        public Task<IEnumerable<TViewModel>> GetAllUsersTrainings<TViewModel>()
         {
-
             var trainings = this.context.UserTrainings
                  .Where(d => d.Training.DueDate >= DateTime.Now)
                  .Where(s => s.Training.IsDeleted == false)
                  .To<TViewModel>()
                  .ToList();
 
-            return trainings;
+            return Task.FromResult(trainings.AsEnumerable());
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllTrainings<TViewModel>()
+        public Task<IEnumerable<TViewModel>> GetAllTrainings<TViewModel>()
         {
             var trainings = this.context.Trainings
                 .Where(t => t.IsDeleted == false)
@@ -172,26 +171,26 @@
                 .To<TViewModel>()
                 .ToList();
 
-            return trainings;
+            return Task.FromResult(trainings.AsEnumerable());
         }
 
-        public async Task<TViewModel> GetUserTrainingByIds<TViewModel>(string trainingId, string userId)
+        public Task<TViewModel> GetUserTrainingByIds<TViewModel>(string trainingId, string userId)
         {
             var userTrainingToUpdate = this.context.UserTrainings
                 .Where(x => x.UserId == userId && x.TrainingId == trainingId)
                 .To<TViewModel>()
                 .FirstOrDefault();
 
-            return userTrainingToUpdate;
+            return Task.FromResult(userTrainingToUpdate);
         }
 
-        public async Task<Training> GetTrainingById(string id)
+        public Task<Training> GetTrainingById(string id)
         {
             var training = this.context.Trainings
                 .Where(t => t.Id == id)
                 .SingleOrDefault();
 
-            return training;
+            return Task.FromResult(training);
         }
 
         public async Task<TrainingAssignBindingModel> GetTrainingAssignBaseModel(string trainingId)

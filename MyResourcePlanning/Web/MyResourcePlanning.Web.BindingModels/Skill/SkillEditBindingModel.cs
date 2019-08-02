@@ -1,9 +1,9 @@
-﻿namespace MyResourcePlanning.Web.BindingModels.Skill
-{
-    using System.ComponentModel.DataAnnotations;
-    using System.Collections.Generic;
-    using MyResourcePlanning.Web.ViewModels.Skill;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using MyResourcePlanning.Web.ViewModels.Skill;
 
+namespace MyResourcePlanning.Web.BindingModels.Skill
+{
     public class SkillEditBindingModel
     {
         [Required]

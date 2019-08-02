@@ -36,7 +36,7 @@
             return userWithSkills;
         }
 
-        public async Task<string> GetCurrentUserId()
+        public Task<string> GetCurrentUserId()
         {
             var currentUser = this.httpContextAccessor
                 .HttpContext
@@ -44,10 +44,10 @@
                 .FindFirst(ClaimTypes.NameIdentifier)
                 .Value;
 
-            return currentUser;
+            return Task.FromResult(currentUser);
         }
 
-        public async Task<string> GetCurrentUserName()
+        public Task<string> GetCurrentUserName()
         {
             var currentUser = this.httpContextAccessor
                 .HttpContext
@@ -55,24 +55,24 @@
                 .FindFirst(ClaimTypes.Name)
                 .Value;
 
-            return currentUser;
+            return Task.FromResult(currentUser);
         }
 
-        public async Task<User> GetUserByName(string firstName, string lastName)
+        public Task<User> GetUserByName(string firstName, string lastName)
         {
             var user = this.context.Users
                 .SingleOrDefault(u => u.FirstName == firstName && u.LastName == lastName);
 
-            return user;
+            return Task.FromResult(user);
         }
 
-        public async Task<string> GetRoleIdByName(string roleName)
+        public Task<string> GetRoleIdByName(string roleName)
         {
             var resourceRoleId = this.context.Roles
                 .FirstOrDefault(x => x.Name == roleName)
                 .Id;
 
-            return resourceRoleId;
+            return Task.FromResult(resourceRoleId);
         }
     }
 }

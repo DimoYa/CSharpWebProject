@@ -1,11 +1,11 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.Training
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Globalization;
+
     using AutoMapper;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
-
-    using System.ComponentModel.DataAnnotations;
-    using System.Globalization;
 
     public class TrainingAllUsersView : IMapFrom<UserTraining>, IHaveCustomMappings
     {

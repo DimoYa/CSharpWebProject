@@ -1,8 +1,8 @@
-﻿namespace MyResourcePlanning.Web.BindingModels.Skill
-{
-    using MyResourcePlanning.Models.Enums;
-    using System.ComponentModel.DataAnnotations;
+﻿using MyResourcePlanning.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
+namespace MyResourcePlanning.Web.BindingModels.Skill
+{
     public class SkillEditLevelBindingModel
     {
         [Display(Name = "Name")]

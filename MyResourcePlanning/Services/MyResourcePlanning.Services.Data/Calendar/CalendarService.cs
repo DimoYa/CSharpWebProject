@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
@@ -154,14 +155,14 @@
             return result > 0;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>()
+        public Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>()
         {
             var calendaDays = this.context.Calendars
                 .OrderByDescending(c => c.Day)
                 .To<TViewModel>()
                 .ToList();
 
-            return calendaDays;
+            return Task.FromResult(calendaDays.AsEnumerable());
         }
 
         public async Task<IEnumerable<TViewModel>> GetMyDays<TViewModel>()
@@ -178,14 +179,14 @@
             return calendaDays;
         }
 
-        public async Task<TViewModel> MapPeriod<TViewModel>(string id)
+        public Task<TViewModel> MapPeriod<TViewModel>(string id)
         {
             var currentCalendar = this.context
               .Calendars
               .SingleOrDefault(p => p.Id == id)
               .To<TViewModel>();
 
-            return currentCalendar;
+            return Task.FromResult(currentCalendar);
         }
 
         private Task<List<DateTime>> GetBusinessDatesBetween(DateTime startDate, DateTime endDate)
@@ -208,13 +209,13 @@
             return Task.FromResult(allDates);
         }
 
-        private async Task<Calendar> GetCalendarDayById(string id)
+        private Task<Calendar> GetCalendarDayById(string id)
         {
             var currentCalendar = this.context
                .Calendars
                .SingleOrDefault(p => p.Id == id);
 
-            return currentCalendar;
+            return Task.FromResult(currentCalendar);
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿namespace MyResourcePlanning.Web.BindingModels.Training
-{
-    using MyResourcePlanning.Models.Enums;
-    using MyResourcePlanning.Web.Infrastructure.Validators;
-    using System;
-    using System.ComponentModel.DataAnnotations;
+﻿using MyResourcePlanning.Models.Enums;
+using MyResourcePlanning.Web.Infrastructure.Validators;
+using System;
+using System.ComponentModel.DataAnnotations;
 
+namespace MyResourcePlanning.Web.BindingModels.Training
+{
     public class TrainingEditBindingModel
     {
         [Required]

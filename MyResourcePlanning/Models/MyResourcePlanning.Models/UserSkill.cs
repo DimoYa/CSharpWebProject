@@ -1,8 +1,8 @@
-﻿using MyResourcePlanning.Models.Enums;
-using System.ComponentModel.DataAnnotations;
-
-namespace MyResourcePlanning.Models
+﻿namespace MyResourcePlanning.Models
 {
+    using System.ComponentModel.DataAnnotations;
+    using MyResourcePlanning.Models.Enums;
+
     public class UserSkill
     {
         public string UserId { get; set; }
