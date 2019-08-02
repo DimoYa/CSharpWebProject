@@ -40,6 +40,33 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        public async Task<IActionResult> Edit(string id)
+        {
+            var requestForUpdate = await this.calendarService.MapPeriod<CalendarAllViewModel>(id);
+
+            return this.View(requestForUpdate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CalnedarEditPeriodBindingModel model, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(new CalendarAllViewModel());
+            }
+
+            await this.calendarService.Edit(model, id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.calendarService.Delete(id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         public async Task<IActionResult> All()
         {
             var requests = await this.calendarService.GetAllDays<CalendarAllViewModel>();

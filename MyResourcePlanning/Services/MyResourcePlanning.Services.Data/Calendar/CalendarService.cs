@@ -63,6 +63,28 @@
             return result > 0;
         }
 
+        public async Task<bool> Delete(string id)
+        {
+            var calendarDayToDelete = await this.GetCalendarDayById(id);
+
+            this.context.Calendars.Remove(calendarDayToDelete);
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> Edit(CalnedarEditPeriodBindingModel model, string id)
+        {
+            var calendarDayToUpdate = await this.GetCalendarDayById(id);
+
+            calendarDayToUpdate.IsPublicHoliday = model.IspublicHoliday;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>()
         {
             var calendaDays = this.context.Calendars
@@ -71,6 +93,16 @@
                 .ToList();
 
             return calendaDays;
+        }
+
+        public async Task<TViewModel> MapPeriod<TViewModel>(string id)
+        {
+            var currentCalendar = this.context
+              .Calendars
+              .SingleOrDefault(p => p.Id == id)
+              .To<TViewModel>();
+
+            return currentCalendar;
         }
 
         private Task<List<DateTime>> GetBusinessDatesBetween(DateTime startDate, DateTime endDate)
@@ -91,6 +123,15 @@
             }
 
             return Task.FromResult(allDates);
+        }
+
+        private async Task<Calendar> GetCalendarDayById(string id)
+        {
+            var currentCalendar = this.context
+               .Calendars
+               .SingleOrDefault(p => p.Id == id);
+
+            return currentCalendar;
         }
     }
 }

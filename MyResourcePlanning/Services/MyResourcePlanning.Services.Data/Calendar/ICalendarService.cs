@@ -12,6 +12,12 @@
 
         Task<bool> CheckIfPeriodExist(CalnedarCreatePeriodBindingModel inputModel);
 
+        Task<bool> Edit(CalnedarEditPeriodBindingModel model, string id);
+
+        Task<bool> Delete(string id);
+
+        Task<TViewModel> MapPeriod<TViewModel>(string id);
+
         Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>();
     }
 }
