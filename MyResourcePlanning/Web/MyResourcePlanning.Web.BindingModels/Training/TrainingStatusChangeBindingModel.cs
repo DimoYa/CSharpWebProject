@@ -4,7 +4,6 @@
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Models;
     using System.Globalization;
-    using System.ComponentModel.DataAnnotations;
     using MyResourcePlanning.Models.Enums;
 
     public class TrainingStatusChangeBindingModel : IMapFrom<UserTraining>, IHaveCustomMappings

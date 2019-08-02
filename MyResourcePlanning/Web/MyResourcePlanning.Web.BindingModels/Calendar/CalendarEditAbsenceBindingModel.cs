@@ -1,10 +1,11 @@
-﻿using MyResourcePlanning.Web.Infrastructure.Validators;
+﻿using MyResourcePlanning.Models.Enums;
+using MyResourcePlanning.Web.Infrastructure.Validators;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyResourcePlanning.Web.BindingModels.Calendar
 {
-    public class CalnedarCreatePeriodBindingModel
+    public class CalendarEditAbsenceBindingModel
     {
         [Required]
         [DateGreaterOrEqualThatPresent(ErrorMessage = "Date cannot be in the past")]
@@ -20,8 +21,9 @@ namespace MyResourcePlanning.Web.BindingModels.Calendar
         public DateTime EndDate { get; set; }
 
         [Required]
-        [Display(Name = "Public holiday")]
-        public bool IspublicHoliday { get; set; }
+        [EnumDataType(typeof(SkillLevel))]
+        [Display(Name = "Absence Type")]
+        public UserCalendarAbsenceType AbsenceType { get; set; }
 
         public string ErrorMessage { get; set; }
 

@@ -11,7 +11,6 @@
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.BindingModels.Training;
-    using MyResourcePlanning.Web.ViewModels.Training;
     using MyResourcePlanning.Web.ViewModels.User;
 
     public class TrainingService : ITrainingService

@@ -10,7 +10,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
     using MyResourcePlanning.Common;
     using MyResourcePlanning.Models;
 

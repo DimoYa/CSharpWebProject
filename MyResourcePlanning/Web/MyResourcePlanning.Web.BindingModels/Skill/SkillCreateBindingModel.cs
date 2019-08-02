@@ -1,7 +1,5 @@
 ﻿namespace MyResourcePlanning.Web.BindingModels.Skill
 {
-    using MyResourcePlanning.Models;
-    using MyResourcePlanning.Services.Mapping;
     using System.ComponentModel.DataAnnotations;
     public class SkillCreateBindingModel
     {

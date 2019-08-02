@@ -4,26 +4,28 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.EntityFrameworkCore;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
+    using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.BindingModels.Calendar;
 
     public class CalendarService : ICalendarService
     {
         private readonly MyResourcePlanningDbContext context;
+        private readonly IUserService userService;
 
-        public CalendarService(MyResourcePlanningDbContext context)
+        public CalendarService(
+            MyResourcePlanningDbContext context,
+            IUserService userService)
         {
             this.context = context;
+            this.userService = userService;
         }
 
-        public async Task<bool> CheckIfPeriodExist(CalnedarCreatePeriodBindingModel model)
+        public async Task<bool> CheckIfPeriodExist(DateTime startDate, DateTime endDate)
         {
-            var startDate = model.StartDate;
-            var endDate = model.EndDate;
-
             var daysToAdd = await this.GetBusinessDatesBetween(startDate, endDate);
 
             var daysInDB = this.context.Calendars
@@ -36,7 +38,28 @@
             return result;
         }
 
-        public async Task<bool> CreatePeriod(CalnedarCreatePeriodBindingModel inputModel)
+        public async Task<bool> CheckIfAbsenceExistOrIsPublicHoliday(DateTime startDate, DateTime endDate)
+        {
+            var daysToAdd = await this.GetBusinessDatesBetween(startDate, endDate);
+
+            var daysInDB = this.context.UserCalendars
+               .Include(c => c.Calendar)
+               .Where(c => c.Calendar.Day >= startDate && c.Calendar.Day <= endDate)
+               .Select(c => c.Calendar.Day)
+               .ToList();
+
+            var publicHolidaysInDB = this.context.Calendars
+               .Where(c => c.Day >= startDate && c.Day <= endDate && c.IsPublicHoliday == true)
+               .Select(c => c.Day)
+               .ToList();
+
+            var isDayAlreadyAdded = daysInDB.Intersect(daysToAdd).Any();
+            var isDayPublicHoliday = publicHolidaysInDB.Intersect(daysToAdd).Any();
+
+            return isDayAlreadyAdded || isDayPublicHoliday;
+        }
+
+        public async Task<bool> CreatePeriod(CalendarCreatePeriodBindingModel inputModel)
         {
             var startDate = inputModel.StartDate;
             var endDate = inputModel.EndDate;
@@ -74,7 +97,7 @@
             return result > 0;
         }
 
-        public async Task<bool> Edit(CalnedarEditPeriodBindingModel model, string id)
+        public async Task<bool> Edit(CalendarEditPeriodBindingModel model, string id)
         {
             var calendarDayToUpdate = await this.GetCalendarDayById(id);
 
@@ -85,10 +108,70 @@
             return result > 0;
         }
 
+        public async Task<bool> CreateAbsence(CalendarCreateAbsenceBindingModel inputModel)
+        {
+            var startDate = inputModel.StartDate;
+            var endDate = inputModel.EndDate;
+            var type = inputModel.AbsenceType;
+            var currentUser = await this.userService.GetCurrentUserId();
+
+            var daysToAdd = await this.GetBusinessDatesBetween(startDate, endDate);
+
+            var userCalendarDaysToadd = new List<UserCalendar>();
+
+            foreach (var day in daysToAdd)
+            {
+                UserCalendar userCalendar = new UserCalendar
+                {
+                    UserId = currentUser,
+                    CalendarId = this.context.Calendars
+                                             .SingleOrDefault(c => c.Day == day).Id,
+                    AbsenceType = type,
+                };
+
+                userCalendarDaysToadd.Add(userCalendar);
+            }
+
+            this.context.UserCalendars.AddRange(userCalendarDaysToadd);
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> DeleteAbsence(string calendarId)
+        {
+            var userId = await this.userService.GetCurrentUserId();
+
+            var entryToRemove = this.context.UserCalendars
+                                            .SingleOrDefault(uc => uc.UserId == userId 
+                                            && uc.CalendarId == calendarId);
+
+            this.context.UserCalendars.Remove(entryToRemove);
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>()
         {
             var calendaDays = this.context.Calendars
                 .OrderByDescending(c => c.Day)
+                .To<TViewModel>()
+                .ToList();
+
+            return calendaDays;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetMyDays<TViewModel>()
+        {
+            var currentUser = await this.userService.GetCurrentUserId();
+
+            var calendaDays = this.context.UserCalendars
+                .Include(c => c.Calendar)
+                .Where(uc => uc.UserId == currentUser)
+                .OrderByDescending(c => c.Calendar.Day)
                 .To<TViewModel>()
                 .ToList();
 

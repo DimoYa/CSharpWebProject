@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using MyResourcePlanning.Models.BaseModels;
-    using MyResourcePlanning.Models.Enums;
 
     public class Skill : BaseDeletableModel<string>
     {

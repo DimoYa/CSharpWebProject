@@ -8,16 +8,24 @@
 
     public interface ICalendarService
     {
-        Task<bool> CreatePeriod(CalnedarCreatePeriodBindingModel inputModel);
+        Task<bool> CreatePeriod(CalendarCreatePeriodBindingModel inputModel);
 
-        Task<bool> CheckIfPeriodExist(CalnedarCreatePeriodBindingModel inputModel);
+        Task<bool> CheckIfPeriodExist(DateTime startDate, DateTime endDate);
 
-        Task<bool> Edit(CalnedarEditPeriodBindingModel model, string id);
+        Task<bool> CheckIfAbsenceExistOrIsPublicHoliday(DateTime startDate, DateTime endDate);
+
+        Task<bool> Edit(CalendarEditPeriodBindingModel model, string id);
 
         Task<bool> Delete(string id);
+
+        Task<bool> CreateAbsence(CalendarCreateAbsenceBindingModel inputModel);
+
+        Task<bool> DeleteAbsence(string id);
 
         Task<TViewModel> MapPeriod<TViewModel>(string id);
 
         Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>();
+
+        Task<IEnumerable<TViewModel>> GetMyDays<TViewModel>();
     }
 }

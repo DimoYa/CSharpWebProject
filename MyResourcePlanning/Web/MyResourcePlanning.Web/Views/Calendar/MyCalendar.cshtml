@@ -1,0 +1,96 @@
+﻿@model List<MyResourcePlanning.Web.ViewModels.Calendar.CalendarMyViewModel>
+
+@{
+    ViewData["Title"] = "MyCalendar";
+}
+
+<div class="jumbotron">
+    <h1 class="text-center">My calendar</h1>
+    <hr class="bg-resources hr-2" />
+    <table border="0" cellspacing="5" cellpadding="5">
+        <tbody>
+            <tr>
+                <td>From date:</td>
+                <td><input type="text" id="min" name="min"></td>
+            </tr>
+            <tr>
+                <td>To date:</td>
+                <td><input type="text" id="max" name="max"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Public holiday</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].Day</td>
+                    <td>@Model[i].AbsenceType</td>
+                    <td>
+                        <a onclick="actionConfirmation('@Model[i].CalendarId', 'Calendar', 'DeleteAbsence')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete period"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table><table id="example" class="display" style="width:100%">
+        <tfoot>
+            <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Public holiday</th>
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
+                {
+                    <th scope="col">Action</th>
+                }
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<partial name="_NotificationPartial" />
+
+@section scripts{
+    <script type="text/javascript" src="~/js/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        window.onload = () => {
+            $('#min, #max').datetimepicker({
+                timepicker: false,
+                format: 'd/m/Y',
+                lang: 'en',
+                todayButton: true,
+                dayOfWeekStart: '1',
+            });
+        };
+    </script>
+    <script>
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = parseInt($('#min').val(), 10);
+                var max = parseInt($('#max').val(), 10);
+                var age = parseInt(data[0]) || 0;
+
+                if ((isNaN(min) && isNaN(max)) ||
+                    (isNaN(min) && age <= max) ||
+                    (min <= age && isNaN(max)) ||
+                    (min <= age && age <= max)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            var table = $('#example').DataTable();
+
+            $('#min, #max').change(function () {
+                table.draw();
+            });
+        });
+    </script>
+    <script src="~/js/notificationMsg.js"></script>
+}

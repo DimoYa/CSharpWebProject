@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyResourcePlanning.Data;
 
 namespace MyResourcePlanning.Data.Migrations
 {
     [DbContext(typeof(MyResourcePlanningDbContext))]
-    partial class MyResourcePlanningDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190802102638_HolidayStatus")]
+    partial class HolidayStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -343,7 +345,7 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.Property<string>("CalendarId");
 
-                    b.Property<int>("AbsenceType");
+                    b.Property<int>("HolidayType");
 
                     b.HasKey("UserId", "CalendarId");
 

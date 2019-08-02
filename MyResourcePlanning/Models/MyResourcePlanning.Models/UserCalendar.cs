@@ -1,4 +1,6 @@
-﻿namespace MyResourcePlanning.Models
+﻿using MyResourcePlanning.Models.Enums;
+
+namespace MyResourcePlanning.Models
 {
     public class UserCalendar
     {
@@ -10,6 +12,6 @@
 
         public Calendar Calendar { get; set; }
 
-        public bool IsVacation { get; set; }
+        public UserCalendarAbsenceType AbsenceType { get; set; }
     }
 }

@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using MyResourcePlanning.Models;
     using MyResourcePlanning.Web.BindingModels.Request;
 
     public interface IRequestService
