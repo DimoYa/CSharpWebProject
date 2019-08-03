@@ -199,7 +199,7 @@
                 .ToList();
         }
 
-        public async Task<RequestUserDetailsBaseModel> GetEmployeeDetails(RequestUserDetailsBaseModel baseModel)
+        public async Task<TViewModel> GetEmployeeDetails<TViewModel>(RequestUserDetailsBaseModel baseModel)
         {
             var model = baseModel.BindingnModel;
             var getResource = Regex.Split(model.Resource, @"\s\s+");
@@ -240,12 +240,11 @@
 
                 Trainings = user.Trainings
                 .OrderBy(t => t.Training.Name)
-                .Where(t => t.Status == UserTrainingStatus.Passed)
                 .ToList(),
             };
 
             baseModel.ViewModel = results;
-            return baseModel;
+            return baseModel.To<TViewModel>();
         }
 
         private async Task<Request> GetRequestById(string id)

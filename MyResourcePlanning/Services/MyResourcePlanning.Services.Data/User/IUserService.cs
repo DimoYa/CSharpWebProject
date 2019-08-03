@@ -1,11 +1,9 @@
 ﻿namespace MyResourcePlanning.Services.Data.User
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using MyResourcePlanning.Models;
-    using MyResourcePlanning.Web.ViewModels.User;
 
     public interface IUserService
     {

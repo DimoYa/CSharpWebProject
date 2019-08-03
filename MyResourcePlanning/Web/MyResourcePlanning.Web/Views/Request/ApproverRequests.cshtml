@@ -6,6 +6,7 @@
 }
 
 <div class="jumbotron">
+    <a class="btn btn-secondary mb-1" href="/Request/UserDetails"><i class="fas fa-users p-1"></i>Go to user details</a>
     <h1 id="title" class="text-center">Approver Requests</h1>
     <partial name="_SearchAndFilterHeaderPartial" />
     <div class="table-responsive">
@@ -33,9 +34,9 @@
                         <td>@Model[i].Status</td>
                         <td>
                             @if (Model[i].Status != RequestStatus.Rejected.ToString()
-                             && Model[i].Status != RequestStatus.Booked.ToString()
-                             && Model[i].Status != RequestStatus.Returned.ToString()
-                             && Model[i].Status != RequestStatus.Deleted.ToString())
+                          && Model[i].Status != RequestStatus.Booked.ToString()
+                          && Model[i].Status != RequestStatus.Returned.ToString()
+                          && Model[i].Status != RequestStatus.Deleted.ToString())
                             {
                                 <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Approve')" class="btn bg-transparent"><i class="far fa-thumbs-up" data-placement="top" title="Book Request"></i></a>
                                 <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Reject')" class="btn bg-transparent"><i class="far fa-thumbs-down" data-placement="top" title="Reject Request"></i></a>
@@ -51,7 +52,6 @@
     <partial name="_SearchAndFilterFooterPartial" />
 </div>
 <partial name="_NotificationPartial" />
-@Html.Partial("UserDetails", new RequestUserDetailsBaseModel());
 
 @section scripts{
     <script type="text/javascript" src="~/js/paging.js"></script>

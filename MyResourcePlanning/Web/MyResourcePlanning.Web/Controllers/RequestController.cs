@@ -1,15 +1,12 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using MyResourcePlanning.Services.Data.Project;
     using MyResourcePlanning.Services.Data.Request;
-    using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Web.BindingModels.Request;
     using MyResourcePlanning.Web.ViewModels.Request;
-    using MyResourcePlanning.Web.ViewModels.User;
 
     public class RequestController : BaseController
     {
@@ -127,7 +124,7 @@
                 return this.View(model ?? new RequestUserDetailsBaseModel());
             }
 
-            var userDetails = await this.requestsService.GetEmployeeDetails(model);
+            var userDetails = await this.requestsService.GetEmployeeDetails<RequestUserDetailsBaseModel>(model);
 
             return this.View(userDetails);
         }

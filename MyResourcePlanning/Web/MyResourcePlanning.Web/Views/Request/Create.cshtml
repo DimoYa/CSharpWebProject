@@ -4,90 +4,89 @@
     ViewData["Title"] = "Create Request";
 }
 
-<div class="jumbotron">
-
-    <h1 class="text-center" mt-3>Create Request</h1>
-    <form id="createForm" method="post" class="w-50 mx-auto">
-        <hr class="mt-3 bg-resources hr-2" />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="d-flex justify-content-between">
-            <div class="form-group w-45">
+    <div class="jumbotron">
+        <a class="btn btn-secondary mb-1" href="/Request/UserDetails"><i class="fas fa-users p-1"></i>Go to user details</a>
+        <h1 class="text-center" mt-3>Create Request</h1>
+        <form id="createForm" method="post" class="w-50 mx-auto">
+            <hr class="mt-3 bg-resources hr-2" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group w-45">
+                    <div class="d-flex justify-content-center">
+                        <label asp-for="StartDate" class="font-weight-bold"></label>
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i></span>
+                        </div>
+                        <input asp-for="StartDate" autocomplete="off" id="startDate" class="form-control" placeholder="dd/MM/yyyy" type="text" />
+                    </div>
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group w-45">
+                    <div class="d-flex justify-content-center">
+                        <label asp-for="EndDate" class="font-weight-bold"></label>
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
+                        </div>
+                        <input asp-for="EndDate" autocomplete="off" id="endDate" class="form-control" placeholder="dd/MM/yyyy" type="text" />
+                    </div>
+                    <span asp-validation-for="EndDate" id="endDateError" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="d-flex justify-content-center">
-                    <label asp-for="StartDate" class="font-weight-bold"></label>
+                    <label asp-for="Resource" class="font-weight-bold"></label>
                 </div>
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fas fa-calendar-alt"></i></span>
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input asp-for="StartDate" autocomplete="off" id="startDate" class="form-control" placeholder="dd/MM/yyyy" type="text" />
+                    <select asp-for="Resource" id="dropdown" class="form-control">
+                        <option selected disabled value="">First Name;Last Name</option>
+                        <vc:active-resources>
+                        </vc:active-resources>
+                    </select>
                 </div>
-                <span asp-validation-for="StartDate" class="text-danger"></span>
+                <span asp-validation-for="Resource" class="text-danger"></span>
             </div>
-            <div class="form-group w-45">
+            <div class="form-group">
                 <div class="d-flex justify-content-center">
-                    <label asp-for="EndDate" class="font-weight-bold"></label>
+                    <label asp-for="Project" class="font-weight-bold"></label>
                 </div>
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
+                        <span class="input-group-text"> <i class="fas fa-business-time"></i> </span>
                     </div>
-                    <input asp-for="EndDate" autocomplete="off" id="endDate" class="form-control" placeholder="dd/MM/yyyy" type="text" />
+                    <select asp-for="Project" id="dropdown" class="form-control">
+                        <vc:active-projects>
+                        </vc:active-projects>
+                    </select>
                 </div>
-                <span asp-validation-for="EndDate" id="endDateError" class="text-danger"></span>
+                <span asp-validation-for="Project" class="text-danger"></span>
             </div>
-        </div>
-        <div class="form-group">
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="WorkingHours" class="font-weight-bold"></label>
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-clock"></i> </span>
+                    </div>
+                    <input asp-for="WorkingHours" class="form-control" type="number" step="any" placeholder="Enter working hours..." />
+                </div>
+                <span asp-validation-for="WorkingHours" class="text-danger"></span>
+            </div>
+            <hr class="mt-3 bg-resources hr-2" />
             <div class="d-flex justify-content-center">
-                <label asp-for="Resource" class="font-weight-bold"></label>
+                <button type="submit" class="btn btn-primary btn-block">
+                    Create New Request
+                </button>
             </div>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <select asp-for="Resource" id="dropdown" class="form-control">
-                    <vc:active-resources>
-                    </vc:active-resources>
-                </select>
-            </div>
-            <span asp-validation-for="Resource" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <div class="d-flex justify-content-center">
-                <label asp-for="Project" class="font-weight-bold"></label>
-            </div>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-business-time"></i> </span>
-                </div>
-                <select asp-for="Project" id="dropdown" class="form-control">
-                    <vc:active-projects>
-                    </vc:active-projects>
-                </select>
-            </div>
-            <span asp-validation-for="Project" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <div class="d-flex justify-content-center">
-                <label asp-for="WorkingHours" class="font-weight-bold"></label>
-            </div>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-clock"></i> </span>
-                </div>
-                <input asp-for="WorkingHours" class="form-control" type="number" step="any" placeholder="Enter working hours..." />
-            </div>
-            <span asp-validation-for="WorkingHours" class="text-danger"></span>
-        </div>
-        <hr class="mt-3 bg-resources hr-2" />
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary btn-block">
-                Create New Request
-            </button>
-        </div>
-    </form>
-</div>
-@Html.Partial("UserDetails", new RequestUserDetailsBaseModel());
-
+        </form>
+    </div>
 
 @section scripts{
     <script type="text/javascript" src="~/js/jquery.datetimepicker.full.min.js"></script>
