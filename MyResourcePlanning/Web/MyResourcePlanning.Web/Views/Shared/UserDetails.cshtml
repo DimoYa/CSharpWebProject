@@ -1,0 +1,176 @@
+﻿@model MyResourcePlanning.Web.BindingModels.Request.RequestUserDetailsBaseModel
+
+@{
+    ViewData["Title"] = "EmployeeDetails";
+}
+
+<div class="jumbotron">
+    <h1 class="text-center" mt-3>User Details</h1>
+    <form id="checkForm" method="post" class="w-50 mx-auto">
+        <hr class="mt-3 bg-resources hr-2" />
+        <div class="d-flex justify-content-between">
+            <div class="form-group w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="BindingnModel.StartDate" class="font-weight-bold"></label>
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-calendar-alt"></i></span>
+                    </div>
+                    <input asp-for="BindingnModel.StartDate" autocomplete="off" id="start" class="form-control" placeholder="dd/MM/yyyy" type="text" />
+                </div>
+                <span asp-validation-for="BindingnModel.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="BindingnModel.EndDate" class="font-weight-bold"></label>
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
+                    </div>
+                    <input asp-for="BindingnModel.EndDate" autocomplete="off" id="end" class="form-control" placeholder="dd/MM/yyyy" type="text" />
+                </div>
+                <span asp-validation-for="BindingnModel.EndDate" id="endDateError" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="BindingnModel.Resource" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <select asp-for="BindingnModel.Resource" id="dropdown" class="form-control">
+                    <vc:active-resources>
+                    </vc:active-resources>
+                </select>
+            </div>
+            <span asp-validation-for="BindingnModel.Resource" class="text-danger"></span>
+        </div>
+        <hr class="mt-3 bg-resources hr-2" />
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-info btn-block">
+                Get user details
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="jumbotron">
+    <div class="w-50 mx-auto">
+        <h4 class="text-center" mt-3>Employee details</h4>
+        <hr class="mt-3 bg-resources hr-2" />
+
+        <div class="accordion" id="accordionExample">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading card text-white bg-info mb-3 cl" id="headingOne">
+                        <div>
+                            <h4 class="mb-0 text-center">
+                                <span class="center-block">Employee Details</span>
+                            </h4>
+                        </div>
+                        <button type="button" data-toggle="collapse" data-target="#collapse"><i class="far fa-object-ungroup fa-2x text-success"></i></button>
+                    </div>
+                    <div id="collapse" class="collapse" aria-labelledby="headingOne">
+                        <div class="form-group">
+                            <div class="d-flex justify-content-center">
+                                <label class="font-weight-bold">Free Hours</label>
+                            </div>
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fas fa-clock"></i> </span>
+                                </div>
+                                <input disabled asp-for="ViewModel.FreeHours" class="form-control text-center" type="number" step="any" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="form-group w-50">SkillName</th>
+                                        <th class="form-group w-50">Level</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <ul class="list-group mb-3">
+                            @if (@Model.ViewModel != null)
+                            {
+                                @foreach (var item in @Model.ViewModel.Skills)
+                                {
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="form-group w-50">
+                                                <span>@item.Skill.Name</span>
+                                            </div>
+                                            <div class="form-group w-50">
+                                                <span>@item.Level</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        <div class="d-flex justify-content-between">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="form-group w-50">Training name</th>
+                                        <th class="form-group w-50">Status</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <ul class="list-group">
+                            @if (@Model.ViewModel != null)
+                            {
+                                @foreach (var training in @Model.ViewModel.Trainings)
+                                {
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="form-group w-50">
+                                                <span>@training.Training.Name</span>
+                                            </div>
+                                            <div class="form-group w-50">
+                                                <span>@training.Status</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="~/js/jquery.datetimepicker.full.min.js"></script>
+<script src="~/js/addGrouping.js"></script>
+    <script>
+        window.onload = () => {
+            $('#start, #end').datetimepicker({
+                timepicker: false,
+                format: 'd/m/Y',
+                minDate: '-1970/01/01',
+                lang: 'en',
+                todayButton: true,
+                dayOfWeekStart: '1',
+            });
+        };
+    </script>
+    <script>
+        getErrorMsgs('#checkForm');
+    </script>
+    <script>
+        twoColumnDropDown('#dropdown option', ';', 20, 50);
+    </script>
+    <script>
+        wrapInASpan(['End date must be greater than Start Date', 'Date cannot be in the past'], 'alert alert-danger');
+    </script>
+}

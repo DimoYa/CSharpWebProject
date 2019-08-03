@@ -1,9 +1,11 @@
 ﻿namespace MyResourcePlanning.Services.Data.Request
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using MyResourcePlanning.Web.BindingModels.Request;
+    using MyResourcePlanning.Web.ViewModels.User;
 
     public interface IRequestService
     {
@@ -19,6 +21,8 @@
 
         Task<bool> Delete(string id);
 
+        Task<RequestUserDetailsBaseModel> GetEmployeeDetails(RequestUserDetailsBaseModel model);
+
         Task<List<string>> GetRequestCommentsById(string id);
 
         Task<TViewModel> MapRequest<TViewModel>(string id);
@@ -28,5 +32,6 @@
         Task<IEnumerable<TViewModel>> GetAllApproverRequests<TViewModel>();
 
         Task<IEnumerable<TViewModel>> GetAllResourceRequests<TViewModel>();
+
     }
 }

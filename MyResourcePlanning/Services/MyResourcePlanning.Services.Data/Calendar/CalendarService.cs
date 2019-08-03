@@ -145,7 +145,7 @@
             var userId = await this.userService.GetCurrentUserId();
 
             var entryToRemove = this.context.UserCalendars
-                                            .SingleOrDefault(uc => uc.UserId == userId 
+                                            .SingleOrDefault(uc => uc.UserId == userId
                                             && uc.CalendarId == calendarId);
 
             this.context.UserCalendars.Remove(entryToRemove);

@@ -6,7 +6,7 @@
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Web.ViewModels.User;
 
-    [ViewComponent(Name ="ActiveResources")]
+    [ViewComponent(Name = "ActiveResources")]
     public class ActiveResourcesViewComponent : ViewComponent
     {
         private readonly IUserService userService;

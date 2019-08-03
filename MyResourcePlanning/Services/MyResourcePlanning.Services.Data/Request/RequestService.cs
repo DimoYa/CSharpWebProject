@@ -15,6 +15,7 @@
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
     using MyResourcePlanning.Web.BindingModels.Request;
+    using MyResourcePlanning.Web.ViewModels.User;
 
     public class RequestService : IRequestService
     {
@@ -196,6 +197,55 @@
             return comments
                 .Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries)
                 .ToList();
+        }
+
+        public async Task<RequestUserDetailsBaseModel> GetEmployeeDetails(RequestUserDetailsBaseModel baseModel)
+        {
+            var model = baseModel.BindingnModel;
+            var getResource = Regex.Split(model.Resource, @"\s\s+");
+            User resource = await this.GetResourceFromString(getResource);
+
+            var user = this.context.Users
+                .Include(r => r.Skills).ThenInclude(r => r.Skill)
+                .Include(r => r.Trainings).ThenInclude(r => r.Training)
+                .SingleOrDefault(u => u.IsDeleted == false && u.Id == resource.Id);
+
+            var workingHours = this.context.Calendars
+                .Where(c => c.Day >= model.StartDate &&
+                c.Day <= model.EndDate &&
+                c.IsPublicHoliday == false)
+                .Count() * 8;
+
+            var userAbsencesHours = this.context.UserCalendars
+                .Where(c => c.UserId == resource.Id &&
+                c.Calendar.Day >= model.StartDate &&
+                c.Calendar.Day <= model.EndDate)
+                .Count() * 8;
+
+            var userBookedRequestsHours = this.context.Requests
+                .Where(r => r.UserId == resource.Id
+                && r.StartDate >= model.StartDate && r.EndDate <= model.EndDate
+                && r.Status == RequestStatus.Booked)
+                .Sum(r => r.WorkingHours);
+
+            var resourceFreeHours = workingHours - userAbsencesHours - userBookedRequestsHours  ;
+
+            var results = new UserDetails()
+            {
+                FreeHours = resourceFreeHours < 0 ? "0.00" : resourceFreeHours.ToString("F2"),
+
+                Skills = user.Skills
+                .OrderBy(s => s.Skill.Name)
+                .ToList(),
+
+                Trainings = user.Trainings
+                .OrderBy(t => t.Training.Name)
+                .Where(t => t.Status == UserTrainingStatus.Passed)
+                .ToList(),
+            };
+
+            baseModel.ViewModel = results;
+            return baseModel;
         }
 
         private async Task<Request> GetRequestById(string id)

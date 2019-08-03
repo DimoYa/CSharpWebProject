@@ -1,18 +1,11 @@
-﻿using System;
+﻿using MyResourcePlanning.Web.Infrastructure.Validators;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-using MyResourcePlanning.Web.Infrastructure.Validators;
-
-namespace MyResourcePlanning.Web.BindingModels.Project
+namespace MyResourcePlanning.Web.BindingModels.Request
 {
-    public class ProjectCreateBindingModel
+    public class RequestCreateUserDetailsBindingModel
     {
-        [Required]
-        [StringLength(100, MinimumLength = 1)]
-        [Display(Name = "Name")]
-        [DataType(DataType.Text)]
-        public string Name { get; set; }
-
         [Required]
         [DateGreaterOrEqualThatPresent(ErrorMessage = "Date cannot be in the past")]
         [Display(Name = "Start Date")]
@@ -27,8 +20,6 @@ namespace MyResourcePlanning.Web.BindingModels.Project
         public DateTime EndDate { get; set; }
 
         [Required]
-        [Range(1, double.MaxValue, ErrorMessage = "Please Enter positive number")]
-        [Display(Name = "Requested Hours")]
-        public double RequestedHours { get; set; }
+        public string Resource { get; set; }
     }
 }

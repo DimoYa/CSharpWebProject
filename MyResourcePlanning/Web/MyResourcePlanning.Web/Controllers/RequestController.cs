@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -8,20 +9,18 @@
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Web.BindingModels.Request;
     using MyResourcePlanning.Web.ViewModels.Request;
+    using MyResourcePlanning.Web.ViewModels.User;
 
     public class RequestController : BaseController
     {
         private readonly IRequestService requestsService;
-        private readonly IUserService userService;
         private readonly IProjectService projectService;
 
         public RequestController(
             IRequestService requestsService,
-            IUserService userService,
             IProjectService projectService)
         {
             this.requestsService = requestsService;
-            this.userService = userService;
             this.projectService = projectService;
         }
 
@@ -113,6 +112,24 @@
         {
             var comments = await this.requestsService.GetRequestCommentsById(id);
             return this.View(comments);
+        }
+
+        public async Task<IActionResult> UserDetails()
+        {
+            return this.View(new RequestUserDetailsBaseModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UserDetails(RequestUserDetailsBaseModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model ?? new RequestUserDetailsBaseModel());
+            }
+
+            var userDetails = await this.requestsService.GetEmployeeDetails(model);
+
+            return this.View(userDetails);
         }
     }
 }

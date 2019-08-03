@@ -4,7 +4,7 @@ using MyResourcePlanning.Web.Infrastructure.Validators;
 
 namespace MyResourcePlanning.Web.BindingModels.Project
 {
-    public class ProjectEditBindingModel 
+    public class ProjectEditBindingModel
     {
         [Required]
         [StringLength(100, MinimumLength = 1)]

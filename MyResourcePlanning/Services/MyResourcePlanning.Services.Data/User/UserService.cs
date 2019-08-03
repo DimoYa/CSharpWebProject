@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Services.Data.User
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
@@ -9,7 +10,9 @@
     using MyResourcePlanning.Common;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
+    using MyResourcePlanning.Models.Enums;
     using MyResourcePlanning.Services.Mapping;
+    using MyResourcePlanning.Web.ViewModels.User;
 
     public class UserService : IUserService
     {

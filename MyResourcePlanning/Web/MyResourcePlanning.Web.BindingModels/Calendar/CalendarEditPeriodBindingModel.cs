@@ -12,6 +12,6 @@
         [Required]
         [Display(Name = "Public holiday")]
         public bool IspublicHoliday { get; set; }
-      
+
     }
 }
