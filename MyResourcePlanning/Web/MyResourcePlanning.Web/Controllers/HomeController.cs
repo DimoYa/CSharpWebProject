@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
@@ -9,6 +10,7 @@
             return this.View();
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return this.View();

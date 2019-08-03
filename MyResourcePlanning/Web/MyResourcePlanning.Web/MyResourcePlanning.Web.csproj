@@ -38,9 +38,4 @@
     <ProjectReference Include="..\MyResourcePlanning.Web.Infrastructure\MyResourcePlanning.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\MyResourcePlanning.Web.ViewModels\MyResourcePlanning.Web.ViewModels.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Approver\" />
-    <Folder Include="Areas\Planner\" />
-  </ItemGroup>
 </Project>

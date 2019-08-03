@@ -228,7 +228,7 @@
                 && r.Status == RequestStatus.Booked)
                 .Sum(r => r.WorkingHours);
 
-            var resourceFreeHours = workingHours - userAbsencesHours - userBookedRequestsHours  ;
+            var resourceFreeHours = workingHours - userAbsencesHours - userBookedRequestsHours;
 
             var results = new UserDetails()
             {

@@ -39,8 +39,8 @@
                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
                         <td>
-                            <a asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit period"></i></a>
-                            <a onclick="actionConfirmation('@Model[i].Id', 'Calendar', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete period"></i></a>
+                            <a asp-area="Administration" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit period"></i></a>
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Administration/Calendar', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete period"></i></a>
                         </td>
                     }
                 </tr>

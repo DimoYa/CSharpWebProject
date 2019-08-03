@@ -8,8 +8,6 @@
     using MyResourcePlanning.Services.Data.Project;
     using MyResourcePlanning.Web.ViewModels.Project;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-    [Authorize(Roles = GlobalConstants.PlannerRoleName)]
     public class ProjectController : BaseController
     {
         private readonly IProjectService projectService;
@@ -19,6 +17,10 @@
             this.projectService = projectService;
         }
 
+        [Authorize(Roles =
+            GlobalConstants.PlannerRoleName + "," +
+            GlobalConstants.ApproverRoleName + "," +
+            GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> All()
         {
             var requests = await this.projectService.GetAllProjects<ProjectAllViewModel>();

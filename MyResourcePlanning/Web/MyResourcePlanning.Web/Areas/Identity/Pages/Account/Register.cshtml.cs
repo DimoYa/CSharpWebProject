@@ -102,10 +102,6 @@
             [DataType(DataType.PhoneNumber)]
             public string PhoneNumber { get; set; }
 
-            [Display(Name = "Image Url")]
-            [DataType(DataType.Text)]
-            public string ImageUrl { get; set; }
-
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
             [DataType(DataType.Password)]

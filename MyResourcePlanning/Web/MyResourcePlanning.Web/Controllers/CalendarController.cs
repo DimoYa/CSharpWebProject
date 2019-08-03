@@ -18,7 +18,8 @@
             this.calendarService = calendarService;
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.ResourceRoleName)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," +
+                           GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> All()
         {
             var requests = await this.calendarService.GetAllDays<CalendarAllViewModel>();

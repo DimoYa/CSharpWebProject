@@ -3,8 +3,9 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MyResourcePlanning.Common;
     using MyResourcePlanning.Services.Data.Skill;
     using MyResourcePlanning.Services.Data.SkillCategory;
     using MyResourcePlanning.Web.BindingModels.Skill;
@@ -23,6 +24,7 @@
             this.skillCategoryService = skillCategoryService;
         }
 
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> AddSkill(string id)
         {
             var skillToAdd = await this.skillService.GetSkillById(id);
@@ -33,6 +35,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> AddSkill(SkillAddBindingModel inputModel, string id)
         {
             if (!this.ModelState.IsValid)
@@ -45,12 +48,14 @@
             return this.RedirectToAction(nameof(this.MySkills));
         }
 
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> RemoveSkill(string id)
         {
             await this.skillService.RemoveSkillFromProfile(id);
             return this.RedirectToAction(nameof(this.MySkills));
         }
 
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> EditSkilllevel(string id)
         {
             var skillForUpdate = await this.skillService.GetCurrentuserSkillById(id);
@@ -60,6 +65,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> EditSkilllevel(SkillEditLevelBindingModel model, string id)
         {
             if (!this.ModelState.IsValid)
@@ -72,6 +78,8 @@
             return this.RedirectToAction(nameof(this.MySkills));
         }
 
+        [Authorize(Roles = GlobalConstants.ResourceRoleName + "," +
+                           GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> All()
         {
             var skills = await this.skillService
@@ -82,6 +90,7 @@
             return this.View(Tuple.Create(skills.ToList(), currentUserSkills));
         }
 
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> MySkills()
         {
             var userSkills = await this.skillService

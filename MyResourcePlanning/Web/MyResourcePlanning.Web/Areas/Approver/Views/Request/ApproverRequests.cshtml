@@ -38,9 +38,9 @@
                           && Model[i].Status != RequestStatus.Returned.ToString()
                           && Model[i].Status != RequestStatus.Deleted.ToString())
                             {
-                                <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Approve')" class="btn bg-transparent"><i class="far fa-thumbs-up" data-placement="top" title="Book Request"></i></a>
-                                <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Reject')" class="btn bg-transparent"><i class="far fa-thumbs-down" data-placement="top" title="Reject Request"></i></a>
-                                <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Return')" class="btn bg-transparent"><i class="fas fa-exchange-alt" data-placement="top" title="Return Request"></i></a>
+                                <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Approve')" class="btn bg-transparent"><i class="far fa-thumbs-up" data-placement="top" title="Book Request"></i></a>
+                                <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Reject')" class="btn bg-transparent"><i class="far fa-thumbs-down" data-placement="top" title="Reject Request"></i></a>
+                                <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Return')" class="btn bg-transparent"><i class="fas fa-exchange-alt" data-placement="top" title="Return Request"></i></a>
                             }
                             <a asp-action="ShowComments" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-comment-dots" data-placement="top" title="Show comments"></i></a>
                         </td>

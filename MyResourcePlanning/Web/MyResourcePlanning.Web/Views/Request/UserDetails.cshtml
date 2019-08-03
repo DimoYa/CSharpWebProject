@@ -6,12 +6,12 @@
 
 <div class="jumbotron">
     @if (this.User.IsInRole(GlobalConstants.PlannerRoleName))
-    {<a class="btn btn-secondary mb-1" href="/Request/Create"><i class="fas fa-tasks p-1"></i>Go to create new requests</a>
-        <a class="btn btn-secondary mb-1" href="/Request/PlannnerRequests"><i class="fas fa-tasks p-1"></i>Go to my planner requests</a>
+    {<a class="btn btn-secondary mb-1" asp-area="Planner" asp-controller="Request" asp-action="Create"><i class="fas fa-tasks p-1"></i>Go to create new requests</a>
+        <a class="btn btn-secondary mb-1" asp-area="Planner" asp-controller="Request" asp-action="PlannnerRequests"><i class="fas fa-tasks p-1"></i>Go to my planner requests</a>
     }
     @if (this.User.IsInRole(GlobalConstants.ApproverRoleName))
     {
-        <a class="btn btn-secondary mb-1" href="/Request/ApproverRequests"><i class="fas fa-tasks p-1"></i>Go to My approver requests</a>
+        <a class="btn btn-secondary mb-1" asp-area="Approver" asp-controller="Request" asp-action="ApproverRequests"><i class="fas fa-tasks p-1"></i>Go to My approver requests</a>
     }
     <h1 class="text-center" mt-3>User Details</h1>
     <form id="checkForm" method="post" class="w-50 mx-auto">

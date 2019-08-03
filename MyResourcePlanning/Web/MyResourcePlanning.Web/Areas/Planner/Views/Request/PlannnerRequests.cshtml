@@ -37,8 +37,8 @@
                                        && Model[i].Status != RequestStatus.Rejected.ToString()
                                        && Model[i].Status != RequestStatus.Deleted.ToString())
                                 {
-                                    <a asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit request"></i></a>
-                                    <a onclick="actionConfirmation('@Model[i].Id', 'Request', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete request"></i></a>
+                                    <a asp-area="Planner" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit request"></i></a>
+                                    <a onclick="actionConfirmation('@Model[i].Id', 'Planner/Request', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete request"></i></a>
                                 }
                                 <a asp-action="ShowComments" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-comment-dots" data-placement="top" title="Show comments"></i></a>
                             </td>
