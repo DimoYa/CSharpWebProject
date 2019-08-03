@@ -2,10 +2,14 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MyResourcePlanning.Common;
     using MyResourcePlanning.Services.Data.Project;
     using MyResourcePlanning.Web.ViewModels.Project;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    [Authorize(Roles = GlobalConstants.PlannerRoleName)]
     public class ProjectController : BaseController
     {
         private readonly IProjectService projectService;

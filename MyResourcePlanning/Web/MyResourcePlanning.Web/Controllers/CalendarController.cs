@@ -2,7 +2,9 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MyResourcePlanning.Common;
     using MyResourcePlanning.Services.Data.Calendar;
     using MyResourcePlanning.Web.BindingModels.Calendar;
     using MyResourcePlanning.Web.ViewModels.Calendar;
@@ -16,69 +18,21 @@
             this.calendarService = calendarService;
         }
 
-        public async Task<IActionResult> Create()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CalendarCreatePeriodBindingModel inputModel)
-        {
-            if (await this.calendarService.CheckIfPeriodExist(inputModel.StartDate, inputModel.EndDate))
-            {
-                this.ModelState.AddModelError("ErrorMessage", "Some days in the period are already added!");
-                return this.View(inputModel ?? new CalendarCreatePeriodBindingModel());
-            }
-
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(inputModel ?? new CalendarCreatePeriodBindingModel());
-            }
-
-            await this.calendarService.CreatePeriod(inputModel);
-
-            return this.RedirectToAction(nameof(this.All));
-        }
-
-        public async Task<IActionResult> Edit(string id)
-        {
-            var requestForUpdate = await this.calendarService.MapPeriod<CalendarAllViewModel>(id);
-
-            return this.View(requestForUpdate);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(CalendarEditPeriodBindingModel model, string id)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(new CalendarAllViewModel());
-            }
-
-            await this.calendarService.Edit(model, id);
-
-            return this.RedirectToAction(nameof(this.All));
-        }
-
-        public async Task<IActionResult> Delete(string id)
-        {
-            await this.calendarService.Delete(id);
-
-            return this.RedirectToAction(nameof(this.All));
-        }
-
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> All()
         {
             var requests = await this.calendarService.GetAllDays<CalendarAllViewModel>();
             return this.View(requests);
         }
 
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> CreateAbsence()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> CreateAbsence(CalendarCreateAbsenceBindingModel inputModel)
         {
             if (await this.calendarService.CheckIfPeriodExist(inputModel.StartDate, inputModel.EndDate) == false)
@@ -103,6 +57,7 @@
             return this.RedirectToAction(nameof(this.MyCalendar));
         }
 
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> DeleteAbsence(string id)
         {
             await this.calendarService.DeleteAbsence(id);
@@ -110,6 +65,7 @@
             return this.RedirectToAction(nameof(this.MyCalendar));
         }
 
+        [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> MyCalendar()
         {
             var requests = await this.calendarService.GetMyDays<CalendarMyViewModel>();

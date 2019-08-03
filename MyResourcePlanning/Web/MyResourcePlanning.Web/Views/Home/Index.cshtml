@@ -10,85 +10,100 @@
     {
         <partial name="_InfoPartial" />
     }
-<div class="jumbotron">
-    @if (this.SignInManager.IsSignedIn(this.User))
-    {
-        <div class="card text-white bg-info mb-3">
-            <div class="card-body">
-                <h4 class="card-title">Requests</h4>
-                <p class="card-text">Create, manage and get overview or requests</p>
-                <a class="btn btn-secondary mb-1" href="/Request/PlannnerRequests"><i class="fas fa-tasks p-1"></i>My planner requests</a>
-                <a class="btn btn-secondary mb-1" href="/Request/ApproverRequests"><i class="fas fa-tasks p-1"></i>My approver requests</a>
-                <a class="btn btn-secondary mb-1" href="/Request/ResourceRequests"><i class="fas fa-tasks p-1"></i>My resource requests</a>
-                <a class="btn btn-secondary mb-1" href="/Request/Create"><i class="fas fa-plus p-1"></i>Create new request</a>
+    <div class="jumbotron">
+        @if (this.SignInManager.IsSignedIn(this.User))
+        {
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Requests</h4>
+                    <p class="card-text">Create, manage and get overview or requests</p>
+                    <a class="btn btn-secondary mb-1" href="/Request/PlannnerRequests"><i class="fas fa-tasks p-1"></i>My planner requests</a>
+                    <a class="btn btn-secondary mb-1" href="/Request/ApproverRequests"><i class="fas fa-tasks p-1"></i>My approver requests</a>
+                    <a class="btn btn-secondary mb-1" href="/Request/ResourceRequests"><i class="fas fa-tasks p-1"></i>My resource requests</a>
+                    <a class="btn btn-secondary mb-1" href="/Request/Create"><i class="fas fa-plus p-1"></i>Create new request</a>
+                </div>
             </div>
-        </div>
-        <div class="card text-white bg-info mb-3">
-            <div class="card-body">
-                <h4 class="card-title">Skills</h4>
-                <p class="card-text">Build and mantain your professional skill profile</p>
-                <a class="btn btn-secondary mb-1" href="/Skill/MySkills"><i class="fas fa-book-reader p-1"></i>View and manage my skills</a>
-                <a class="btn btn-secondary mb-1" href="/Skill/All"><i class="fas fa-plus p-1"></i>Add new skill to my profile</a>
-                <a class="btn btn-secondary mb-1" href="/Skill/CreateCategory"><i class="fas fa-user-shield p-1"></i>Create new skill category</a>
-                <a class="btn btn-secondary mb-1" href="/Skill/CreateSkill"><i class="fas fa-user-shield p-1"></i>Create new skill</a>
-                <a class="btn btn-secondary mb-1" href="/Skill/All"><i class="fas fa-user-shield p-1"></i>View and manage categories and skills</a>
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Skills</h4>
+                    <p class="card-text">Build and mantain your professional skill profile</p>
+                    <a class="btn btn-secondary mb-1" href="/Skill/MySkills"><i class="fas fa-book-reader p-1"></i>View and manage my skills</a>
+                    <a class="btn btn-secondary mb-1" href="/Skill/All"><i class="fas fa-plus p-1"></i>Add new skill to my profile</a>
+                    <a class="btn btn-secondary mb-1" href="/Skill/CreateCategory"><i class="fas fa-user-shield p-1"></i>Create new skill category</a>
+                    <a class="btn btn-secondary mb-1" href="/Skill/CreateSkill"><i class="fas fa-user-shield p-1"></i>Create new skill</a>
+                    <a class="btn btn-secondary mb-1" href="/Skill/All"><i class="fas fa-user-shield p-1"></i>View and manage categories and skills</a>
+                </div>
             </div>
-        </div>
-        <div class="card text-white bg-info mb-3">
-            <div class="card-body">
-                <h4 class="card-title">Trainings</h4>
-                <p class="card-text mb-1">Request and manage your trainings</p>
-                <a class="btn btn-secondary mb-1" href="/Training/Create"><i class="fas fa-user-shield p-1"></i>Create new training</a>
-                <a class="btn btn-secondary mb-1" href="/Training/All"><i class="fas fa-user-shield p-1"></i>View and manage all trainings</a>
-                <a class="btn btn-secondary mb-1" href="/Training/AllUsersTrainings"><i class="fas fa-users p-1"></i>Manage user trainings</a>
-                <a class="btn btn-secondary mb-1" href="/Training/MyTrainings"><i class="fas fa-user-graduate p-1"></i>My Trainings</a>
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Trainings</h4>
+                    <p class="card-text mb-1">Request and manage your trainings</p>
+                    <a class="btn btn-secondary mb-1" href="/Training/Create"><i class="fas fa-user-shield p-1"></i>Create new training</a>
+                    <a class="btn btn-secondary mb-1" href="/Training/All"><i class="fas fa-user-shield p-1"></i>View and manage all trainings</a>
+                    <a class="btn btn-secondary mb-1" href="/Training/AllUsersTrainings"><i class="fas fa-users p-1"></i>Manage user trainings</a>
+                    <a class="btn btn-secondary mb-1" href="/Training/MyTrainings"><i class="fas fa-user-graduate p-1"></i>My Trainings</a>
+                </div>
             </div>
-        </div>
-        <div class="card text-white bg-info mb-3">
-            <div class="card-body">
-                <h4 class="card-title">Calendar</h4>
-                <p class="card-text mb-1">Get an overview of your calendar</p>
-                <a class="btn btn-secondary mb-1" href="/Calendar/CreateAbsence"><i class="fas fa-plus"></i>Create new absence</a>
-                <a class="btn btn-secondary mb-1" href="/Calendar/MyCalendar"><i class="far fa-calendar-alt p-1"></i>My calendar</a>
-                <a class="btn btn-secondary mb-1" href="/Calendar/Create"><i class="fas fa-user-shield p-1"></i>Create new calendar period</a>
-                <a class="btn btn-secondary mb-1" href="/Calendar/All"><i class="fas fa-user-shield p-1"></i>View and manage calendar</a>
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Calendar</h4>
+                    @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <p class="card-text mb-2">Get an overview of your calendar</p>
+                        <a class="btn btn-secondary mb-1" asp-area="Administration" asp-controller="Calendar" asp-action="Create"><i class="fas fa-user-shield p-1"></i>Create new calendar period</a>
+                    }
+                    @if (User.IsInRole(GlobalConstants.ResourceRoleName))
+                    {
+                        <p class="card-text mb-2">Create and manage company calendar days</p>
+                        <a class="btn btn-secondary mb-1" href="/Calendar/CreateAbsence"><i class="fas fa-plus p-1"></i>Create new absence</a>
+                        <a class="btn btn-secondary mb-1" href="/Calendar/MyCalendar"><i class="far fa-calendar-alt p-1"></i>My calendar</a>
+                    }
+                    <a class="btn btn-secondary mb-1" asp-controller="Calendar" asp-action="All"><i class="fas fa-user-shield p-1"></i>View and manage calendar</a>
+                </div>
             </div>
-        </div>
-        <div class="card text-white bg-info mb-3">
-            <div class="card-body">
-                <h4 class="card-title">Projects</h4>
-                <p class="card-text">Company projects</p>
-                <a class="btn btn-secondary mb-1" asp-controller="Project" asp-action="All"><i class="fas fa-business-time p-1"></i>View and manage projects</a>
-                @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
-                {
-                    <a class="btn btn-secondary mb-1" asp-area="Administration" asp-controller="Project" asp-action="Create"><i class="fas fa-plus p-1"></i>Create new Project</a>
-                }
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="d-flex justify-content-between">
-            <div class="card text-white bg-info mb-3 container-fluid content-row">
-                <div class="card-body container-fluid content-row d-flex flex-column">
-                    <h4 class="card-title container-fluid">New member?</h4>
-                    <p class="card-text">Get registration and start manage your working process</p>
-                    <div class="card-buttons align-self-md-center">
-                        <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus p-1"></i>Register</a>
+            @if ((User.IsInRole(GlobalConstants.AdministratorRoleName)) ||
+           (User.IsInRole(GlobalConstants.PlannerRoleName)))
+            {
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Projects</h4>
+                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <p class="card-text mb-2">View and manage company projects</p>
+                            <a class="btn btn-secondary mb-1" asp-area="Administration" asp-controller="Project" asp-action="Create"><i class="fas fa-user-shield p-1"></i>Create new Project</a>
+                        }
+                        else
+                        {
+                            <p class="card-text mb-2">Company projects overview</p>
+                        }
+                        <a class="btn btn-secondary mb-1" asp-controller="Project" asp-action="All"><i class="fas fa-business-time p-1"></i>View and manage projects</a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="d-flex justify-content-between">
+                <div class="card text-white bg-info mb-3 container-fluid content-row">
+                    <div class="card-body container-fluid content-row d-flex flex-column">
+                        <h4 class="card-title container-fluid">New member?</h4>
+                        <p class="card-text">Get registration and start manage your working process</p>
+                        <div class="card-buttons align-self-md-center">
+                            <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus p-1"></i>Register</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col py-3 px-md-5 bordered col-example"></div>
+                <div class="card text-white bg-info mb-3 container-fluid content-row">
+                    <div class="card-body container-fluid content-row d-flex flex-column">
+                        <h4 class="card-title container-fluid">Already registered?</h4>
+                        <p class="card-text">Login and manage your working process</p>
+                        <div class="card-buttons align-self-md-center">
+                            <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt p-1"></i>Login</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col py-3 px-md-5 bordered col-example"></div>
-            <div class="card text-white bg-info mb-3 container-fluid content-row">
-                <div class="card-body container-fluid content-row d-flex flex-column">
-                    <h4 class="card-title container-fluid">Already registered?</h4>
-                    <p class="card-text">Login and manage your working process</p>
-                    <div class="card-buttons align-self-md-center">
-                        <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt p-1"></i>Login</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 </div>

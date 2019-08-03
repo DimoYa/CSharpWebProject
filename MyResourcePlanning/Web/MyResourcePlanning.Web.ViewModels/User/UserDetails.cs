@@ -1,6 +1,7 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.User
 {
     using System.Collections.Generic;
+
     using MyResourcePlanning.Models;
 
     public class UserDetails
