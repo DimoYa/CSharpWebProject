@@ -98,7 +98,6 @@
             cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
 
-            // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<MyResourcePlanningDbContext>();
@@ -129,7 +128,7 @@
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }

@@ -57,9 +57,12 @@
         <div class="card text-white bg-info mb-3">
             <div class="card-body">
                 <h4 class="card-title">Projects</h4>
-                <p class="card-text">Create and manage company projects</p>
-                <a class="btn btn-secondary mb-1" href="/Project/All"><i class="fas fa-business-time p-1"></i>View and manage projects</a>
-                <a class="btn btn-secondary mb-1" href="/Project/Create"><i class="fas fa-plus p-1"></i>Create new Project</a>
+                <p class="card-text">Company projects</p>
+                <a class="btn btn-secondary mb-1" asp-controller="Project" asp-action="All"><i class="fas fa-business-time p-1"></i>View and manage projects</a>
+                @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    <a class="btn btn-secondary mb-1" asp-area="Administration" asp-controller="Project" asp-action="Create"><i class="fas fa-plus p-1"></i>Create new Project</a>
+                }
             </div>
         </div>
     }
