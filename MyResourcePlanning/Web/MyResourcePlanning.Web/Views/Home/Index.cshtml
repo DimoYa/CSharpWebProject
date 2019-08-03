@@ -13,56 +13,103 @@
     <div class="jumbotron">
         @if (this.SignInManager.IsSignedIn(this.User))
         {
-            <div class="card text-white bg-info mb-3">
-                <div class="card-body">
-                    <h4 class="card-title">Requests</h4>
-                    <p class="card-text">Create, manage and get overview or requests</p>
-                    <a class="btn btn-secondary mb-1" href="/Request/PlannnerRequests"><i class="fas fa-tasks p-1"></i>My planner requests</a>
-                    <a class="btn btn-secondary mb-1" href="/Request/ApproverRequests"><i class="fas fa-tasks p-1"></i>My approver requests</a>
-                    <a class="btn btn-secondary mb-1" href="/Request/ResourceRequests"><i class="fas fa-tasks p-1"></i>My resource requests</a>
-                    <a class="btn btn-secondary mb-1" href="/Request/Create"><i class="fas fa-plus p-1"></i>Create new request</a>
+            @if (this.User.IsInRole(GlobalConstants.ResourceRoleName) ||
+     this.User.IsInRole(GlobalConstants.ApproverRoleName) ||
+     this.User.IsInRole(GlobalConstants.PlannerRoleName))
+            {
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Requests</h4>
+                        @if (this.User.IsInRole(GlobalConstants.PlannerRoleName))
+                        {
+                            <p class="card-text mb-1">Create and manage requests</p>
+                            <a class="btn btn-secondary mb-1" href="/Request/Create"><i class="fas fa-plus p-1"></i>Create new request</a>
+                            <a class="btn btn-secondary mb-1" href="/Request/PlannnerRequests"><i class="fas fa-tasks p-1"></i>My planner requests</a>
+                        }
+                        @if (this.User.IsInRole(GlobalConstants.ApproverRoleName))
+                        {
+                            <p class="card-text mb-1">Manage requests</p>
+                            <a class="btn btn-secondary mb-1" href="/Request/ApproverRequests"><i class="fas fa-tasks p-1"></i>My approver requests</a>
+                        }
+                        @if (true)
+                        {
+                            <p class="card-text mb-1">View my requests</p>
+                            <a class="btn btn-secondary mb-1" href="/Request/ResourceRequests"><i class="fas fa-tasks p-1"></i>My resource requests</a>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div class="card text-white bg-info mb-3">
-                <div class="card-body">
-                    <h4 class="card-title">Skills</h4>
-                    <p class="card-text">Build and mantain your professional skill profile</p>
-                    <a class="btn btn-secondary mb-1" href="/Skill/MySkills"><i class="fas fa-book-reader p-1"></i>View and manage my skills</a>
-                    <a class="btn btn-secondary mb-1" href="/Skill/All"><i class="fas fa-plus p-1"></i>Add new skill to my profile</a>
-                    <a class="btn btn-secondary mb-1" href="/Skill/CreateCategory"><i class="fas fa-user-shield p-1"></i>Create new skill category</a>
-                    <a class="btn btn-secondary mb-1" href="/Skill/CreateSkill"><i class="fas fa-user-shield p-1"></i>Create new skill</a>
-                    <a class="btn btn-secondary mb-1" href="/Skill/All"><i class="fas fa-user-shield p-1"></i>View and manage categories and skills</a>
+            }
+            @if (this.User.IsInRole(GlobalConstants.ResourceRoleName) ||
+       this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Skills</h4>
+                        @if (this.User.IsInRole(GlobalConstants.ResourceRoleName))
+                        {
+                            <p class="card-text mb-1">Build and mantain your professional skill profile</p>
+                            <a class="btn btn-secondary mb-1" asp-controller="Skill" asp-action="MySkills"><i class="fas fa-book-reader p-1"></i>View and manage my skills</a>
+                            <a class="btn btn-secondary mb-1" asp-controller="Skill" asp-action="All"><i class="fas fa-plus p-1"></i>Add new skill to my profile</a>
+                        }
+                        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <p class="card-text">Build and mantain your professional skill profile</p>
+                            <a class="btn btn-secondary mb-1" asp-area="Administration" asp-controller="Skill" asp-action="CreateCategory"><i class="fas fa-user-shield p-1"></i>Create new skill category</a>
+                            <a class="btn btn-secondary mb-1" asp-area="Administration" asp-controller="Skill" asp-action="CreateSkill"><i class="fas fa-user-shield p-1"></i>Create new skill</a>
+                            <a class="btn btn-secondary mb-1" asp-controller="Skill" asp-action="All"><i class="fas fa-user-shield p-1"></i>View and manage categories and skills</a>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div class="card text-white bg-info mb-3">
-                <div class="card-body">
-                    <h4 class="card-title">Trainings</h4>
-                    <p class="card-text mb-1">Request and manage your trainings</p>
-                    <a class="btn btn-secondary mb-1" href="/Training/Create"><i class="fas fa-user-shield p-1"></i>Create new training</a>
-                    <a class="btn btn-secondary mb-1" href="/Training/All"><i class="fas fa-user-shield p-1"></i>View and manage all trainings</a>
-                    <a class="btn btn-secondary mb-1" href="/Training/AllUsersTrainings"><i class="fas fa-users p-1"></i>Manage user trainings</a>
-                    <a class="btn btn-secondary mb-1" href="/Training/MyTrainings"><i class="fas fa-user-graduate p-1"></i>My Trainings</a>
+            }
+            @if (User.IsInRole(GlobalConstants.AdministratorRoleName) ||
+          User.IsInRole(GlobalConstants.ResourceRoleName) ||
+          User.IsInRole(GlobalConstants.PlannerRoleName))
+            {
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Trainings</h4>
+                        <p class="card-text mb-1">Request and manage trainings</p>
+                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <a class="btn btn-secondary mb-1" asp-area="Administration" asp-controller="Training" asp-action="Create"><i class="fas fa-user-shield p-1"></i>Create new training</a>
+                            <a class="btn btn-secondary mb-1" asp-controller="Training" asp-action="All"><i class="fas fa-user-shield p-1"></i>View and manage trainings</a>
+                        }
+                        @if (User.IsInRole(GlobalConstants.ResourceRoleName))
+                        {
+                            <a class="btn btn-secondary mb-1" asp-controller="Training" asp-action="All"><i class="fas fa-chalkboard-teacher p-1"></i>View and request trainings</a>
+                            <a class="btn btn-secondary mb-1" asp-controller="Training" asp-action="MyTrainings"><i class="fas fa-user-graduate p-1"></i>My Trainings</a>
+                        }
+                        @if (User.IsInRole(GlobalConstants.PlannerRoleName))
+                        {
+                            <a class="btn btn-secondary mb-1" href="/Training/AllUsersTrainings"><i class="fas fa-users p-1"></i>Manage user training statuses</a>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div class="card text-white bg-info mb-3">
-                <div class="card-body">
-                    <h4 class="card-title">Calendar</h4>
-                    @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
-                    {
-                        <p class="card-text mb-2">Get an overview of your calendar</p>
-                        <a class="btn btn-secondary mb-1" asp-area="Administration" asp-controller="Calendar" asp-action="Create"><i class="fas fa-user-shield p-1"></i>Create new calendar period</a>
-                    }
-                    @if (User.IsInRole(GlobalConstants.ResourceRoleName))
-                    {
-                        <p class="card-text mb-2">Create and manage company calendar days</p>
-                        <a class="btn btn-secondary mb-1" href="/Calendar/CreateAbsence"><i class="fas fa-plus p-1"></i>Create new absence</a>
-                        <a class="btn btn-secondary mb-1" href="/Calendar/MyCalendar"><i class="far fa-calendar-alt p-1"></i>My calendar</a>
-                    }
-                    <a class="btn btn-secondary mb-1" asp-controller="Calendar" asp-action="All"><i class="fas fa-user-shield p-1"></i>View and manage calendar</a>
+            }
+            @if (User.IsInRole(GlobalConstants.AdministratorRoleName) ||
+           User.IsInRole(GlobalConstants.ResourceRoleName))
+            {
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Calendar</h4>
+                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <p class="card-text mb-2">Get an overview of your calendar</p>
+                            <a class="btn btn-secondary mb-1" asp-area="Administration" asp-controller="Calendar" asp-action="Create"><i class="far fa-calendar-plus p-1"></i>Create new calendar period</a>
+                            <a class="btn btn-secondary mb-1" asp-controller="Calendar" asp-action="All"><i class="fas fa-user-shield p-1"></i>View and manage company calendar</a>
+                        }
+                        @if (User.IsInRole(GlobalConstants.ResourceRoleName))
+                        {
+                            <p class="card-text mb-2">Create and manage company calendar days</p>
+                            <a class="btn btn-secondary mb-1" href="/Calendar/CreateAbsence"><i class="far fa-calendar-plus p-1"></i>Create new absence</a>
+                            <a class="btn btn-secondary mb-1" href="/Calendar/MyCalendar"><i class="far fa-calendar-alt p-1"></i>My calendar</a>
+                            <a class="btn btn-secondary mb-1" asp-controller="Calendar" asp-action="All"><i class="far fa-calendar-alt p-1"></i>View company calendar</a>
+                        }
+                    </div>
                 </div>
-            </div>
+            }
             @if ((User.IsInRole(GlobalConstants.AdministratorRoleName)) ||
-           (User.IsInRole(GlobalConstants.PlannerRoleName)))
+(User.IsInRole(GlobalConstants.PlannerRoleName)))
             {
                 <div class="card text-white bg-info mb-3">
                     <div class="card-body">
