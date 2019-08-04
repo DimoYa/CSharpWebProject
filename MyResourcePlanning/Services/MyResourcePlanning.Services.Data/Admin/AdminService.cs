@@ -4,12 +4,16 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using MyResourcePlanning.Common;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
+    using MyResourcePlanning.Web.BindingModels.Admin;
+
     public class AdminService : IAdminService
     {
         private readonly MyResourcePlanningDbContext context;
@@ -65,6 +69,74 @@
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;
+        }
+
+        public async Task ManageUserRoles(string id, AdminManageUserRolesBindingModel model)
+        {
+            var userToUpdate = await this.userService.GetUserById(id);
+
+            var currentUserRoles = this.context.UserRoles
+                .Where(u => u.UserId == id);
+
+            this.context.UserRoles.RemoveRange(currentUserRoles);
+
+            await this.context.SaveChangesAsync();
+
+            if (model.Resource == true)
+            {
+                await this.userManager.AddToRoleAsync(userToUpdate, GlobalConstants.ResourceRoleName);
+            }
+
+            if (model.Admin == true)
+            {
+                await this.userManager.AddToRoleAsync(userToUpdate, GlobalConstants.AdministratorRoleName);
+            }
+
+            if (model.Planner == true)
+            {
+                await this.userManager.AddToRoleAsync(userToUpdate, GlobalConstants.PlannerRoleName);
+            }
+
+            if (model.Approver == true)
+            {
+                await this.userManager.AddToRoleAsync(userToUpdate, GlobalConstants.ApproverRoleName);
+            }
+        }
+
+        public async Task<AdminManageUserRolesBindingModel> GetUserRolesById(string userId)
+        {
+            var user = this.context.Users
+               .Include(u => u.Roles)
+               .Where(u => u.IsDeleted == false)
+               .Where(u => u.Id == userId)
+               .SingleOrDefault();
+
+            var model = new AdminManageUserRolesBindingModel();
+
+            model.FullName = $"{user.FirstName} {user.LastName}";
+
+            foreach (var role in user.Roles)
+            {
+                var roleName = await this.userService.GetRoleNameById(role.RoleId);
+
+                switch (roleName)
+                {
+                    case GlobalConstants.ResourceRoleName:
+                        model.Resource = true;
+                        break;
+                    case GlobalConstants.AdministratorRoleName:
+                        model.Admin = true;
+                        break;
+                    case GlobalConstants.PlannerRoleName:
+                        model.Planner = true;
+                        break;
+                    case GlobalConstants.ApproverRoleName:
+                        model.Approver = true;
+                        break;
+                }
+            }
+
+            return model;
         }
     }
 }

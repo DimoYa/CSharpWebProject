@@ -1,5 +1,7 @@
 ﻿namespace MyResourcePlanning.Services.Data.Admin
 {
+    using MyResourcePlanning.Web.BindingModels.Admin;
+
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -10,5 +12,9 @@
         Task<bool> Lock(string id);
 
         Task<bool> Unlock(string id);
+
+        Task ManageUserRoles(string id, AdminManageUserRolesBindingModel model);
+
+        Task<AdminManageUserRolesBindingModel> GetUserRolesById(string id);
     }
 }

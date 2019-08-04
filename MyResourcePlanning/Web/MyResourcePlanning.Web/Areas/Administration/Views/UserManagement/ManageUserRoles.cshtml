@@ -1,0 +1,80 @@
+﻿@model MyResourcePlanning.Web.BindingModels.Admin.AdminManageUserRolesBindingModel
+
+@{
+    ViewData["Title"] = "ManageUserRoles";
+}
+
+<div class="jumbotron">
+    <h1 class="text-center" mt-3>Manage User Roles</h1>
+    <form id="createCalendar" method="post" class="w-50 mx-auto">
+        <hr class="mt-3 bg-resources hr-2" />
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="FullName" class="font-weight-bold text-center"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-user"></i></span>
+                </div>
+                <input asp-for="FullName" disabled class="form-control" />
+            </div>
+        </div>
+        @*<div class="form-group">
+            <div class="checkbox d-flex justify-content-center">
+                <label class="font-weight-bold" asp-for="Resource">
+                    <input asp-for="Resource" />
+                    @Html.DisplayNameFor(m => m.Resource)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox d-flex justify-content-center">
+                <label class="font-weight-bold" asp-for="Planner">
+                    <input asp-for="Planner" />
+                    @Html.DisplayNameFor(m => m.Planner)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox d-flex justify-content-center">
+                <label class="font-weight-bold" asp-for="Approver">
+                    <input asp-for="Approver" />
+                    @Html.DisplayNameFor(m => m.Approver)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox d-flex justify-content-center">
+                <label class="font-weight-bold" asp-for="Admin">
+                    <input asp-for="Admin" />
+                    @Html.DisplayNameFor(m => m.Admin)
+                </label>
+            </div>
+        </div>*@
+        <table class="table table-striped table-bordered sortable" cellspacing="0" width="100%" id="table-id">
+            <tbody>
+                <tr>
+                    <td>
+                        <input asp-for="Resource" />
+                        @Html.DisplayNameFor(m => m.Resource)
+                    </td>
+                    <td>
+                        <input asp-for="Planner" />
+                        @Html.DisplayNameFor(m => m.Planner)
+                    </td>
+                    <td>
+                        <input asp-for="Approver" />
+                        @Html.DisplayNameFor(m => m.Approver)
+                    </td>
+                    <td>
+                        <input asp-for="Admin" />
+                        @Html.DisplayNameFor(m => m.Admin)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr class="mt-3 bg-resources hr-2" />
+        <partial name="_SaveCancelButtonsPartial" />
+    </form>
+</div>
+

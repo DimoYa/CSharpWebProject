@@ -53,7 +53,7 @@
                             {
                                 <a onclick="actionConfirmation('@Model[i].Id', 'Administration/UserManagement', 'UnLock')" class="btn bg-transparent"><i class="fas fa fa-unlock-alt" data-placement="top" title="Unlock user"></i></a>
                             }
-                            <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Return')" class="btn bg-transparent"><i class="fas fa-theater-masks" data-placement="top" title="Manage user roles"></i></a>
+                            <a asp-area="Administration" asp-action="ManageUserRoles" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-theater-masks" data-placement="top" title="Manage user roles"></i></a>
                             <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Return')" class="btn bg-transparent"><i class="fas fa-user-tie" data-placement="top" title="Manage user dispather"></i></a>
                         </td>
                     </tr>

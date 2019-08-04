@@ -7,7 +7,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class TrainingCreateBindingModel 
+    public class TrainingCreateBindingModel
     {
         [Required]
         [StringLength(20, MinimumLength = 1)]
