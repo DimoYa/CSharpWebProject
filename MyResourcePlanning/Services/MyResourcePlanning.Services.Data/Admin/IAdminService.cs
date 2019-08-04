@@ -6,5 +6,9 @@
     public interface IAdminService
     {
         Task<IEnumerable<TViewModel>> GetAllActiveUsers<TViewModel>();
+
+        Task<bool> Lock(string id);
+
+        Task<bool> Unlock(string id);
     }
 }

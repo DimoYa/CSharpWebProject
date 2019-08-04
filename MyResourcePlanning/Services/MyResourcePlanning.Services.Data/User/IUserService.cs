@@ -18,5 +18,7 @@
         Task<string> GetCurrentUserName();
 
         Task<User> GetUserByName(string firstName, string lastName);
+
+        Task<User> GetUserById(string id);
     }
 }

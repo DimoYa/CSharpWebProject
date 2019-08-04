@@ -14,6 +14,20 @@ namespace MyResourcePlanning.Web.Areas.Administration.Controllers
             this.adminService = adminService;
         }
 
+        public async Task<IActionResult> Lock(string id)
+        {
+            await this.adminService.Lock(id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Unlock(string id, string comment)
+        {
+            await this.adminService.Unlock(id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         public async Task<IActionResult> All()
         {
             var activeUsers = await this.adminService.GetAllActiveUsers<AdminAllUsersViewModel>();

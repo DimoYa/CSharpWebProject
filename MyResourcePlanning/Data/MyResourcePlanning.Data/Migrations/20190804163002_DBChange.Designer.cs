@@ -10,8 +10,8 @@ using MyResourcePlanning.Data;
 namespace MyResourcePlanning.Data.Migrations
 {
     [DbContext(typeof(MyResourcePlanningDbContext))]
-    [Migration("20190717071605_ChangeDBStructure")]
-    partial class ChangeDBStructure
+    [Migration("20190804163002_DBChange")]
+    partial class DBChange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -158,6 +158,8 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Comment");
+
                     b.Property<string>("CreatedBy")
                         .IsRequired();
 
@@ -190,7 +192,66 @@ namespace MyResourcePlanning.Data.Migrations
                     b.ToTable("Requests");
                 });
 
+            modelBuilder.Entity("MyResourcePlanning.Models.Role", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
             modelBuilder.Entity("MyResourcePlanning.Models.Skill", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<string>("SkillCategoryId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkillCategoryId");
+
+                    b.ToTable("Skills");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Models.SkillCategory", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -209,7 +270,7 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Skills");
+                    b.ToTable("SkillCategories");
                 });
 
             modelBuilder.Entity("MyResourcePlanning.Models.Training", b =>
@@ -221,6 +282,8 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn");
 
+                    b.Property<DateTime>("DueDate");
+
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("ModifiedOn");
@@ -228,6 +291,8 @@ namespace MyResourcePlanning.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20);
+
+                    b.Property<int>("Status");
 
                     b.Property<int>("Type");
 
@@ -259,8 +324,6 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired();
-
-                    b.Property<string>("ImageUrl");
 
                     b.Property<bool>("IsDeleted");
 
@@ -313,7 +376,7 @@ namespace MyResourcePlanning.Data.Migrations
 
                     b.Property<string>("CalendarId");
 
-                    b.Property<bool>("IsVacation");
+                    b.Property<int>("AbsenceType");
 
                     b.HasKey("UserId", "CalendarId");
 
@@ -322,45 +385,13 @@ namespace MyResourcePlanning.Data.Migrations
                     b.ToTable("UserCalendars");
                 });
 
-            modelBuilder.Entity("MyResourcePlanning.Models.UserRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("DeletedOn");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("ModifiedOn");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles");
-                });
-
             modelBuilder.Entity("MyResourcePlanning.Models.UserSkill", b =>
                 {
                     b.Property<string>("UserId");
 
                     b.Property<string>("SkillId");
 
-                    b.Property<bool>("IsAllowedToAdd");
+                    b.Property<int>("Level");
 
                     b.HasKey("UserId", "SkillId");
 
@@ -386,7 +417,7 @@ namespace MyResourcePlanning.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("MyResourcePlanning.Models.UserRole")
+                    b.HasOne("MyResourcePlanning.Models.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -410,15 +441,15 @@ namespace MyResourcePlanning.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("MyResourcePlanning.Models.UserRole")
+                    b.HasOne("MyResourcePlanning.Models.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MyResourcePlanning.Models.User")
-                        .WithMany("Roles")
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -438,6 +469,14 @@ namespace MyResourcePlanning.Data.Migrations
                     b.HasOne("MyResourcePlanning.Models.User", "User")
                         .WithMany("Requests")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("MyResourcePlanning.Models.Skill", b =>
+                {
+                    b.HasOne("MyResourcePlanning.Models.SkillCategory", "SkillCategory")
+                        .WithMany("Skills")
+                        .HasForeignKey("SkillCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("MyResourcePlanning.Models.User", b =>

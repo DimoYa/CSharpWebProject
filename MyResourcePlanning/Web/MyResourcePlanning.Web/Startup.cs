@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Web
 {
+    using System;
     using System.Globalization;
     using System.Reflection;
     using System.Threading;
@@ -49,6 +50,9 @@
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredLength = 3;
+
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
+                    options.Lockout.MaxFailedAccessAttempts = 5;
                 })
                 .AddEntityFrameworkStores<MyResourcePlanningDbContext>()
                 .AddDefaultTokenProviders()

@@ -12,6 +12,10 @@
                 break;
             case 'Return': $("#commentLabel").text('This item will be returned to planner');
                 break;
+            case 'Lock': $("#commentLabel").text('This user will be locked'), $("#commentSection").hide();
+                break;
+            case 'UnLock': $("#commentLabel").text('This user will be unlocked'), $("#commentSection").hide();
+                break;
             default: $("#commentSection").hide();
                 break;
         }

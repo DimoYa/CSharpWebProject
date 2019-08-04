@@ -37,17 +37,6 @@
 
             ConfigureUserIdentityRelations(builder);
 
-            var entityTypes = builder.Model.GetEntityTypes().ToList();
-
-            var foreignKeys = entityTypes
-                .SelectMany(e => e.GetForeignKeys()
-                .Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));
-
-            foreach (var foreignKey in foreignKeys)
-            {
-                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
-            }
-
             builder.Entity<UserCalendar>()
                    .HasKey(uc => new
                    {

@@ -66,6 +66,14 @@
             return Task.FromResult(user);
         }
 
+        public Task<User> GetUserById(string id)
+        {
+            var user = this.context.Users
+                .SingleOrDefault(u => u.Id == id);
+
+            return Task.FromResult(user);
+        }
+
         public Task<string> GetRoleIdByName(string roleName)
         {
             var resourceRoleId = this.context.Roles
