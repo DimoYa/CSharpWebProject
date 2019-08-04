@@ -1,53 +1,68 @@
-﻿@model IEnumerable<MyResourcePlanning.Web.ViewModels.Admin.AdminAllUsersViewModel>
+﻿@model List<MyResourcePlanning.Web.ViewModels.Admin.AdminAllUsersViewModel>
 
 @{
     ViewData["Title"] = "All";
 }
 
-<h1>All</h1>
+<div class="jumbotron">
+    <h1 class="text-center">Manage Users</h1>
+    <hr class="bg-resources hr-2" />
+    <partial name="_SearchAndFilterHeaderPartial" />
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered sortable" cellspacing="0" width="100%" id="table-id">
+            <thead>
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">FullName</th>
+                    <th scope="col">Islocked</th>
+                    <th scope="col">Resource</th>
+                    <th scope="col">Planner</th>
+                    <th scope="col">Approver</th>
+                    <th scope="col">Admin</th>
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
+                    {
+                        <th scope="col">Action</th>
+                    }
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@Model[i].Email</td>
+                        <td>@Model[i].FullName</td>
+                        <td>@Html.CheckBox("Resource", Model[i].IsLocked , new { onclick = "return false" })</td>
+                        <td>
+                            @Html.CheckBox("Resource", Model[i].Roles.Any(x => x.RoleId == GlobalConstants.ResourceRoleName), new { onclick = "return false" })
+                        </td>
+                        <td>
+                            @Html.CheckBox("Planner", Model[i].Roles.Any(x => x.RoleId == GlobalConstants.PlannerRoleName), new { onclick = "return false" })
+                        </td>
+                        <td>
+                            @Html.CheckBox("Approver", Model[i].Roles.Any(x => x.RoleId == GlobalConstants.ApproverRoleName), new { onclick = "return false" })
+                        </td>
+                        <td>
+                            @Html.CheckBox("Admin", Model[i].Roles.Any(x => x.RoleId == GlobalConstants.AdministratorRoleName), new { onclick = "return false" })
+                        </td>
+                        <td>
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Approve')" class="btn bg-transparent"><i class="fas fa fa-user-lock" data-placement="top" title="Lock user"></i></a>
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Reject')" class="btn bg-transparent"><i class="fas fa fa-unlock-alt" data-placement="top" title="Unlock user"></i></a>
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Return')" class="btn bg-transparent"><i class="fas fa-theater-masks" data-placement="top" title="Manage user roles"></i></a>
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Return')" class="btn bg-transparent"><i class="fas fa-user-tie" data-placement="top" title="Manage user dispather"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <partial name="_SearchAndFilterFooterPartial" />
+</div>
+<partial name="_NotificationPartial" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsLocked)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsLocked)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+@section scripts{
+    <script type="text/javascript" src="~/js/paging.js"></script>
+    <script type="text/javascript" src="~/js/search.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-sortable.js"></script>
+    <script type="text/javascript" src="~/js/moment.min.js"></script>
+    <script src="~/js/notificationMsg.js"></script>
 }
-    </tbody>
-</table>

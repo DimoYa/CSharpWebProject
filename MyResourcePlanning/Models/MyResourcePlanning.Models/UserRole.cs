@@ -7,11 +7,6 @@
 
     public class UserRole : IdentityRole, IAuditInfo, IDeletableEntity
     {
-        public UserRole()
-            : this(null)
-        {
-        }
-
         public UserRole(string name)
             : base(name)
         {

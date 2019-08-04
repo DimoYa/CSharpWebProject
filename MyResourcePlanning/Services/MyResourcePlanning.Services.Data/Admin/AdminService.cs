@@ -7,30 +7,38 @@
     using Microsoft.EntityFrameworkCore;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
+    using MyResourcePlanning.Services.Data.User;
     using MyResourcePlanning.Services.Mapping;
 
 
     public class AdminService : IAdminService
     {
         private readonly MyResourcePlanningDbContext context;
-        private readonly UserManager<User> userManager;
+        private readonly IUserService userService;
 
         public AdminService(MyResourcePlanningDbContext context,
-            UserManager<User> userManager)
+            IUserService userService)
         {
             this.context = context;
-            this.userManager = userManager;
+            this.userService = userService;
         }
 
-        public Task<IEnumerable<TViewModel>> GetAllActiveUsers<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetAllActiveUsers<TViewModel>()
         {
             var activeUsers = this.context.Users
                 .Include(u => u.Roles)
-                .Where(u => u.IsDeleted == false)
-                .To<TViewModel>()
-                .ToList();
+                .Where(u => u.IsDeleted == false);
 
-            return Task.FromResult(activeUsers.AsEnumerable());
+            foreach (var user in activeUsers)
+            {
+                foreach (var role in user.Roles)
+                {
+                    var roleName = await this.userService.GetRoleNameById(role.RoleId);
+                    role.RoleId = roleName;
+                }
+            }
+
+            return activeUsers.To<TViewModel>().ToList();
         }
     }
 }

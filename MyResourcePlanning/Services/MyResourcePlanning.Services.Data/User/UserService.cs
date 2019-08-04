@@ -74,5 +74,14 @@
 
             return Task.FromResult(resourceRoleId);
         }
+
+        public Task<string> GetRoleNameById(string roleId)
+        {
+            var resourceRoleName = this.context.Roles
+                .FirstOrDefault(r => r.Id == roleId)
+                .Name;
+
+            return Task.FromResult(resourceRoleName);
+        }
     }
 }

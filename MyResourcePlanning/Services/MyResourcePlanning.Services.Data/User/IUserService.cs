@@ -11,6 +11,8 @@
 
         Task<string> GetRoleIdByName(string roleName);
 
+        Task<string> GetRoleNameById(string roleId);
+
         Task<string> GetCurrentUserId();
 
         Task<string> GetCurrentUserName();
