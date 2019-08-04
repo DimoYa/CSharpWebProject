@@ -16,13 +16,13 @@
             this.projectService = projectService;
         }
 
-        [HttpGet("/Administration/Project/Create")]
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             return this.View();
         }
 
-        [HttpPost("/Administration/Project/Create")]
+        [HttpPost]
         public async Task<IActionResult> Create(ProjectCreateBindingModel inputModel)
         {
             if (!this.ModelState.IsValid)

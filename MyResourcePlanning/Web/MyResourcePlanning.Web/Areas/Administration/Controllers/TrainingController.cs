@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using MyResourcePlanning.Services.Data.Training;
     using MyResourcePlanning.Web.BindingModels.Training;
+    using MyResourcePlanning.Web.ViewModels.Training;
 
     public class TrainingController : AdminController
     {

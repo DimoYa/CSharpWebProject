@@ -5,6 +5,7 @@ namespace MyResourcePlanning.Web.BindingModels.Skill
 {
     public class SkillEditLevelBindingModel
     {
+        [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
 

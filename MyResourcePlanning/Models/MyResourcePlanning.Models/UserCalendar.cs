@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Models
 {
+    using System.ComponentModel.DataAnnotations;
     using MyResourcePlanning.Models.Enums;
 
     public class UserCalendar
@@ -12,6 +13,7 @@
 
         public Calendar Calendar { get; set; }
 
+        [Required]
         public UserCalendarAbsenceType AbsenceType { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using MyResourcePlanning.Services.Mapping;
 using MyResourcePlanning.Models;
 using System.Globalization;
 using MyResourcePlanning.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyResourcePlanning.Web.BindingModels.Training
 {
@@ -18,6 +19,7 @@ namespace MyResourcePlanning.Web.BindingModels.Training
 
         public string TrainingDueDate { get; set; }
 
+        [Required]
         public UserTrainingStatus Status { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

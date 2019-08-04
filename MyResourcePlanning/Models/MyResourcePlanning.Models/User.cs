@@ -26,8 +26,6 @@
         [RegularExpression("[A-Z][a-z]+", ErrorMessage = "{0} should contain only letters starting with a capital case")]
         public string LastName { get; set; }
 
-        public string ImageUrl { get; set; }
-
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }

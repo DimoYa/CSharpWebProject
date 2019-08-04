@@ -1,5 +1,6 @@
 ﻿namespace MyResourcePlanning.Web.ViewModels.Calendar
 {
+    using System;
     using System.Globalization;
 
     using AutoMapper;
@@ -20,7 +21,7 @@
             configuration.CreateMap<Calendar, CalendarAllViewModel>()
                 .ForMember(
                     c => c.Day,
-                    opt => opt.MapFrom(c => c.Day.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)));
+                    opt => opt.MapFrom(c => c.Day.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)));
         }
     }
 }

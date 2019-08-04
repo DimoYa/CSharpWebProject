@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using MyResourcePlanning.Models.BaseModels;
+    using MyResourcePlanning.Web.Infrastructure.Validators;
 
     public class Calendar : BaseModel<string>
     {
@@ -14,6 +15,7 @@
         }
 
         [Required]
+        [DateGreaterOrEqualThatPresent]
         public DateTime Day { get; set; }
 
         [Required]

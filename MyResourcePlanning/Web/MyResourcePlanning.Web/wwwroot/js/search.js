@@ -13,7 +13,7 @@
 
         for (i = 1; i < tr.length; i++) {
 
-            var flag = 0;
+            let flag = 0;
 
             for (j = 0; j < count; j++) {
                 td = tr[i].getElementsByTagName("td")[j];
