@@ -16,6 +16,7 @@
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Data.Seeding;
     using MyResourcePlanning.Models;
+    using MyResourcePlanning.Services.Data.Admin;
     using MyResourcePlanning.Services.Data.Calendar;
     using MyResourcePlanning.Services.Data.Project;
     using MyResourcePlanning.Services.Data.Request;
@@ -89,6 +90,7 @@
             services.AddTransient<ISkillCategoryService, SkillCategoryService>();
             services.AddTransient<ITrainingService, TrainingService>();
             services.AddTransient<ICalendarService, CalendarService>();
+            services.AddTransient<IAdminService, AdminService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
