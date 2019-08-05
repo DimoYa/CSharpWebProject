@@ -18,7 +18,6 @@
         [Display(Name = "Skill Level")]
         public SkillLevel SkillLevel { get; set; }
 
-        [Required]
         public Skill SkillToAdd { get; set; }
 
     }

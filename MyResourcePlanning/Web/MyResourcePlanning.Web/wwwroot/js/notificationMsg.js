@@ -16,6 +16,8 @@
                 break;
             case 'UnLock': $("#commentLabel").text('This user will be unlocked'), $("#commentSection").hide();
                 break;
+            case 'RemoveSkill': $("#commentLabel").text('The skill will be removed from your profile'), $("#commentSection").hide();
+                break;
             default: $("#commentSection").hide();
                 break;
         }
