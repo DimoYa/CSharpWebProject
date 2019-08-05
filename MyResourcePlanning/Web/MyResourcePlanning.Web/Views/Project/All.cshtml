@@ -17,7 +17,7 @@
                     <th scope="col">Start</th>
                     <th scope="col">End</th>
                     <th scope="col">Remaining Hours</th>
-                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
                         <th scope="col">Action</th>
                     }

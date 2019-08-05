@@ -97,6 +97,7 @@
                         @if (User.IsInRole(GlobalConstants.PlannerRoleName))
                         {
                             <p class="card-text mb-2">Manage user trainings</p>
+                            <a class="btn btn-secondary mb-1" asp-controller="Training" asp-action="All"><i class="fas fa-user-plus p-1"></i>Assign user to a training</a>
                             <a class="btn btn-secondary mb-1" asp-area="Planner" asp-controller="Training" asp-action="AllUsersTrainings"><i class="fas fa-users p-1"></i>Manage user training statuses</a>
                         }
                     </div>
@@ -138,7 +139,7 @@
                             <a class="btn btn-secondary mb-1" asp-controller="Project" asp-action="All"><i class="fas fa-user-shield p-1"></i>View and manage projects</a>
 
                         }
-                        @if (User.IsInRole(GlobalConstants.PlannerRoleName))
+                        @if (User.IsInRole(GlobalConstants.PlannerRoleName) || User.IsInRole(GlobalConstants.ApproverRoleName))
                                 
                         {
                             <p class="card-text mb-2">Company projects overview</p>
