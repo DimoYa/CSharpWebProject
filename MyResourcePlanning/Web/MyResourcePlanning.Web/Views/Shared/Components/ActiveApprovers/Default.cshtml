@@ -1,0 +1,6 @@
+﻿@model IEnumerable<MyResourcePlanning.Web.ViewModels.Admin.AdminUserApproversViewModel>
+
+@foreach (var option in Model)
+{
+    <option>@option.FirstName;@option.LastName</option>
+}

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -137,6 +138,44 @@
             }
 
             return model;
+        }
+
+        public async Task<AdminManageApproverBindingModel> GetUserApproverById(string id)
+        {
+            var currentUser = await this.userService.GetUserById(id);
+
+            var approverFirstName = currentUser.Approver == null
+                ? string.Empty
+                : currentUser.Approver.FirstName;
+
+            var approverLastName = currentUser.Approver == null
+                ? string.Empty
+                : currentUser.Approver.LastName;
+
+            var model = new AdminManageApproverBindingModel()
+            {
+                CurrentApprover = $"{approverFirstName} {approverLastName}",
+            };
+
+            return model;
+        }
+
+        public async Task<bool> ManageUserApprover(string id, AdminManageApproverBindingModel model)
+        {
+            var fullMame = Regex.Split(model.FullName, @"\s\s+");
+
+            var firstName = fullMame[0];
+            var lastName = fullMame[1];
+
+            var approver = await this.userService.GetUserByName(firstName, lastName);
+
+            var currentUserApprover = await this.userService.GetUserById(id);
+
+            currentUserApprover.Approver = approver;
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
         }
     }
 }

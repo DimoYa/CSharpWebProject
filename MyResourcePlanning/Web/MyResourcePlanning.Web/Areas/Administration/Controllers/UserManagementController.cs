@@ -50,6 +50,26 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        public async Task<IActionResult> ManageUserApprover(string id)
+        {
+            var userApproverToUopdate = await this.adminService.GetUserApproverById(id);
+
+            return this.View(userApproverToUopdate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageUserApprover(AdminManageApproverBindingModel model, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model ?? new AdminManageApproverBindingModel());
+            }
+
+            await this.adminService.ManageUserApprover(id, model);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         public async Task<IActionResult> All()
         {
             var activeUsers = await this.adminService.GetAllActiveUsers<AdminAllUsersViewModel>();

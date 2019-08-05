@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
     using MyResourcePlanning.Common;
     using MyResourcePlanning.Data;
     using MyResourcePlanning.Models;
@@ -34,6 +35,18 @@
                 .ToList();
 
             return userWithSkills;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllActiveApprovers<TViewModel>()
+        {
+            var approverRoleId = await this.GetRoleIdByName(GlobalConstants.ApproverRoleName);
+
+            var approvers = this.context.Users
+                .Where(u => u.IsDeleted == false && u.Roles.Any(r => r.RoleId == approverRoleId))
+                .To<TViewModel>()
+                .ToList();
+
+            return approvers;
         }
 
         public Task<string> GetCurrentUserId()
@@ -69,6 +82,7 @@
         public Task<User> GetUserById(string id)
         {
             var user = this.context.Users
+                .Include(u => u.Approver)
                 .SingleOrDefault(u => u.Id == id);
 
             return Task.FromResult(user);

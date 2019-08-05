@@ -15,6 +15,10 @@
 
         Task ManageUserRoles(string id, AdminManageUserRolesBindingModel model);
 
+        Task<bool> ManageUserApprover(string id, AdminManageApproverBindingModel model);
+
         Task<AdminManageUserRolesBindingModel> GetUserRolesById(string id);
+
+        Task<AdminManageApproverBindingModel> GetUserApproverById(string id);
     }
 }

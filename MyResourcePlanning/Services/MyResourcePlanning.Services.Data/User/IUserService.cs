@@ -9,6 +9,8 @@
     {
         Task<IEnumerable<TViewModel>> GetAllActiveResources<TViewModel>();
 
+        Task<IEnumerable<TViewModel>> GetAllActiveApprovers<TViewModel>();
+
         Task<string> GetRoleIdByName(string roleName);
 
         Task<string> GetRoleNameById(string roleId);

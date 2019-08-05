@@ -16,6 +16,8 @@
 
         public string FullName { get; set; }
 
+        public User Approver { get; set; }
+
         public List<IdentityUserRole<string>> Roles { get; set; }
 
         public bool IsLocked { get; set; }

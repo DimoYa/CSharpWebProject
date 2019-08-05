@@ -1,0 +1,56 @@
+﻿@model MyResourcePlanning.Web.BindingModels.Admin.AdminManageApproverBindingModel
+
+<div class="jumbotron">
+
+    <h1 class="text-center" mt-3>Manage user approver</h1>
+    <form id="updaTeApprover" method="post" class="w-50 mx-auto">
+        <hr class="mt-3 bg-resources hr-2" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="CurrentApprover" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-graduation-cap"></i> </span>
+                </div>
+               <input readonly asp-for="CurrentApprover" class="form-control" />
+            </div>
+            <span asp-validation-for="CurrentApprover" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <label asp-for="FullName" class="font-weight-bold"></label>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <select asp-for="FullName" id="dropdown" class="form-control">
+                    <option selected disabled value="">First Name;Last Name</option>
+                    <vc:active-approvers>
+                    </vc:active-approvers>
+                </select>
+            </div>
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+        <hr class="mt-3 bg-resources hr-2" />
+        <div class="d-flex justify-content-between">
+            <div class="form-group w-45">
+                <button type="submit" class="btn btn-success btn-block mr-3">Save</button>
+            </div>
+            <div class="form-group w-45">
+                <button type="button" class="btn btn-danger btn-block mr-3" value="Cancel" onclick="window.history.back()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        getErrorMsgs('#updaTeApprover');
+    </script>
+    <script>
+        twoColumnDropDown('#dropdown option', ';', 20, 30);
+    </script>
+}

@@ -2,6 +2,10 @@
     background-color: #AFEEEE;
 }
 
+form input {
+    font-family: "Courier", Song Myung,Helvetica,Arial,sans-serif;
+}
+
 html, body {
     height: 100%;
     background-color: #e9ebee;

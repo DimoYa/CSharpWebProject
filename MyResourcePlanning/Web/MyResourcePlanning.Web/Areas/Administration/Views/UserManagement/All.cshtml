@@ -13,7 +13,8 @@
             <thead>
                 <tr>
                     <th scope="col">Email</th>
-                    <th scope="col">FullName</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Approver Name</th>
                     <th scope="col">Islocked</th>
                     <th scope="col">Resource</th>
                     <th scope="col">Planner</th>
@@ -28,35 +29,36 @@
             <tbody id="myTable">
                 @for (int i = 0; i < Model.Count; i++)
                 {
-                    <tr>
-                        <td>@Model[i].Email</td>
-                        <td>@Model[i].FullName</td>
-                        <td>@Html.CheckBox("Resource", Model[i].IsLocked, new { onclick = "return false" })</td>
-                        <td>
-                            @Html.CheckBox("Resource", Model[i].Roles?.Any(x => x.RoleId == GlobalConstants.ResourceRoleName), new { onclick = "return false" })
-                        </td>
-                        <td>
-                            @Html.CheckBox("Planner", Model[i].Roles?.Any(x => x.RoleId == GlobalConstants.PlannerRoleName), new { onclick = "return false" })
-                        </td>
-                        <td>
-                            @Html.CheckBox("Approver", Model[i].Roles?.Any(x => x.RoleId == GlobalConstants.ApproverRoleName), new { onclick = "return false" })
-                        </td>
-                        <td>
-                            @Html.CheckBox("Admin", Model[i].Roles?.Any(x => x.RoleId == GlobalConstants.AdministratorRoleName), new { onclick = "return false" })
-                        </td>
-                        <td>
-                            @if (!Model[i].IsLocked)
-                            {
-                                <a onclick="actionConfirmation('@Model[i].Id', 'Administration/UserManagement', 'Lock')" class="btn bg-transparent"><i class="fas fa fa-user-lock" data-placement="top" title="Lock user"></i></a>
-                            }
-                            else
-                            {
-                                <a onclick="actionConfirmation('@Model[i].Id', 'Administration/UserManagement', 'UnLock')" class="btn bg-transparent"><i class="fas fa fa-unlock-alt" data-placement="top" title="Unlock user"></i></a>
-                            }
-                            <a asp-area="Administration" asp-action="ManageUserRoles" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-theater-masks" data-placement="top" title="Manage user roles"></i></a>
-                            <a onclick="actionConfirmation('@Model[i].Id', 'Approver/Request', 'Return')" class="btn bg-transparent"><i class="fas fa-user-tie" data-placement="top" title="Manage user dispather"></i></a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>@Model[i].Email</td>
+                    <td>@Model[i].FullName</td>
+                    <td>@(Model[i].Approver?.FirstName + " " + Model[i].Approver?.LastName)</td>
+                    <td>@Html.CheckBox("Resource", Model[i].IsLocked, new { onclick = "return false" })</td>
+                    <td>
+                        @Html.CheckBox("Resource", Model[i].Roles?.Any(x => x.RoleId == GlobalConstants.ResourceRoleName), new { onclick = "return false" })
+                    </td>
+                    <td>
+                        @Html.CheckBox("Planner", Model[i].Roles?.Any(x => x.RoleId == GlobalConstants.PlannerRoleName), new { onclick = "return false" })
+                    </td>
+                    <td>
+                        @Html.CheckBox("Approver", Model[i].Roles?.Any(x => x.RoleId == GlobalConstants.ApproverRoleName), new { onclick = "return false" })
+                    </td>
+                    <td>
+                        @Html.CheckBox("Admin", Model[i].Roles?.Any(x => x.RoleId == GlobalConstants.AdministratorRoleName), new { onclick = "return false" })
+                    </td>
+                    <td>
+                        @if (!Model[i].IsLocked)
+                        {
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Administration/UserManagement', 'Lock')" class="btn bg-transparent"><i class="fas fa fa-user-lock" data-placement="top" title="Lock user"></i></a>
+                        }
+                        else
+                        {
+                            <a onclick="actionConfirmation('@Model[i].Id', 'Administration/UserManagement', 'UnLock')" class="btn bg-transparent"><i class="fas fa fa-unlock-alt" data-placement="top" title="Unlock user"></i></a>
+                        }
+                        <a asp-area="Administration" asp-action="ManageUserRoles" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-theater-masks" data-placement="top" title="Manage user roles"></i></a>
+                        <a asp-area="Administration" asp-action="ManageUserApprover" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-user-tie" data-placement="top" title="Manage user approver"></i></a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
