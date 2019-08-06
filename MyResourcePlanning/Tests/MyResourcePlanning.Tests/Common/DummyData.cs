@@ -30,16 +30,30 @@
                     FirstName = "FirstName",
                     LastName = "LastName",
                     IsDeleted = false,
+                    LockoutEnabled = true,
                     Roles = new List<IdentityUserRole<string>>()
                     {
                         new  IdentityUserRole<string> { RoleId = "111", UserId = "123" },
                         new  IdentityUserRole<string> { RoleId = "222", UserId = "123" }
+                    },
+                    Approver = new User
+                    {
+                    Id = "250",
+                    FirstName = "Approver",
+                    LastName = "Approver",
+                    IsDeleted = false,
+                    Roles = new List<IdentityUserRole<string>>()
+                    {
+                        new  IdentityUserRole<string> { RoleId = "222", UserId = "250" }
+                    },
                     },
 
                 },
                 new User
                 {
                     Id = "124",
+                    FirstName = "Test",
+                    LastName = "Test",
                     IsDeleted = false,
                     Roles = new List<IdentityUserRole<string>>()
                     {

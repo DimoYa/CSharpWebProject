@@ -1,9 +1,9 @@
 ﻿namespace MyResourcePlanning.Services.Data.Admin
 {
-    using MyResourcePlanning.Web.BindingModels.Admin;
-
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using MyResourcePlanning.Web.BindingModels.Admin;
 
     public interface IAdminService
     {

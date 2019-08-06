@@ -162,7 +162,7 @@
 
         public async Task<bool> ManageUserApprover(string id, AdminManageApproverBindingModel model)
         {
-            var fullMame = Regex.Split(model.FullName, @"\s\s+");
+            var fullMame = Regex.Split(model.FullName, @"\s{1,}");
 
             var firstName = fullMame[0];
             var lastName = fullMame[1];

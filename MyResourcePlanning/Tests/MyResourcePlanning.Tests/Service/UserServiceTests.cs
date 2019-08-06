@@ -17,7 +17,6 @@
         private List<User> dummyUsers;
 
         [SetUp]
-        [Property("service", "UserService")]
         public void Setup()
         {
             var context = MyResourcePlanningDbContextInMemoryFactory.InitializeContext();
