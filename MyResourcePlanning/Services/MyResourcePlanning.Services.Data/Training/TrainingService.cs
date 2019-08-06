@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
 
     using MyResourcePlanning.Data;
@@ -92,8 +93,7 @@
         {
             var trainigToAssign = await this.GetTrainingById(trainingId);
 
-            var resourceName = model.Resource
-                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var resourceName = Regex.Split(model.Resource, @"\s{1,}");
 
             var firstName = resourceName[0];
             var lastName = resourceName[1];

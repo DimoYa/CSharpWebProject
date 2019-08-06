@@ -19,7 +19,6 @@
     {
         private ISkillService skillService;
         private ISkillCategoryService skillCategoryService;
-        private IUserService userService;
         private Mock<IUserService> mockedUserService;
         private List<Skill> dummySkills;
         private List<SkillCategory> dummySkillCategories;
@@ -31,7 +30,6 @@
         {
             var context = MyResourcePlanningDbContextInMemoryFactory.InitializeContext();
             this.skillCategoryService = new SkillCategoryService(context);
-            this.userService = new UserService(context, null);
             this.mockedUserService = new Mock<IUserService>();
 
             this.skillService = new SkillService(context, skillCategoryService, mockedUserService.Object);

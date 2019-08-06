@@ -218,5 +218,69 @@
                 },
             };
         }
+
+        public static List<Training> GetDummyTrainings()
+        {
+            return new List<Training>()
+            {
+                new Training()
+                {
+                    Id = "1",
+                    Name = "Training1",
+                    IsDeleted = false,
+                },
+                new Training()
+                {
+                    Id = "2",
+                    Name = "Training2",
+                    IsDeleted = false,
+                },
+                new Training()
+                {
+                    Id = "3",
+                    Name = "Training3",
+                    IsDeleted = false,
+                },
+                new Training()
+                {
+                    Id = "4",
+                    Name = "Training4",
+                    IsDeleted = true,
+                },
+
+            };
+        }
+
+        public static List<UserTraining> GetDummyUserTrainings()
+        {
+            return new List<UserTraining>()
+            {
+                new UserTraining()
+                {
+                   UserId = "123",
+                   TrainingId = "1",
+                },
+                new UserTraining()
+                {
+                   UserId = "123",
+                   TrainingId = "4",
+                },
+                new UserTraining()
+                {
+                   UserId = "123",
+                   TrainingId = "3",
+                },
+                new UserTraining()
+                {
+                   UserId = "124",
+                   TrainingId = "4",
+                },
+                new UserTraining()
+                {
+                   UserId = "128",
+                   TrainingId = "1",
+                },
+            };
+        }
     }
 }
