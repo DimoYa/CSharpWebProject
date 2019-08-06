@@ -20,17 +20,17 @@
 
         Task<bool> AddSkillToMyProfile(string id, SkillAddBindingModel model);
 
-        Task<SkillEditBindingModel> GetSkillEditBaseModel(Skill skillForUpdate);
-
         Task<bool> RemoveSkillFromProfile(string id);
-
-        Task<Skill> GetSkillById(string id);
-
-        Task<UserSkill> GetCurrentuserSkillById(string id);
 
         Task<bool> EditSkillLevel(SkillEditLevelBindingModel model, string id);
 
-        Task<IList<string>> GetUserSkillsId();
+        Task<Skill> GetSkillById(string id);
+
+        Task<UserSkill> GetCurrentuserSkillById(string skillId);
+
+        Task<IList<string>> GetCurrentUserSkillsId();
+
+        Task<SkillEditBindingModel> GetSkillEditBaseModel(Skill skillForUpdate);
 
         Task<SkillEditLevelBindingModel> GetSkillEditLevelBaseModel(UserSkill skillForUpdate);
 

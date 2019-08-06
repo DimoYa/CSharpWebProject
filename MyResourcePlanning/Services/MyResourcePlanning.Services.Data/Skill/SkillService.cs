@@ -150,18 +150,18 @@
             return Task.FromResult(skill);
         }
 
-        public async Task<UserSkill> GetCurrentuserSkillById(string id)
+        public async Task<UserSkill> GetCurrentuserSkillById(string skillId)
         {
             var currentUser = await this.userService.GetCurrentUserId();
 
             var skill = this.context.UserSkills
-                  .Where(s => s.SkillId == id && s.UserId == currentUser)
+                  .Where(s => s.SkillId == skillId && s.UserId == currentUser)
                   .SingleOrDefault();
 
             return skill;
         }
 
-        public async Task<IList<string>> GetUserSkillsId()
+        public async Task<IList<string>> GetCurrentUserSkillsId()
         {
             var currentUserId = await this.userService.GetCurrentUserId();
 

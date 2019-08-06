@@ -33,7 +33,7 @@ namespace MyResourcePlanning.Tests.Service
         }
 
         [Test]
-        [Property("service", "UserService")]
+        [Property("service", "SkillCategoryService")]
         public async Task CreateCategory_WithDummyData_ShouldReturnCorrectResults()
         {
             var mockedModel = new SkillCategoryCreateBindingModel()
@@ -47,7 +47,7 @@ namespace MyResourcePlanning.Tests.Service
         }
 
         [Test]
-        [Property("service", "UserService")]
+        [Property("service", "SkillCategoryService")]
         public async Task UpdateCategory_WithDummyData_ShouldReturnCorrectResults()
         {
             var categoryId = "10";
@@ -68,8 +68,8 @@ namespace MyResourcePlanning.Tests.Service
         }
 
         [Test]
-        [Property("service", "UserService")]
-        public async Task DeleteCategory_WithDummyData_ShouldSetIsDeletedFlag()
+        [Property("service", "SkillCategoryService")]
+        public async Task DeleteCategory_ShouldSetIsDeletedFlag()
         {
             var categoryId = "10";
 
@@ -83,7 +83,7 @@ namespace MyResourcePlanning.Tests.Service
         }
 
         [Test]
-        [Property("service", "UserService")]
+        [Property("service", "SkillCategoryService")]
         public async Task GetCategoryByName_WithDummyData_ShouldReturnCorrectResults()
         {
             var categoryName = "Category2";
@@ -98,7 +98,7 @@ namespace MyResourcePlanning.Tests.Service
         }
 
         [Test]
-        [Property("service", "UserService")]
+        [Property("service", "SkillCategoryService")]
         public async Task GetCategoryById_WithDummyData_ShouldReturnCorrectResults()
         {
             var categoryId = "11";
@@ -113,7 +113,7 @@ namespace MyResourcePlanning.Tests.Service
         }
 
         [Test]
-        [Property("service", "UserService")]
+        [Property("service", "SkillCategoryService")]
         public async Task GetAllActiveSkillCategories_WithDummyData_ShouldReturnCorrectResults()
         {
             var actualResults = await this.skillCategoryService.GetAllActiveSkillCategories<SkillCategoryViewModel>();

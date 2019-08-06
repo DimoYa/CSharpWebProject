@@ -2,6 +2,7 @@
 {
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
+    using MyResourcePlanning.Web.BindingModels.Skill;
     using MyResourcePlanning.Web.ViewModels.Admin;
     using MyResourcePlanning.Web.ViewModels.Skill;
     using MyResourcePlanning.Web.ViewModels.User;
@@ -22,6 +23,15 @@
             AutoMapperConfig.RegisterMappings(
                 typeof(SkillCategoryViewModel).GetTypeInfo().Assembly,
                 typeof(SkillCategory).GetTypeInfo().Assembly);
+
+            AutoMapperConfig.RegisterMappings(
+                typeof(UserSkillsByCategoryViewModel).GetTypeInfo().Assembly,
+                typeof(UserSkill).GetTypeInfo().Assembly);
+
+            AutoMapperConfig.RegisterMappings(
+                typeof(SkillCreateBindingModel).GetTypeInfo().Assembly,
+                typeof(Skill).GetTypeInfo().Assembly);
+
         }
     }
 }

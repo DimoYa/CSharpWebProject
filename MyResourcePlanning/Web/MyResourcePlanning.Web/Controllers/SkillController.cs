@@ -86,7 +86,7 @@
             var skills = await this.skillService
                 .GetAllSkillsByCategories<SkillsByCategoryViewModel>();
 
-            var currentUserSkills = await this.skillService.GetUserSkillsId();
+            var currentUserSkills = await this.skillService.GetCurrentUserSkillsId();
 
             return this.View(Tuple.Create(skills.ToList(), currentUserSkills));
         }

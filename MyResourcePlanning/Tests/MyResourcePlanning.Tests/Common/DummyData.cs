@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity;
     using MyResourcePlanning.Models;
+    using MyResourcePlanning.Models.Enums;
     using System.Collections.Generic;
 
     public static class DummyData
@@ -36,7 +37,7 @@
                         new  IdentityUserRole<string> { RoleId = "111", UserId = "123" },
                         new  IdentityUserRole<string> { RoleId = "222", UserId = "123" }
                     },
-                    ApproverId = "250"
+                    ApproverId = "250",
 
                 },
                 new User
@@ -171,6 +172,50 @@
                     Name = "Category4",
                     IsDeleted = true,
                 }
+            };
+        }
+
+        public static List<UserSkill> GetDummyUserSkills()
+        {
+            return new List<UserSkill>()
+            {
+                new UserSkill()
+                {
+                   UserId = "123",
+                   SkillId = "1",
+                },
+               new UserSkill()
+               {
+                   UserId = "123",
+                   SkillId = "2",
+                   Level = SkillLevel.Beginning,
+               },
+               new UserSkill()
+              {
+                   UserId = "123",
+                   SkillId = "4",
+               },
+
+                new UserSkill()
+                {
+                    UserId = "124",
+                    SkillId = "1",
+                },
+                new UserSkill()
+                {
+                    UserId = "124",
+                    SkillId = "2",
+                },
+                new UserSkill()
+                {
+                    UserId = "125",
+                    SkillId = "1",
+                },
+                new UserSkill()
+                {
+                    UserId = "125",
+                    SkillId = "3",
+                },
             };
         }
     }
