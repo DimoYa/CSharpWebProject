@@ -101,6 +101,48 @@
             };
         }
 
+        public static List<Skill> GetDummySkills()
+        {
+            return new List<Skill>()
+            {
+                new Skill()
+                {
+                    Id = "1",
+                    Name = "Skill1",
+                    IsDeleted = false,
+                    SkillCategoryId = "10",
+                },
+                new Skill()
+                {
+                    Id = "2",
+                    Name = "Skill2",
+                    IsDeleted = false,
+                    SkillCategoryId = "10",
+                },
+                new Skill()
+                {
+                    Id = "3",
+                    Name = "Skill3",
+                    IsDeleted = false,
+                    SkillCategoryId = "11",
+                },
+                new Skill()
+                {
+                    Id = "4",
+                    Name = "Skill4",
+                    IsDeleted = true,
+                    SkillCategoryId = "11",
+                },
+                new Skill()
+                {
+                    Id = "5",
+                    Name = "Skill5",
+                    IsDeleted = true,
+                    SkillCategoryId = "13",
+                }
+            };
+        }
+
         public static List<SkillCategory> GetDummySkillCategories()
         {
             return new List<SkillCategory>()
