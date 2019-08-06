@@ -18,7 +18,7 @@
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var skills = await this.skillCategoryService.GetAllSkillCategories<SkillCategoryViewModel>();
+            var skills = await this.skillCategoryService.GetAllActiveSkillCategories<SkillCategoryViewModel>();
 
             return this.View(skills);
         }

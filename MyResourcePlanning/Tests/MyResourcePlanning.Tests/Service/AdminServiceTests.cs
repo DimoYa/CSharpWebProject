@@ -12,7 +12,6 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyResourcePlanning.Tests.Service
@@ -42,6 +41,8 @@ namespace MyResourcePlanning.Tests.Service
                     new Mock<IdentityErrorDescriber>().Object,
                     new Mock<IServiceProvider>().Object,
                     new Mock<ILogger<UserManager<User>>>().Object);
+
+
 
 
             this.adminService = new AdminService(context, userService, mockUserManager.Object);
@@ -98,12 +99,11 @@ namespace MyResourcePlanning.Tests.Service
         [Property("service", "AdminService")]
         public async Task ManageUserApprover_WithDummyData_ShouldReturnCorrectResults()
         {
-            var context = MyResourcePlanningDbContextInMemoryFactory.InitializeContext();
-            var mockedModel = new AdminManageApproverBindingModel() { FullName = "Test Test"};
+            var mockedModel = new AdminManageApproverBindingModel() { FullName = "Test Test" };
 
-           await this.adminService.ManageUserApprover("123" , mockedModel);
+            await this.adminService.ManageUserApprover("123", mockedModel);
 
-            var actualResult = context.Users.SingleOrDefault(u => u.Id == "123");
+            var actualResult = dummyUsers.SingleOrDefault(u => u.Id == "123");
 
             Assert.Multiple(() =>
             {

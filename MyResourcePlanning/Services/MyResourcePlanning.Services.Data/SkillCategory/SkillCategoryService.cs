@@ -85,7 +85,7 @@
             return Task.FromResult(category);
         }
 
-        public Task<IEnumerable<TViewModel>> GetAllSkillCategories<TViewModel>()
+        public Task<IEnumerable<TViewModel>> GetAllActiveSkillCategories<TViewModel>()
         {
             var categories = this.context
                               .SkillCategories

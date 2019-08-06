@@ -36,17 +36,7 @@
                         new  IdentityUserRole<string> { RoleId = "111", UserId = "123" },
                         new  IdentityUserRole<string> { RoleId = "222", UserId = "123" }
                     },
-                    Approver = new User
-                    {
-                    Id = "250",
-                    FirstName = "Approver",
-                    LastName = "Approver",
-                    IsDeleted = false,
-                    Roles = new List<IdentityUserRole<string>>()
-                    {
-                        new  IdentityUserRole<string> { RoleId = "222", UserId = "250" }
-                    },
-                    },
+                    ApproverId = "250"
 
                 },
                 new User
@@ -96,6 +86,48 @@
                     {
                         new  IdentityUserRole<string> { RoleId = "111", UserId = "128" }
                     },
+                },
+                new User
+                {
+                    Id = "250",
+                    FirstName = "Approver",
+                    LastName = "Approver",
+                    IsDeleted = false,
+                    Roles = new List<IdentityUserRole<string>>()
+                    {
+                        new  IdentityUserRole<string> { RoleId = "222", UserId = "250" }
+                    },
+                },
+            };
+        }
+
+        public static List<SkillCategory> GetDummySkillCategories()
+        {
+            return new List<SkillCategory>()
+            {
+                new SkillCategory()
+                {
+                    Id = "10",
+                    Name = "Category1",
+                    IsDeleted = false,
+                },
+                new SkillCategory()
+                {
+                    Id = "11",
+                    Name = "Category2",
+                    IsDeleted = false,
+                },
+                new SkillCategory()
+                {
+                    Id = "12",
+                    Name = "Category3",
+                    IsDeleted = true,
+                },
+                new SkillCategory()
+                {
+                    Id = "13",
+                    Name = "Category4",
+                    IsDeleted = true,
                 }
             };
         }

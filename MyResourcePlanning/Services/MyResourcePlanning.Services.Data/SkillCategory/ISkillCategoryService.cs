@@ -18,6 +18,6 @@
 
         Task<SkillCategory> GetCategoryById(string id);
 
-        Task<IEnumerable<TViewModel>> GetAllSkillCategories<TViewModel>();
+        Task<IEnumerable<TViewModel>> GetAllActiveSkillCategories<TViewModel>();
     }
 }
