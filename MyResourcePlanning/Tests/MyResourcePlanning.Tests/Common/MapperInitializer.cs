@@ -5,6 +5,7 @@
     using MyResourcePlanning.Web.BindingModels.Skill;
     using MyResourcePlanning.Web.ViewModels.Admin;
     using MyResourcePlanning.Web.ViewModels.Skill;
+    using MyResourcePlanning.Web.ViewModels.Training;
     using MyResourcePlanning.Web.ViewModels.User;
     using System.Reflection;
 
@@ -32,6 +33,13 @@
                 typeof(SkillCreateBindingModel).GetTypeInfo().Assembly,
                 typeof(Skill).GetTypeInfo().Assembly);
 
+            AutoMapperConfig.RegisterMappings(
+                typeof(TrainingAllViewModel).GetTypeInfo().Assembly,
+                typeof(Training).GetTypeInfo().Assembly);
+
+            AutoMapperConfig.RegisterMappings(
+                typeof(TrainingUserViewModel).GetTypeInfo().Assembly,
+                typeof(UserTraining).GetTypeInfo().Assembly);
         }
     }
 }

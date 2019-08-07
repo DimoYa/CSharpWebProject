@@ -46,7 +46,7 @@
         public async Task<IActionResult> MyTrainings()
         {
             var userTrainings = await this.trainingService
-                .GetUserTrainings<TrainingUserViewModel>();
+                .GetCurrentUserTrainings<TrainingUserViewModel>();
 
             return this.View(userTrainings);
         }
@@ -58,7 +58,7 @@
         {
             var trainings = await this.trainingService.GetAllTrainings<TrainingAllViewModel>();
 
-            var currentUserTrainings = await this.trainingService.GetUserTrainingsId();
+            var currentUserTrainings = await this.trainingService.GetCurrentUserTrainingsId();
 
             return this.View(Tuple.Create(trainings.ToList(), currentUserTrainings));
         }

@@ -126,7 +126,7 @@
             return result > 0;
         }
 
-        public async Task<IList<string>> GetUserTrainingsId()
+        public async Task<IList<string>> GetCurrentUserTrainingsId()
         {
             var currentUserId = await this.userService.GetCurrentUserId();
 
@@ -138,14 +138,14 @@
             return userTrainingssId;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetUserTrainings<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetCurrentUserTrainings<TViewModel>()
         {
             var currentUserId = await this.userService.GetCurrentUserId();
 
             var trainings = this.context.UserTrainings
-                 .Where(d => d.Training.DueDate >= DateTime.Now)
+                 .Where(ut => ut.Training.DueDate >= DateTime.Now)
                  .Where(ut => ut.UserId == currentUserId)
-                 .Where(s => s.Training.IsDeleted == false)
+                 .Where(ut => ut.Training.IsDeleted == false)
                  .To<TViewModel>()
                  .ToList();
 

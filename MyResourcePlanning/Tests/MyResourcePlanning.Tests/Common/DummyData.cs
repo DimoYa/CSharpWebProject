@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Identity;
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Models.Enums;
+    using System;
     using System.Collections.Generic;
 
     public static class DummyData
@@ -228,24 +229,28 @@
                     Id = "1",
                     Name = "Training1",
                     IsDeleted = false,
+                    DueDate = DateTime.Now.AddDays(30),
                 },
                 new Training()
                 {
                     Id = "2",
                     Name = "Training2",
                     IsDeleted = false,
+                    DueDate = DateTime.Now.AddDays(-1),
                 },
                 new Training()
                 {
                     Id = "3",
                     Name = "Training3",
                     IsDeleted = false,
+                    DueDate = DateTime.Now.AddDays(10),
                 },
                 new Training()
                 {
                     Id = "4",
                     Name = "Training4",
                     IsDeleted = true,
+                    DueDate = DateTime.Now.AddDays(5),
                 },
 
             };
@@ -279,6 +284,7 @@
                 {
                    UserId = "128",
                    TrainingId = "1",
+                   Status = UserTrainingStatus.Assigned,
                 },
             };
         }

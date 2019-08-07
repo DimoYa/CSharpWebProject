@@ -5,6 +5,7 @@ using MyResourcePlanning.Services.Data.Training;
 using MyResourcePlanning.Services.Data.User;
 using MyResourcePlanning.Tests.Common;
 using MyResourcePlanning.Web.BindingModels.Training;
+using MyResourcePlanning.Web.ViewModels.Training;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -117,28 +118,20 @@ namespace MyResourcePlanning.Tests.Service
                Name = "Training3",
             };
 
-            await this.trainingService.Request(trainingId, mockedModel);
+            var result = await this.trainingService.Request(trainingId, mockedModel);
 
-            var actualResult = this.dummyUserTrainings
-               .SingleOrDefault(ut => ut.UserId == currentUserId && ut.TrainingId == trainingId);
-
-            Assert.Multiple(() =>
-            {
-                Assert.IsNotNull(actualResult);
-                Assert.That(actualResult.Status.Equals(UserTrainingStatus.Requested));
-            });
+            Assert.IsTrue(result);
         }
 
         [Test]
         [Property("service", "TrainingService")]
         public async Task AssignToUser_ShouldAssignUserToTraining()
         {
-            var context = MyResourcePlanningDbContextInMemoryFactory.InitializeContext();
             var trainingId = "2";
             var userId = "123";
 
             this.mockedUserService.Setup(x => x.GetUserByName("FirstName", "LastName"))
-            .Returns(Task.FromResult(context.Users.SingleOrDefault(u=> u.Id == userId)));
+            .Returns(Task.FromResult(this.dummyUsers.SingleOrDefault(u=> u.Id == userId)));
 
             var mockedModel = new TrainingAssignBindingModel()
             {
@@ -146,16 +139,136 @@ namespace MyResourcePlanning.Tests.Service
                 Resource = "FirstName LastName",
             };
 
-            await this.trainingService.AssignToUser(trainingId, mockedModel);
+            var result = await this.trainingService.AssignToUser(trainingId, mockedModel);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        [Property("service", "TrainingService")]
+        public async Task ChangeUserTrainingStatus_ShouldReturnCorrectResults()
+        {
+            var trainingId = "1";
+            var userId = "128";
+            var newStatus = UserTrainingStatus.Rejected;
+
+            var mockedModel = new TrainingStatusChangeBindingModel()
+            {
+                Status = newStatus,
+            };
+
+            await this.trainingService.ChangeUserTrainingStatus(mockedModel, trainingId, userId);
 
             var actualResult = this.dummyUserTrainings
-               .SingleOrDefault(ut => ut.UserId == userId && ut.TrainingId == trainingId);
+                .SingleOrDefault(ut => ut.TrainingId == trainingId 
+                && ut.UserId == userId);
+
+            Assert.That(actualResult.Status.Equals(newStatus));
+        }
+
+        [Test]
+        [Property("service", "TrainingService")]
+        public async Task GetAllTrainings_WithDummyData_ShouldReturnCorrectResults()
+        {
+            var actualResults = await this.trainingService.GetAllTrainings<TrainingAllViewModel>();
+
+            var expectedResults = this.dummyTrainings
+                .Where(s => s.IsDeleted == false)
+                .OrderBy(s => s.Name)
+                .ToList();
+
+            CollectionAssert.AreEqual(actualResults.Select(ut => ut.Id),
+                expectedResults.Select(ut => ut.Id));
+        }
+
+        [Test]
+        [Property("service", "TrainingService")]
+        public async Task GetCurrentUserTrainings_WithDummyData_ShouldReturnCorrectResults()
+        {
+            var currentUserId = "123";
+
+            this.mockedUserService.Setup(x => x.GetCurrentUserId())
+             .Returns(Task.FromResult(currentUserId));
+
+            var actualResults = await this.trainingService.GetCurrentUserTrainings<TrainingUserViewModel>();
+
+            var expectedResults = this.dummyUserTrainings
+                 .Where(ut => ut.UserId == currentUserId)
+                 .Where(ut => ut.Training.DueDate >= DateTime.Now)
+                 .Where(ut => ut.Training.IsDeleted == false)
+                .ToList();
+
+            CollectionAssert.AreEqual(actualResults.Select(ut => ut.TrainingId),
+                expectedResults.Select(ut => ut.TrainingId));
+        }
+
+        [Test]
+        [Property("service", "TrainingService")]
+        public async Task GetAllUsersTrainings_WithDummyData_ShouldReturnCorrectResults()
+        {
+
+            var actualResults = await this.trainingService.GetAllUsersTrainings<TrainingUserViewModel>();
+
+            var expectedResults = this.dummyUserTrainings
+                 .Where(ut => ut.Training.DueDate >= DateTime.Now)
+                 .Where(ut => ut.Training.IsDeleted == false)
+                .ToList();
+
+            CollectionAssert.AreEqual(actualResults.Select(ut => ut.TrainingId),
+                expectedResults.Select(ut => ut.TrainingId));
+        }
+
+        [Test]
+        [Property("service", "TrainingService")]
+        public async Task GetUserTrainingByIds_WithDummyData_ShouldReturnCorrectResults()
+        {
+            var trainingId = "1";
+            var userId = "123";
+
+            var actualResult = await this.trainingService
+                .GetUserTrainingByIds<TrainingUserViewModel>(trainingId, userId);
+
+            var expectedResult = this.dummyUserTrainings
+                 .SingleOrDefault(ut => ut.UserId == userId && ut.TrainingId == trainingId)
+                 .Training;
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(actualResult);
-                Assert.That(actualResult.Status.Equals(UserTrainingStatus.Assigned));
+                Assert.That(actualResult.TrainingName.Equals(expectedResult.Name));
+                Assert.That(actualResult.TrainingId.Equals(expectedResult.Id));
             });
+        }
+
+        [Test]
+        [Property("service", "TrainingService")]
+        public async Task GetCurrentUserTrainingByIds_WithDummyData_ShouldReturnCorrectResults()
+        {
+            var currentUserId = "123";
+
+            this.mockedUserService.Setup(x => x.GetCurrentUserId())
+             .Returns(Task.FromResult(currentUserId));
+
+            var actualResult = await this.trainingService.GetCurrentUserTrainingsId();
+
+            var expectedResult = this.dummyUserTrainings
+                 .Where(x => x.UserId == currentUserId)
+                 .Select(ut=> ut.TrainingId);
+
+            CollectionAssert.AreEqual(actualResult, expectedResult);
+        }
+
+        [Test]
+        [Property("service", "TrainingService")]
+        public async Task GetTrainingById_ShouldReturnCorrectResult()
+        {
+            var trainingId = "1";
+
+            var actualResult = await this.trainingService.GetTrainingById(trainingId);
+
+            var expectedResult = this.dummyTrainings
+                 .SingleOrDefault(t => t.Id == trainingId);
+
+            Assert.That(actualResult.Equals(expectedResult));
         }
     }
 }

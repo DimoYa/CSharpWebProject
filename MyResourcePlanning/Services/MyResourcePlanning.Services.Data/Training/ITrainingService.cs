@@ -22,13 +22,13 @@
 
         Task<IEnumerable<TViewModel>> GetAllTrainings<TViewModel>();
 
-        Task<IEnumerable<TViewModel>> GetUserTrainings<TViewModel>();
+        Task<IEnumerable<TViewModel>> GetCurrentUserTrainings<TViewModel>();
 
         Task<IEnumerable<TViewModel>> GetAllUsersTrainings<TViewModel>();
 
         Task<TViewModel> GetUserTrainingByIds<TViewModel>(string trainingId, string userId);
 
-        Task<IList<string>> GetUserTrainingsId();
+        Task<IList<string>> GetCurrentUserTrainingsId();
 
         Task<Training> GetTrainingById(string id);
 
