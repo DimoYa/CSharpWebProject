@@ -1,17 +1,15 @@
-﻿using MyResourcePlanning.Models;
-using MyResourcePlanning.Services.Data.SkillCategory;
-using MyResourcePlanning.Tests.Common;
-using MyResourcePlanning.Web.BindingModels.Skill;
-using MyResourcePlanning.Web.ViewModels.Skill;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyResourcePlanning.Tests.Service
+﻿namespace MyResourcePlanning.Tests.Service
 {
+    using MyResourcePlanning.Models;
+    using MyResourcePlanning.Services.Data.SkillCategory;
+    using MyResourcePlanning.Tests.Common;
+    using MyResourcePlanning.Web.BindingModels.Skill;
+    using MyResourcePlanning.Web.ViewModels.Skill;
+    using NUnit.Framework;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class SkillCategoryServiceTests
     {
@@ -34,7 +32,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "SkillCategoryService")]
-        public async Task CreateCategory_WithDummyData_ShouldReturnCorrectResults()
+        public async Task CreateCategory_ShouldReturnCorrectResults()
         {
             var mockedModel = new SkillCategoryCreateBindingModel()
             {
@@ -48,7 +46,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "SkillCategoryService")]
-        public async Task UpdateCategory_WithDummyData_ShouldReturnCorrectResults()
+        public async Task UpdateCategory_ShouldReturnCorrectResults()
         {
             var categoryId = "10";
             var newCategoryName = "TestCategoryNameUpdated";
@@ -57,7 +55,8 @@ namespace MyResourcePlanning.Tests.Service
                 Name = newCategoryName
             };
 
-            var categoryForUpdate = this.dummySkillCategories.SingleOrDefault(s => s.Id == categoryId);
+            var categoryForUpdate = this.dummySkillCategories
+                .SingleOrDefault(s => s.Id == categoryId);
 
             await this.skillCategoryService.EditCategory(mockedModel, categoryId);
             var actualResult = this.dummySkillCategories
@@ -84,11 +83,12 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "SkillCategoryService")]
-        public async Task GetCategoryByName_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetCategoryByName_ShouldReturnCorrectResults()
         {
             var categoryName = "Category2";
 
-            var actualResult = await this.skillCategoryService.GetCategoryByName(categoryName);
+            var actualResult = await this.skillCategoryService
+                .GetCategoryByName(categoryName);
 
             Assert.Multiple(() =>
             {
@@ -99,11 +99,12 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "SkillCategoryService")]
-        public async Task GetCategoryById_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetCategoryById_ShouldReturnCorrectResults()
         {
             var categoryId = "11";
 
-            var actualResult = await this.skillCategoryService.GetCategoryById(categoryId);
+            var actualResult = await this.skillCategoryService
+                .GetCategoryById(categoryId);
 
             Assert.Multiple(() =>
             {
@@ -114,15 +115,18 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "SkillCategoryService")]
-        public async Task GetAllActiveSkillCategories_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetAllActiveSkillCategories_ShouldReturnCorrectResults()
         {
-            var actualResults = await this.skillCategoryService.GetAllActiveSkillCategories<SkillCategoryViewModel>();
+            var actualResults = await this.skillCategoryService
+                .GetAllActiveSkillCategories<SkillCategoryViewModel>();
 
             var expectedResults = this.dummySkillCategories
                 .Where(u => u.IsDeleted == false)
                 .ToList();
 
-            CollectionAssert.AreEqual(actualResults.Select(x => x.Id), expectedResults.Select(x => x.Id));
+            CollectionAssert.AreEqual(
+                expectedResults.Select(s => s.Id),
+                actualResults.Select(s => s.Id));
         }
     }
 }

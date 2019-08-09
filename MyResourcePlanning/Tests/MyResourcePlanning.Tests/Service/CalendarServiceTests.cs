@@ -1,19 +1,19 @@
-﻿using Moq;
-using MyResourcePlanning.Models;
-using MyResourcePlanning.Models.Enums;
-using MyResourcePlanning.Services.Data.Calendar;
-using MyResourcePlanning.Services.Data.User;
-using MyResourcePlanning.Tests.Common;
-using MyResourcePlanning.Web.BindingModels.Calendar;
-using MyResourcePlanning.Web.ViewModels.Calendar;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MyResourcePlanning.Tests.Service
+﻿namespace MyResourcePlanning.Tests.Service
 {
+    using Moq;
+    using MyResourcePlanning.Models;
+    using MyResourcePlanning.Models.Enums;
+    using MyResourcePlanning.Services.Data.Calendar;
+    using MyResourcePlanning.Services.Data.User;
+    using MyResourcePlanning.Tests.Common;
+    using MyResourcePlanning.Web.BindingModels.Calendar;
+    using MyResourcePlanning.Web.ViewModels.Calendar;
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class CalendarServiceTests
     {
@@ -173,7 +173,7 @@ namespace MyResourcePlanning.Tests.Service
             var currentUserId = "123";
             var calendarId = "2";
 
-            this.mockedUserService.Setup(x => x.GetCurrentUserId())
+            this.mockedUserService.Setup(u => u.GetCurrentUserId())
               .Returns(Task.FromResult(currentUserId));
 
             var actualResult = await this.calendarService
@@ -202,7 +202,7 @@ namespace MyResourcePlanning.Tests.Service
         {
             var currentUserId = "123";
 
-            this.mockedUserService.Setup(x => x.GetCurrentUserId())
+            this.mockedUserService.Setup(c => c.GetCurrentUserId())
               .Returns(Task.FromResult(currentUserId));
 
             var actualResults = await this.calendarService

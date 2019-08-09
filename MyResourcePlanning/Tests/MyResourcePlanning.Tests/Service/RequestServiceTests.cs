@@ -1,21 +1,20 @@
-﻿using Moq;
-using MyResourcePlanning.Models;
-using MyResourcePlanning.Models.Enums;
-using MyResourcePlanning.Services.Data.Project;
-using MyResourcePlanning.Services.Data.Request;
-using MyResourcePlanning.Services.Data.User;
-using MyResourcePlanning.Tests.Common;
-using MyResourcePlanning.Web.BindingModels.Request;
-using MyResourcePlanning.Web.ViewModels.Request;
-using MyResourcePlanning.Web.ViewModels.User;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MyResourcePlanning.Tests.Service
+﻿namespace MyResourcePlanning.Tests.Service
 {
+    using Moq;
+    using MyResourcePlanning.Models;
+    using MyResourcePlanning.Models.Enums;
+    using MyResourcePlanning.Services.Data.Project;
+    using MyResourcePlanning.Services.Data.Request;
+    using MyResourcePlanning.Services.Data.User;
+    using MyResourcePlanning.Tests.Common;
+    using MyResourcePlanning.Web.BindingModels.Request;
+    using MyResourcePlanning.Web.ViewModels.Request;
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class RequestServiceTests
     {
@@ -58,7 +57,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "RequestService")]
-        public async Task CreateRequest_WithDummyData_ShouldReturnCorrectResults()
+        public async Task CreateRequest_ShouldReturnCorrectResults()
         {
             var mockedModel = new RequestCreateBindingModel()
             {
@@ -76,7 +75,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "RequestService")]
-        public async Task EditRequest_WithDummyData_ShouldReturnCorrectResults()
+        public async Task EditRequest_ShouldReturnCorrectResults()
         {
             var requestId = "1";
             var newStartDate = DateTime.Now;
@@ -178,7 +177,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "RequestService")]
-        public async Task GetEmployeeDetails_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetEmployeeDetails_ShouldReturnCorrectResults()
         {
             var userId = "129";
 
@@ -253,7 +252,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "RequestService")]
-        public async Task GetAllPlannerRequests_WithDummyData_ShouldReturnPlannersRequests()
+        public async Task GetAllPlannerRequests_ShouldReturnPlannersRequests()
         {
             var currentUserId = "123";
 
@@ -274,7 +273,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "RequestService")]
-        public async Task GetAllApproverRequests_WithDummyData_ShouldReturnApproversRequests()
+        public async Task GetAllApproverRequests_ShouldReturnApproversRequests()
         {
             var currentUserId = "250";
 
@@ -295,7 +294,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "RequestService")]
-        public async Task GetAllResourceRequests_WithDummyData_ShouldReturnApproversRequests()
+        public async Task GetAllResourceRequests_ShouldReturnApproversRequests()
         {
             var currentUserId = "123";
 

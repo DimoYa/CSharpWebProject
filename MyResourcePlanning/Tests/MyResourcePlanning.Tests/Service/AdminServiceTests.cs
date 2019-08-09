@@ -1,21 +1,21 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Moq;
-using MyResourcePlanning.Models;
-using MyResourcePlanning.Services.Data.Admin;
-using MyResourcePlanning.Services.Data.User;
-using MyResourcePlanning.Tests.Common;
-using MyResourcePlanning.Web.BindingModels.Admin;
-using MyResourcePlanning.Web.ViewModels.Admin;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MyResourcePlanning.Tests.Service
+﻿namespace MyResourcePlanning.Tests.Service
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using Moq;
+    using MyResourcePlanning.Models;
+    using MyResourcePlanning.Services.Data.Admin;
+    using MyResourcePlanning.Services.Data.User;
+    using MyResourcePlanning.Tests.Common;
+    using MyResourcePlanning.Web.BindingModels.Admin;
+    using MyResourcePlanning.Web.ViewModels.Admin;
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class AdminServiceTests
     {
@@ -28,7 +28,7 @@ namespace MyResourcePlanning.Tests.Service
         [SetUp]
         public void Setup()
         {
-            var context = MyResourcePlanningDbContextInMemoryFactory.InitializeContext();
+           var context = MyResourcePlanningDbContextInMemoryFactory.InitializeContext();
             this.userService = new UserService(context, null);
 
             this.mockUserManager = new Mock<UserManager<User>>(
@@ -56,7 +56,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "AdminService")]
-        public async Task GetAllActiveUsers_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetAllActiveUsers_ShouldReturnCorrectResults()
         {
             var actualResults = await this.adminService.GetAllActiveUsers<AdminAllUsersViewModel>();
 
@@ -64,14 +64,18 @@ namespace MyResourcePlanning.Tests.Service
                 .Where(u => u.IsDeleted == false)
                 .ToList();
 
-            CollectionAssert.AreEqual(actualResults.Select(x => x.Id), expectedResults.Select(x => x.Id));
+            CollectionAssert.AreEqual(
+                expectedResults.Select(x => x.Id),
+                actualResults.Select(x => x.Id));
         }
 
         [Test]
         [Property("service", "AdminService")]
-        public async Task GetUserRolesById_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetUserRolesById_ShouldReturnCorrectResults()
         {
-            var actualResults = await this.adminService.GetUserRolesById("123");
+            var userId = "123";
+
+            var actualResults = await this.adminService.GetUserRolesById(userId);
 
             Assert.Multiple(() =>
             {
@@ -84,9 +88,12 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "AdminService")]
-        public async Task GetUserApproverById_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetUserApproverById_ShouldReturnCorrectResults()
         {
-            var actualResults = await this.adminService.GetUserApproverById("123");
+            var approverId = "123";
+
+            var actualResults = await this.adminService
+                .GetUserApproverById(approverId);
             var expectedResults = "Approver Approver";
 
             Assert.That(actualResults.CurrentApprover.Equals(expectedResults));
@@ -94,13 +101,18 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "AdminService")]
-        public async Task ManageUserApprover_WithDummyData_ShouldReturnCorrectResults()
+        public async Task ManageUserApprover_ShouldReturnCorrectResults()
         {
-            var mockedModel = new AdminManageApproverBindingModel() { FullName = "Test Test" };
+            var userId = "123";
 
-            await this.adminService.ManageUserApprover("123", mockedModel);
+            var mockedModel = new AdminManageApproverBindingModel()
+            {
+                FullName = "Test Test"
+            };
 
-            var actualResult = dummyUsers.SingleOrDefault(u => u.Id == "123");
+            await this.adminService.ManageUserApprover(userId, mockedModel);
+
+            var actualResult = dummyUsers.SingleOrDefault(u => u.Id == userId);
 
             Assert.Multiple(() =>
             {

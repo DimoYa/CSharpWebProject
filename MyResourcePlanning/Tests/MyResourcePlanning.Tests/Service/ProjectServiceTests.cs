@@ -1,16 +1,16 @@
-﻿using MyResourcePlanning.Models;
-using MyResourcePlanning.Services.Data.Project;
-using MyResourcePlanning.Tests.Common;
-using MyResourcePlanning.Web.BindingModels.Project;
-using MyResourcePlanning.Web.ViewModels.Project;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MyResourcePlanning.Tests.Service
+﻿namespace MyResourcePlanning.Tests.Service
 {
+    using MyResourcePlanning.Models;
+    using MyResourcePlanning.Services.Data.Project;
+    using MyResourcePlanning.Tests.Common;
+    using MyResourcePlanning.Web.BindingModels.Project;
+    using MyResourcePlanning.Web.ViewModels.Project;
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class ProjectServiceTests
     {
@@ -33,7 +33,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "ProjectService")]
-        public async Task CreateProject_WithDummyData_ShouldReturnCorrectResults()
+        public async Task CreateProject_ShouldReturnCorrectResults()
         {
             var mockedModel = new ProjectCreateBindingModel()
             {
@@ -50,7 +50,7 @@ namespace MyResourcePlanning.Tests.Service
 
         [Test]
         [Property("service", "ProjectService")]
-        public async Task EditProject_WithDummyData_ShouldReturnCorrectResults()
+        public async Task EditProject_ShouldReturnCorrectResults()
         {
             var projectId = "1";
             var newName = "NewProjectName";
