@@ -91,6 +91,25 @@
                 },
                 new User
                 {
+                    Id = "129",
+                    FirstName = "Ivan",
+                    LastName = "Ivanov",
+                    IsDeleted = false,
+                    Skills = new List<UserSkill>()
+                    {
+                        new  UserSkill { UserId = "129", SkillId = "1" },
+                        new  UserSkill { UserId = "129", SkillId = "2" },
+                        new  UserSkill { UserId = "129", SkillId = "3" },
+                    },
+                    Trainings = new List<UserTraining>()
+                    {
+                        new UserTraining { UserId = "129", TrainingId = "1"},
+                        new UserTraining { UserId = "129", TrainingId = "2"},
+                        new UserTraining { UserId = "129", TrainingId = "3"},
+                    }
+                },
+                new User
+                {
                     Id = "250",
                     FirstName = "Approver",
                     LastName = "Approver",
@@ -285,6 +304,141 @@
                    UserId = "128",
                    TrainingId = "1",
                    Status = UserTrainingStatus.Assigned,
+                },
+            };
+        }
+
+        public static List<Project> GetDummyProjects()
+        {
+            return new List<Project>()
+            {
+                new Project()
+                {
+                   Id = "1",
+                   Name = "Project1",
+                   RequestedHours = 100,
+                   StartDate = DateTime.Now,
+                   EndDate = DateTime.Now.AddDays(60),
+                   IsDeleted = false,
+                },
+                new Project()
+                {
+                   Id = "2",
+                   Name = "Project2",
+                   RequestedHours = 60,
+                   StartDate = DateTime.Now,
+                   EndDate = DateTime.Now.AddDays(30),
+                   IsDeleted = false,
+                },
+                new Project()
+                {
+                   Id = "3",
+                   Name = "Project3",
+                   RequestedHours = 60,
+                   StartDate = DateTime.Now.AddDays(-30),
+                   EndDate = DateTime.Now.AddDays(-1),
+                   IsDeleted = true,
+                },
+                new Project()
+                {
+                   Id = "4",
+                   Name = "Project4",
+                   RequestedHours = 80,
+                   StartDate = DateTime.Now.AddDays(2),
+                   EndDate = DateTime.Now.AddDays(30),
+                   IsDeleted = false,
+                },
+            };
+        }
+        public static List<Request> GetDummyRequests()
+        {
+            return new List<Request>()
+            {
+                new Request()
+                {
+                   Id = "1",
+                   UserId = "123",
+                   ProjectId = "1",
+                   WorkingHours = 10,
+                   StartDate = DateTime.Now.AddDays(5),
+                   EndDate = DateTime.Now.AddDays(15),
+                   IsDeleted = false,
+                   Status = RequestStatus.InProgress,
+                },
+                new Request()
+                {
+                   Id = "2",
+                   UserId = "124",
+                   ProjectId = "1",
+                   WorkingHours = 5,
+                   StartDate = DateTime.Now.AddDays(-10),
+                   EndDate = DateTime.Now.AddDays(15),
+                   IsDeleted = false,
+                },
+                new Request()
+                {
+                   Id = "4",
+                   UserId = "123",
+                   ProjectId = "1",
+                   WorkingHours = 10,
+                   StartDate = DateTime.Now.AddDays(5),
+                   EndDate = DateTime.Now.AddDays(15),
+                },
+                new Request()
+                {
+                   Id = "3",
+                   UserId = "125",
+                   ProjectId = "1",
+                   WorkingHours = 10,
+                   StartDate = DateTime.Now.AddDays(5),
+                   EndDate = DateTime.Now.AddDays(15),
+                   IsDeleted = false
+                },
+                new Request()
+                {
+                   Id = "5",
+                   UserId = "128",
+                   ProjectId = "1",
+                   WorkingHours = 10,
+                   StartDate = DateTime.Now.AddDays(-15),
+                   EndDate = DateTime.Now,
+                   IsDeleted = false,
+                },
+                new Request()
+                {
+                   Id = "6",
+                   UserId = "126",
+                   ProjectId = "1",
+                   WorkingHours = 1,
+                   StartDate = DateTime.Now.AddDays(5),
+                   EndDate = DateTime.Now.AddDays(15),
+                },
+            };
+        }
+
+        public static List<Calendar> GetDummyCalendarDays()
+        {
+            return new List<Calendar>()
+            {
+                new Calendar()
+                {
+                   Day = DateTime.Now,
+                   IsPublicHoliday = false,
+                },
+                 new Calendar()
+                {
+                   Day = DateTime.Now.AddDays(1),
+                   IsPublicHoliday = false,
+                },
+                  new Calendar()
+                {
+                   Day = DateTime.Now.AddDays(2),
+                   IsPublicHoliday = true,
+                },
+                   new Calendar()
+                {
+                   Day = DateTime.Now.AddDays(3),
+                   IsPublicHoliday = false,
                 },
             };
         }

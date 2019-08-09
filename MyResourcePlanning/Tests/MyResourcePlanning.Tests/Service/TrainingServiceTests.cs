@@ -136,10 +136,11 @@ namespace MyResourcePlanning.Tests.Service
             var mockedModel = new TrainingAssignBindingModel()
             {
                 Name = "Training2",
-                Resource = "FirstName LastName",
+                Resource = "Ivan Ivanov",
             };
 
-            var result = await this.trainingService.AssignToUser(trainingId, mockedModel);
+            var result = await this.trainingService
+                .AssignToUser(trainingId, mockedModel);
 
             Assert.IsTrue(result);
         }
@@ -170,7 +171,8 @@ namespace MyResourcePlanning.Tests.Service
         [Property("service", "TrainingService")]
         public async Task GetAllTrainings_WithDummyData_ShouldReturnCorrectResults()
         {
-            var actualResults = await this.trainingService.GetAllTrainings<TrainingAllViewModel>();
+            var actualResults = await this.trainingService
+                .GetAllTrainings<TrainingAllViewModel>();
 
             var expectedResults = this.dummyTrainings
                 .Where(s => s.IsDeleted == false)

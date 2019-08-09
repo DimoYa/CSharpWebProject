@@ -35,7 +35,7 @@
 
         public async Task<bool> Create(RequestCreateBindingModel model)
         {
-            var getResource = Regex.Split(model.Resource, @"\s\s+");
+            var getResource = Regex.Split(model.Resource, @"\s{1,}");
             User resource = await this.GetResourceFromString(getResource);
 
             var getProject = model.Project.Split(new[] { '(' }, StringSplitOptions.RemoveEmptyEntries);
@@ -202,7 +202,7 @@
         public async Task<TViewModel> GetEmployeeDetails<TViewModel>(RequestUserDetailsBaseModel baseModel)
         {
             var model = baseModel.BindingnModel;
-            var getResource = Regex.Split(model.Resource, @"\s\s+");
+            var getResource = Regex.Split(model.Resource, @"\s{1,}");
             User resource = await this.GetResourceFromString(getResource);
 
             var user = this.context.Users
