@@ -45,6 +45,10 @@
                 typeof(UserTraining).GetTypeInfo().Assembly);
 
             AutoMapperConfig.RegisterMappings(
+                typeof(TrainingAllUsersViewModel).GetTypeInfo().Assembly,
+                typeof(UserTraining).GetTypeInfo().Assembly);
+
+            AutoMapperConfig.RegisterMappings(
                 typeof(RequestCreateBindingModel).GetTypeInfo().Assembly,
                 typeof(Request).GetTypeInfo().Assembly);
 

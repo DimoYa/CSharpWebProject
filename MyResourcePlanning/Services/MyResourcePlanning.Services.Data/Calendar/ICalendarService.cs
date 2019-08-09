@@ -14,18 +14,18 @@
 
         Task<bool> CheckIfAbsenceExistOrIsPublicHoliday(DateTime startDate, DateTime endDate);
 
-        Task<bool> Edit(CalendarEditPeriodBindingModel model, string id);
+        Task<bool> EditPeriod(CalendarEditPeriodBindingModel model, string id);
 
-        Task<bool> Delete(string id);
-
-        Task<bool> CreateAbsence(CalendarCreateAbsenceBindingModel inputModel);
-
-        Task<bool> DeleteAbsence(string id);
+        Task<bool> DeletePeriod(string id);
 
         Task<TViewModel> MapPeriod<TViewModel>(string id);
 
+        Task<bool> CreateAbsence(CalendarCreateAbsenceBindingModel inputModel);
+
+        Task<bool> DeleteAbsence(string calendarId);
+
         Task<IEnumerable<TViewModel>> GetAllDays<TViewModel>();
 
-        Task<IEnumerable<TViewModel>> GetMyDays<TViewModel>();
+        Task<IEnumerable<TViewModel>> GetMyAbsenceDays<TViewModel>();
     }
 }

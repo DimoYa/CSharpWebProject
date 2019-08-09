@@ -130,7 +130,7 @@ namespace MyResourcePlanning.Tests.Service
             var trainingId = "2";
             var userId = "123";
 
-            this.mockedUserService.Setup(x => x.GetUserByName("FirstName", "LastName"))
+            this.mockedUserService.Setup(x => x.GetUserByName("Ivan", "Ivanov"))
             .Returns(Task.FromResult(this.dummyUsers.SingleOrDefault(u=> u.Id == userId)));
 
             var mockedModel = new TrainingAssignBindingModel()
@@ -196,22 +196,6 @@ namespace MyResourcePlanning.Tests.Service
 
             var expectedResults = this.dummyUserTrainings
                  .Where(ut => ut.UserId == currentUserId)
-                 .Where(ut => ut.Training.DueDate >= DateTime.Now)
-                 .Where(ut => ut.Training.IsDeleted == false)
-                .ToList();
-
-            CollectionAssert.AreEqual(actualResults.Select(ut => ut.TrainingId),
-                expectedResults.Select(ut => ut.TrainingId));
-        }
-
-        [Test]
-        [Property("service", "TrainingService")]
-        public async Task GetAllUsersTrainings_WithDummyData_ShouldReturnCorrectResults()
-        {
-
-            var actualResults = await this.trainingService.GetAllUsersTrainings<TrainingUserViewModel>();
-
-            var expectedResults = this.dummyUserTrainings
                  .Where(ut => ut.Training.DueDate >= DateTime.Now)
                  .Where(ut => ut.Training.IsDeleted == false)
                 .ToList();

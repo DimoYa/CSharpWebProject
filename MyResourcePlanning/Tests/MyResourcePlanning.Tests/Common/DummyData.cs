@@ -429,24 +429,77 @@
             {
                 new Calendar()
                 {
+                   Id = "1",
                    Day = DateTime.Now,
                    IsPublicHoliday = false,
                 },
                  new Calendar()
                 {
+                   Id = "2",
                    Day = DateTime.Now.AddDays(1),
                    IsPublicHoliday = false,
                 },
                   new Calendar()
                 {
+                   Id = "3",
                    Day = DateTime.Now.AddDays(2),
                    IsPublicHoliday = true,
                 },
                    new Calendar()
                 {
+                   Id = "4",
                    Day = DateTime.Now.AddDays(3),
+                   IsPublicHoliday = true,
+                },
+                   new Calendar()
+                {
+                   Id = "5",
+                   Day = DateTime.Now.AddDays(4),
+                   IsPublicHoliday = true,
+                },
+                   new Calendar()
+                {
+                   Id = "6",
+                   Day = DateTime.Now.AddDays(5),
                    IsPublicHoliday = false,
                 },
+                   new Calendar()
+                {
+                   Id = "7",
+                   Day = DateTime.Now.AddDays(6),
+                   IsPublicHoliday = false,
+                },
+                   new Calendar()
+                {
+                   Id = "8",
+                   Day = DateTime.Now.AddDays(7),
+                   IsPublicHoliday = false,
+                },
+                   new Calendar()
+                {
+                   Id = "9",
+                   Day = DateTime.Now.AddDays(8),
+                   IsPublicHoliday = false,
+                },
+            };
+        }
+
+        public static List<UserCalendar> GetDummyUserCalendars()
+        {
+            return new List<UserCalendar>()
+            {
+                new UserCalendar()
+                {
+                   UserId = "124",
+                   CalendarId = "1",
+                   AbsenceType = UserCalendarAbsenceType.SickLeave,
+                },
+                new UserCalendar()
+                {
+                   UserId = "123",
+                   CalendarId = "2",
+                   AbsenceType = UserCalendarAbsenceType.SickLeave,
+              },
             };
         }
 

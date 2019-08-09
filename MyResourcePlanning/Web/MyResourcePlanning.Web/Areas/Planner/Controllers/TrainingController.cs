@@ -45,7 +45,7 @@
             var trainingId = identifiers[0];
             var userId = identifiers[1];
 
-            var userTrainings = await this.trainingService.GetUserTrainingByIds<TrainingAllUsersView>(trainingId, userId);
+            var userTrainings = await this.trainingService.GetUserTrainingByIds<TrainingAllUsersViewModel>(trainingId, userId);
 
             return this.View(userTrainings);
         }
@@ -71,7 +71,7 @@
         public async Task<IActionResult> AllUsersTrainings()
         {
             var allUsersTrainings = await this.trainingService
-                .GetAllUsersTrainings<TrainingAllUsersView>();
+                .GetAllUsersTrainings<TrainingAllUsersViewModel>();
 
             return this.View(allUsersTrainings);
         }

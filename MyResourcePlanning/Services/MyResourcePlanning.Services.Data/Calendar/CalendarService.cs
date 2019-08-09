@@ -54,8 +54,8 @@
                .Select(c => c.Day)
                .ToList();
 
-            var isDayAlreadyAdded = daysInDB.Intersect(daysToAdd).Any();
-            var isDayPublicHoliday = publicHolidaysInDB.Intersect(daysToAdd).Any();
+            var isDayAlreadyAdded = daysInDB.Any();
+            var isDayPublicHoliday = publicHolidaysInDB.Any();
 
             return isDayAlreadyAdded || isDayPublicHoliday;
         }
@@ -87,7 +87,7 @@
             return result > 0;
         }
 
-        public async Task<bool> Delete(string id)
+        public async Task<bool> DeletePeriod(string id)
         {
             var calendarDayToDelete = await this.GetCalendarDayById(id);
 
@@ -98,7 +98,7 @@
             return result > 0;
         }
 
-        public async Task<bool> Edit(CalendarEditPeriodBindingModel model, string id)
+        public async Task<bool> EditPeriod(CalendarEditPeriodBindingModel model, string id)
         {
             var calendarDayToUpdate = await this.GetCalendarDayById(id);
 
@@ -126,7 +126,8 @@
                 {
                     UserId = currentUser,
                     CalendarId = this.context.Calendars
-                                             .SingleOrDefault(c => c.Day == day).Id,
+                                             .SingleOrDefault(c => c.Day.ToString("dd/MM/yyyy")
+                                             == day.ToString("dd/MM/yyyy")).Id,
                     AbsenceType = type,
                 };
 
@@ -165,7 +166,7 @@
             return Task.FromResult(calendaDays.AsEnumerable());
         }
 
-        public async Task<IEnumerable<TViewModel>> GetMyDays<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetMyAbsenceDays<TViewModel>()
         {
             var currentUser = await this.userService.GetCurrentUserId();
 
