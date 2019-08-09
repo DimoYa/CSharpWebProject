@@ -260,7 +260,7 @@
 
         private async Task<Project> GetProjectFromString(string[] getProject)
         {
-            var projectName = getProject[0].Trim();
+            var projectName = getProject[0].TrimEnd();
             var project = await this.projectService.GetProjectByName(projectName);
             return project;
         }

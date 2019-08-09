@@ -108,7 +108,7 @@
             var currentProject = this.context
                 .Projects
                 .Where(p => p.IsDeleted == false)
-                .FirstOrDefault(p => p.Name == name);
+                .SingleOrDefault(p => p.Name == name);
 
             return Task.FromResult(currentProject);
         }

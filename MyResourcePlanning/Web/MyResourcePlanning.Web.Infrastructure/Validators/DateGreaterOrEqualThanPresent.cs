@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class DateGreaterOrEqualThatPresent : ValidationAttribute
+    public class DateGreaterOrEqualThanPresent : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

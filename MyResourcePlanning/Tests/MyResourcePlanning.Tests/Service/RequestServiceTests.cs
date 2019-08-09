@@ -245,7 +245,7 @@
             {
                 Assert.IsInstanceOf<RequestAllViewModel>(actualResult);
                 Assert.That(actualResult.Id.Equals(requestId));
-                Assert.That(actualResult.Project.Equals("Project1"));
+                Assert.That(actualResult.ProjectName.Equals("Project1"));
                 Assert.That(actualResult.Resource.Equals("User User"));
             });
         }

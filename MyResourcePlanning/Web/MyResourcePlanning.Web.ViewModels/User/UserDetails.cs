@@ -13,6 +13,5 @@
         public List<UserSkill> Skills { get; set; }
 
         public List<UserTraining> Trainings { get; set; }
-
     }
 }

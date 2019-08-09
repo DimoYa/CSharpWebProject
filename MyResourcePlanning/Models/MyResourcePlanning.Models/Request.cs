@@ -19,12 +19,12 @@
         public string CreatedBy { get; set; }
 
         [Required]
-        [DateGreaterOrEqualThatPresent]
+        [DateGreaterOrEqualThanPresent]
         public DateTime StartDate { get; set; }
 
         [Required]
         [DateGreaterThan(nameof(StartDate))]
-        [DateGreaterOrEqualThatPresent]
+        [DateGreaterOrEqualThanPresent]
         public DateTime EndDate { get; set; }
 
         [Required]

@@ -12,7 +12,7 @@
     {
         public string Id { get; set; }
 
-        public string Project { get; set; }
+        public string ProjectName { get; set; }
 
         public string Resource { get; set; }
 
@@ -32,6 +32,8 @@
 
         public string Status { get; set; }
 
+        public string Comment { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Request, RequestAllViewModel>()
@@ -42,7 +44,7 @@
                     e => e.EndDate,
                     opt => opt.MapFrom(e => e.EndDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
                  .ForMember(
-                    p => p.Project,
+                    p => p.ProjectName,
                     opt => opt.MapFrom(p => p.Project.Name))
                  .ForMember(
                     u => u.Resource,

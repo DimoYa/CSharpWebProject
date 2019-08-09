@@ -15,6 +15,5 @@
 
         [Required]
         public SkillLevel Level { get; set; }
-
     }
 }
