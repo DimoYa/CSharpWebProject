@@ -6,6 +6,7 @@ using MyResourcePlanning.Services.Data.Request;
 using MyResourcePlanning.Services.Data.User;
 using MyResourcePlanning.Tests.Common;
 using MyResourcePlanning.Web.BindingModels.Request;
+using MyResourcePlanning.Web.ViewModels.Request;
 using MyResourcePlanning.Web.ViewModels.User;
 using NUnit.Framework;
 using System;
@@ -217,6 +218,105 @@ namespace MyResourcePlanning.Tests.Service
                     actualResult.ViewModel.Trainings.Select(t => t.Training.Id),
                     expectedResults.Trainings.Select(t => t.Training.Id));
             });
+        }
+
+        [Test]
+        [Property("service", "RequestService")]
+        public async Task GetRequestCommentsById_ShouldReturnRequestComments()
+        {
+            var requestId = "6";
+
+            var actualResult = await this.requestService
+                .GetRequestCommentsById(requestId);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualResult[0].Equals("Comment1"));
+                Assert.That(actualResult[1].Equals("Comment2"));
+                Assert.That(actualResult[2].Equals("Comment3"));
+            });
+        }
+
+        [Test]
+        [Property("service", "RequestService")]
+        public async Task MapRequest_ShouldMapTheRequestDataToModel()
+        {
+            var requestId = "6";
+
+            var actualResult = await this.requestService
+                .MapRequest<RequestAllViewModel>(requestId);
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsInstanceOf<RequestAllViewModel>(actualResult);
+                Assert.That(actualResult.Id.Equals(requestId));
+                Assert.That(actualResult.Project.Equals("Project1"));
+                Assert.That(actualResult.Resource.Equals("User User"));
+            });
+        }
+
+        [Test]
+        [Property("service", "RequestService")]
+        public async Task GetAllPlannerRequests_WithDummyData_ShouldReturnPlannersRequests()
+        {
+            var currentUserId = "123";
+
+            this.mockedUserService.Setup(x => x.GetCurrentUserId())
+             .Returns(Task.FromResult(currentUserId));
+
+            var actualResult = await this.requestService
+                .GetAllPlannerRequests<RequestAllViewModel>();
+
+            var expectedResult = this.dummyRequests
+                .Where(r => r.CreatedBy == currentUserId)
+                .ToList();
+
+            CollectionAssert.AreEqual(
+                actualResult.Select(r=> r.Id),
+                expectedResult.Select(r => r.Id));
+        }
+
+        [Test]
+        [Property("service", "RequestService")]
+        public async Task GetAllApproverRequests_WithDummyData_ShouldReturnApproversRequests()
+        {
+            var currentUserId = "250";
+
+            this.mockedUserService.Setup(x => x.GetCurrentUserId())
+             .Returns(Task.FromResult(currentUserId));
+
+            var actualResult = await this.requestService
+                .GetAllApproverRequests<RequestAllViewModel>();
+
+            var expectedResult = this.dummyRequests
+                .Where(r => r.User.ApproverId == currentUserId)
+                .ToList();
+
+            CollectionAssert.AreEqual(
+                actualResult.Select(r => r.Id),
+                expectedResult.Select(r => r.Id));
+        }
+
+        [Test]
+        [Property("service", "RequestService")]
+        public async Task GetAllResourceRequests_WithDummyData_ShouldReturnApproversRequests()
+        {
+            var currentUserId = "123";
+
+            this.mockedUserService.Setup(x => x.GetCurrentUserId())
+             .Returns(Task.FromResult(currentUserId));
+
+            var actualResult = await this.requestService
+                .GetAllResourceRequests<RequestAllViewModel>();
+
+            var expectedResult = this.dummyRequests
+                .Where(r => r.User.Id == currentUserId)
+                .Where(r => r.IsDeleted == false)
+                .ToList();
+
+            CollectionAssert.AreEqual(
+                actualResult.Select(r => r.Id),
+                expectedResult.Select(r => r.Id));
         }
     }
 }

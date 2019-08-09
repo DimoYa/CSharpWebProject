@@ -5,6 +5,7 @@
     using MyResourcePlanning.Web.BindingModels.Request;
     using MyResourcePlanning.Web.BindingModels.Skill;
     using MyResourcePlanning.Web.ViewModels.Admin;
+    using MyResourcePlanning.Web.ViewModels.Request;
     using MyResourcePlanning.Web.ViewModels.Skill;
     using MyResourcePlanning.Web.ViewModels.Training;
     using MyResourcePlanning.Web.ViewModels.User;
@@ -50,6 +51,9 @@
                 typeof(RequestEditBindingModel).GetTypeInfo().Assembly,
                 typeof(Request).GetTypeInfo().Assembly);
 
+            AutoMapperConfig.RegisterMappings(
+              typeof(RequestAllViewModel).GetTypeInfo().Assembly,
+              typeof(Request).GetTypeInfo().Assembly);
         }
     }
 }

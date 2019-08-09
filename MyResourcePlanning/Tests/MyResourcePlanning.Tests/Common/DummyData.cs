@@ -66,6 +66,8 @@
                 {
                     Id = "126",
                     IsDeleted = false,
+                    FirstName = "User",
+                    LastName = "User",
                     Roles = new List<IdentityUserRole<string>>()
                     {
                         new  IdentityUserRole<string> { RoleId = "222", UserId = "126" }
@@ -364,6 +366,7 @@
                    EndDate = DateTime.Now.AddDays(15),
                    IsDeleted = false,
                    Status = RequestStatus.InProgress,
+                   CreatedBy = "123",
                 },
                 new Request()
                 {
@@ -374,6 +377,7 @@
                    StartDate = DateTime.Now.AddDays(-10),
                    EndDate = DateTime.Now.AddDays(15),
                    IsDeleted = false,
+                   CreatedBy = "123",
                 },
                 new Request()
                 {
@@ -383,6 +387,8 @@
                    WorkingHours = 10,
                    StartDate = DateTime.Now.AddDays(5),
                    EndDate = DateTime.Now.AddDays(15),
+                   IsDeleted = true,
+                   CreatedBy = "123"
                 },
                 new Request()
                 {
@@ -412,6 +418,7 @@
                    WorkingHours = 1,
                    StartDate = DateTime.Now.AddDays(5),
                    EndDate = DateTime.Now.AddDays(15),
+                   Comment = "Comment1-Comment2-Comment3-",
                 },
             };
         }
