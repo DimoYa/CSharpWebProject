@@ -42,9 +42,6 @@ namespace MyResourcePlanning.Tests.Service
                     new Mock<IServiceProvider>().Object,
                     new Mock<ILogger<UserManager<User>>>().Object);
 
-
-
-
             this.adminService = new AdminService(context, userService, mockUserManager.Object);
 
             this.dummyRoles = DummyData.GetDummyUserRoles();

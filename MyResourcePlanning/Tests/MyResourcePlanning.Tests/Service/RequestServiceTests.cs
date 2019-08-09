@@ -83,16 +83,12 @@ namespace MyResourcePlanning.Tests.Service
             var newEndDate = DateTime.Now.AddDays(18);
             var hours = 5;
 
-
             var mockedModel = new RequestEditBindingModel()
             {
                 StartDate = newStartDate,
                 EndDate = newEndDate,
                 WorkingHours = hours,
             };
-
-            var requestForUpdate = this.dummyRequests
-                .SingleOrDefault(r => r.Id == requestId);
 
             await this.requestService.Edit(mockedModel, requestId);
 
