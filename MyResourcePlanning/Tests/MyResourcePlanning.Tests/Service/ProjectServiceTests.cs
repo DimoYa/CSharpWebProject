@@ -152,7 +152,10 @@
                 .GetAllProjects<ProjectAllViewModel>();
 
             var expectedResults = this.dummyProjects
-                .Where(p => p.IsDeleted == false);
+                .Where(p => p.IsDeleted == false)
+                .Where(p => p.RequestedHours > 0)
+                .Where(p => p.EndDate >= DateTime.Now)
+                .OrderBy(p => p.Name);
 
             CollectionAssert.AreEqual(
                 expectedResults.Select(p=> p.Id),
@@ -170,7 +173,8 @@
             var expectedResults = this.dummyProjects
                 .Where(p => p.IsDeleted == false)
                 .Where(p => p.RequestedHours > 0)
-                .Where(p => p.EndDate >= DateTime.Now);
+                .Where(p => p.EndDate >= DateTime.Now)
+                .OrderBy(p=> p.Name);
 
             CollectionAssert.AreEqual(
                 expectedResults.Select(p => p.Id),

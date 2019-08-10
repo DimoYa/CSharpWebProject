@@ -41,6 +41,8 @@
             var expectedResults = this.dummyUsers
                 .Where(u=> u.Roles.Any(r=> r.RoleId == "111"))
                 .Where(u=> u.IsDeleted == false)
+                .OrderBy(u=> u.FirstName)
+                .ThenBy(u=> u.LastName)
                 .ToList();
 
             CollectionAssert.AreEqual(
@@ -60,6 +62,8 @@
             var expectedResults = this.dummyUsers
                 .Where(u => u.Roles.Any(r => r.RoleId == roleId))
                 .Where(u => u.IsDeleted == false)
+                .OrderBy(u=> u.FirstName)
+                .ThenBy(u=> u.LastName)
                 .ToList();
 
             CollectionAssert.AreEqual(

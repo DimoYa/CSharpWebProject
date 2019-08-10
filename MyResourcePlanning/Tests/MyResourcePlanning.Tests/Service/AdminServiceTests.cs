@@ -62,6 +62,8 @@
 
             var expectedResults = this.dummyUsers
                 .Where(u => u.IsDeleted == false)
+                .OrderBy(u=> u.FirstName)
+                .ThenBy(u=> u.LastName)
                 .ToList();
 
             CollectionAssert.AreEqual(

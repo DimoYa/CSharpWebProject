@@ -90,6 +90,7 @@
             var categories = this.context
                               .SkillCategories
                               .Where(s => s.IsDeleted == false)
+                              .OrderBy(s => s.Name)
                               .To<TViewModel>()
                               .ToList();
 

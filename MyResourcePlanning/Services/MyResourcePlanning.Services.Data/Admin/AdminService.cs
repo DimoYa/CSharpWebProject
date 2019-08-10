@@ -36,7 +36,8 @@
             var activeUsers = this.context.Users
                 .Include(u => u.Roles)
                 .Where(u => u.IsDeleted == false)
-                .OrderBy(u => u.Email);
+                .OrderBy(u => u.FirstName)
+                .ThenBy(u => u.LastName);
 
             foreach (var user in activeUsers)
             {
