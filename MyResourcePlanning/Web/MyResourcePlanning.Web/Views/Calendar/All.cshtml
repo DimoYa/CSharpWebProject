@@ -46,17 +46,6 @@
                 </tr>
             }
         </tbody>
-    </table><table id="myTable" class="display" style="width:100%">
-        <tfoot>
-            <tr>
-                <th scope="col">Day</th>
-                <th scope="col">Public holiday</th>
-                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.PlannerRoleName))
-                {
-                    <th scope="col">Action</th>
-                }
-            </tr>
-        </tfoot>
     </table>
 </div>
 <partial name="_NotificationPartial" />
