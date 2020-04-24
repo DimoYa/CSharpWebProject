@@ -69,7 +69,7 @@
         [Authorize(Roles = GlobalConstants.ResourceRoleName)]
         public async Task<IActionResult> MyCalendar()
         {
-            var requests = await this.calendarService.GetMyDays<CalendarMyViewModel>();
+            var requests = await this.calendarService.GetMyAbsenceDays<CalendarMyViewModel>();
             return this.View(requests);
         }
     }

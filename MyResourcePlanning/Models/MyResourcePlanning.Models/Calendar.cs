@@ -15,7 +15,7 @@
         }
 
         [Required]
-        [DateGreaterOrEqualThatPresent]
+        [DateGreaterOrEqualThanPresent]
         public DateTime Day { get; set; }
 
         [Required]

@@ -34,37 +34,48 @@
 
         [Test]
         [Property("service", "UserService")]
-        public async Task GetAllActiveResources_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetAllActiveResources_ShouldReturnCorrectResults()
         {
             var actualResults = await this.userService.GetAllActiveResources<UsersViewModel>();
 
             var expectedResults = this.dummyUsers
-                .Where(u => u.Roles.Any(r => r.RoleId == "111"))
+                .Where(u=> u.Roles.Any(r=> r.RoleId == "111"))
                 .Where(u=> u.IsDeleted == false)
+                .OrderBy(u=> u.FirstName)
+                .ThenBy(u=> u.LastName)
                 .ToList();
 
-            CollectionAssert.AreEqual(actualResults.Select(x=> x.Id), expectedResults.Select(x=> x.Id));
+            CollectionAssert.AreEqual(
+                actualResults.Select(u=> u.Id),
+                expectedResults.Select(u=> u.Id));
         }
 
         [Test]
         [Property("service", "UserService")]
-        public async Task GetAllActiveApprovers_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetAllActiveApprovers_ShouldReturnCorrectResults()
         {
-            var actualResults = await this.userService.GetAllActiveApprovers<UsersViewModel>();
+            var roleId = "222";
+
+            var actualResults = await this.userService
+                .GetAllActiveApprovers<UsersViewModel>();
 
             var expectedResults = this.dummyUsers
-                .Where(u => u.Roles.Any(r => r.RoleId == "222"))
+                .Where(u => u.Roles.Any(r => r.RoleId == roleId))
                 .Where(u => u.IsDeleted == false)
+                .OrderBy(u=> u.FirstName)
+                .ThenBy(u=> u.LastName)
                 .ToList();
 
-            CollectionAssert.AreEqual(actualResults.Select(x => x.Id), expectedResults.Select(x => x.Id));
+            CollectionAssert.AreEqual(
+                expectedResults.Select(u => u.Id),
+                actualResults.Select(u => u.Id));
         }
 
         [Test]
         [TestCase("Resource", "111")]
         [TestCase("Approver", "222")]
         [Property("service", "UserService")]
-        public async Task GetRoleIdByName_WithDummyData_ShouldReturnCorrectResults(string roleName, string roleId)
+        public async Task GetRoleIdByName_ShouldReturnCorrectResults(string roleName, string roleId)
         {
             var actualResults = await this.userService.GetRoleIdByName(roleName);
 
@@ -77,7 +88,7 @@
         [TestCase("111", "Resource")]
         [TestCase("222", "Approver")]
         [Property("service", "UserService")]
-        public async Task GetRoleNameById_WithDummyData_ShouldReturnCorrectResults(string roleId, string roleName)
+        public async Task GetRoleNameById_ShouldReturnCorrectResults(string roleId, string roleName)
         {
             var actualResults = await this.userService.GetRoleNameById(roleId);
 
@@ -88,12 +99,18 @@
 
         [Test]
         [Property("service", "UserService")]
-        public async Task GetUserByName_WithDummyData_ShouldReturnCorrectResults()
+        public async Task GetUserByName_ShouldReturnCorrectResults()
         {
-            var actualResults = await this.userService.GetUserByName("FirstName", "LastName");
+            var firstName = "FirstName";
+            var lastName = "LastName";
+
+
+            var actualResults = await this.userService
+                .GetUserByName(firstName, lastName);
 
             var expectedResults = this.dummyUsers
-                .SingleOrDefault(u=> u.FirstName == "FirstName" && u.LastName == "LastName");
+                .SingleOrDefault(u=> u.FirstName == firstName
+                && u.LastName == lastName);
 
             Assert.That(actualResults.Equals(expectedResults));
         }
@@ -102,7 +119,7 @@
         [TestCase("123")]
         [TestCase("124")]
         [Property("service", "UserService")]
-        public async Task GetUserById_WithDummyData_ShouldReturnCorrectResults(string userId)
+        public async Task GetUserById_ShouldReturnCorrectResults(string userId)
         {
             var actualResults = await this.userService.GetUserById(userId);
 

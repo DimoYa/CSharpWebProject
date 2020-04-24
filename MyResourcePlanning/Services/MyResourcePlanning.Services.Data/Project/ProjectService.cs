@@ -65,6 +65,9 @@
         {
             var projects = this.context.Projects
                 .Where(p => p.IsDeleted == false)
+                .Where(p => p.RequestedHours > 0)
+                .Where(p => p.EndDate >= DateTime.Now)
+                .OrderBy(p => p.Name)
                 .To<TViewModel>()
                 .ToList();
 
@@ -108,7 +111,7 @@
             var currentProject = this.context
                 .Projects
                 .Where(p => p.IsDeleted == false)
-                .FirstOrDefault(p => p.Name == name);
+                .SingleOrDefault(p => p.Name == name);
 
             return Task.FromResult(currentProject);
         }

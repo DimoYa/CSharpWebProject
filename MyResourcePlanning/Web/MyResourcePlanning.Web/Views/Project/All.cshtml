@@ -5,46 +5,53 @@
 @{
     ViewData["Title"] = "All Projects";
 }
-<div class="jumbotron">
-    <h1 class="text-center">Manage Projects</h1>
-    <hr class="bg-resources hr-2" />
-    <partial name="_SearchAndFilterHeaderPartial" />
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered sortable" cellspacing="0" width="100%" id="table-id">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Start</th>
-                    <th scope="col">End</th>
-                    <th scope="col">Remaining Hours</th>
-                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                    {
-                        <th scope="col">Action</th>
-                    }
-                </tr>
-            </thead>
-            <tbody id="myTable">
-                @for (int i = 0; i < Model.Count; i++)
-                {
+    <div class="jumbotron">
+        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <h1 class="text-center">Manage Projects</h1>
+        }
+        else
+        {
+            <h1 class="text-center">View active Projects</h1>
+        }
+        <hr class="bg-resources hr-2" />
+        <partial name="_SearchAndFilterHeaderPartial" />
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered sortable" cellspacing="0" width="100%" id="table-id">
+                <thead>
                     <tr>
-                        <td>@Model[i].Name</td>
-                        <td>@Model[i].StartDate</td>
-                        <td>@Model[i].EndDate</td>
-                        <td>@Model[i].RequestedHours</td>
+                        <th scope="col">Name</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
+                        <th scope="col">Remaining Hours</th>
                         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
-                            <td>
-                                <a asp-area="Administration" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
-                                <a onclick="actionConfirmation('@Model[i].Id', 'Administration/Project', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
-                            </td>
+                            <th scope="col">Action</th>
                         }
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="myTable">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model[i].Name</td>
+                            <td>@Model[i].StartDate</td>
+                            <td>@Model[i].EndDate</td>
+                            <td>@Model[i].RequestedHours</td>
+                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <td>
+                                    <a asp-area="Administration" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit skill"></i></a>
+                                    <a onclick="actionConfirmation('@Model[i].Id', 'Administration/Project', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete skill"></i></a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <partial name="_SearchAndFilterFooterPartial" />
     </div>
-    <partial name="_SearchAndFilterFooterPartial" />
-</div>
 <partial name="_NotificationPartial" />
 
 @section scripts{

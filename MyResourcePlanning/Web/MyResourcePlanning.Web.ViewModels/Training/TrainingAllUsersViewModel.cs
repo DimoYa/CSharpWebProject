@@ -7,7 +7,7 @@
     using MyResourcePlanning.Models;
     using MyResourcePlanning.Services.Mapping;
 
-    public class TrainingAllUsersView : IMapFrom<UserTraining>, IHaveCustomMappings
+    public class TrainingAllUsersViewModel : IMapFrom<UserTraining>, IHaveCustomMappings
     {
         public string TrainingId { get; set; }
 
@@ -34,7 +34,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<UserTraining, TrainingAllUsersView>()
+            configuration.CreateMap<UserTraining, TrainingAllUsersViewModel>()
                .ForMember(
                    d => d.TrainingDueDate,
                    opt => opt.MapFrom(d => d.Training.DueDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)))

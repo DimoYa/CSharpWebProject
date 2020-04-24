@@ -30,6 +30,5 @@
         Task<IEnumerable<TViewModel>> GetAllApproverRequests<TViewModel>();
 
         Task<IEnumerable<TViewModel>> GetAllResourceRequests<TViewModel>();
-
     }
 }

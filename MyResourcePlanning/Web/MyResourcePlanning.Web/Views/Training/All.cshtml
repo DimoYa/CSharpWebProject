@@ -22,28 +22,32 @@
             <tbody id="myTable">
                 @for (int i = 0; i < Model.Item1.Count; i++)
                 {
-                    <tr>
-                        <td>@Model.Item1[i].Name</td>
-                        <td>@Model.Item1[i].Type</td>
-                        <td>@Model.Item1[i].Status</td>
-                        <td>@Model.Item1[i].DueDate</td>
-                        <td>
-                            @if (this.User.IsInRole(GlobalConstants.PlannerRoleName))
-                            {
-                                <a asp-area="Planner" asp-controller="Training" asp-action="AssignToUser" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-user-plus" data-placement="top" title="Assign training to user"></i></a>
-                            }
-                            @if (!Model.Item2.Any(s => s == Model.Item1[i].Id) &&
-                               this.User.IsInRole(GlobalConstants.ResourceRoleName) && Model.Item1[i].Status == TrainingStatus.Active.ToString())
-                            {
-                                <a asp-controller="Training" asp-action="Request" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-plus" data-placement="top" title="Assign training to my profile"></i></a>
-                            }
-                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                            {
-                                <a asp-area="Administration" asp-controller="Training" asp-action="Edit" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-edit fa-1x" data-placement="top" title="Edit training"></i></a>
-                                <a onclick="actionConfirmation('@Model.Item1[i].Id', 'Administration/Training', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt fa-1x" data-placement="top" title="Delete training"></i></a>
-                            }
-                        </td>
-                    </tr>
+                    @if (Model.Item1[i].Status == TrainingStatus.Active.ToString() 
+                        || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <tr>
+                            <td>@Model.Item1[i].Name</td>
+                            <td>@Model.Item1[i].Type</td>
+                            <td>@Model.Item1[i].Status</td>
+                            <td>@Model.Item1[i].DueDate</td>
+                            <td>
+                                @if (this.User.IsInRole(GlobalConstants.PlannerRoleName))
+                                {
+                                    <a asp-area="Planner" asp-controller="Training" asp-action="AssignToUser" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-user-plus" data-placement="top" title="Assign training to user"></i></a>
+                                }
+                                @if (!Model.Item2.Any(s => s == Model.Item1[i].Id) &&
+                                 this.User.IsInRole(GlobalConstants.ResourceRoleName) && Model.Item1[i].Status == TrainingStatus.Active.ToString())
+                                {
+                                    <a asp-controller="Training" asp-action="Request" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-plus" data-placement="top" title="Assign training to my profile"></i></a>
+                                }
+                                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                {
+                                    <a asp-area="Administration" asp-controller="Training" asp-action="Edit" asp-route-id="@Model.Item1[i].Id" class="btn bg-transparent"><i class="fas fa-edit fa-1x" data-placement="top" title="Edit training"></i></a>
+                                    <a onclick="actionConfirmation('@Model.Item1[i].Id', 'Administration/Training', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt fa-1x" data-placement="top" title="Delete training"></i></a>
+                                }
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

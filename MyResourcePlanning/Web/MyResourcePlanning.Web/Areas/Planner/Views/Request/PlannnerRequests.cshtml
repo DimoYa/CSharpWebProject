@@ -26,7 +26,7 @@
                     @for (int i = 0; i < Model.Count; i++)
                     {
                         <tr>
-                            <td>@Model[i].Project</td>
+                            <td>@Model[i].ProjectName</td>
                             <td>@Model[i].Resource</td>
                             <td>@Model[i].StartDate</td>
                             <td>@Model[i].EndDate</td>
@@ -34,13 +34,16 @@
                             <td>@Model[i].Status</td>
                             <td>
                                 @if (Model[i].Status != RequestStatus.Booked.ToString()
-                                       && Model[i].Status != RequestStatus.Rejected.ToString()
-                                       && Model[i].Status != RequestStatus.Deleted.ToString())
+                                      && Model[i].Status != RequestStatus.Rejected.ToString()
+                                      && Model[i].Status != RequestStatus.Deleted.ToString())
                                 {
                                     <a asp-area="Planner" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-edit" data-placement="top" title="Edit request"></i></a>
                                     <a onclick="actionConfirmation('@Model[i].Id', 'Planner/Request', 'Delete')" class="btn bg-transparent"><i class="far fa-trash-alt" data-placement="top" title="Delete request"></i></a>
                                 }
-                                <a asp-action="ShowComments" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-comment-dots" data-placement="top" title="Show comments"></i></a>
+                                @if (!string.IsNullOrEmpty(Model[i].Comment))
+                                {
+                                    <a asp-action="ShowComments" asp-route-id="@Model[i].Id" class="btn bg-transparent"><i class="fas fa-comment-dots" data-placement="top" title="Show comments"></i></a>
+                                }
                             </td>
                         </tr>
                     }

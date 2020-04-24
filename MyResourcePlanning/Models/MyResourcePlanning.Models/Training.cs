@@ -26,7 +26,7 @@
         public TrainingStatus Status { get; set; }
 
         [Required]
-        [DateGreaterOrEqualThatPresent]
+        [DateGreaterOrEqualThanPresent]
         public DateTime DueDate { get; set; }
 
         public virtual ICollection<UserTraining> Users { get; set; }

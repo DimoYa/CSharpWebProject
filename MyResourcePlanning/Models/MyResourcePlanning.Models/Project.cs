@@ -19,12 +19,12 @@
         public string Name { get; set; }
 
         [Required]
-        [DateGreaterOrEqualThatPresent]
+        [DateGreaterOrEqualThanPresent]
         public DateTime StartDate { get; set; }
 
         [Required]
         [DateGreaterThan("StartDate")]
-        [DateGreaterOrEqualThatPresent]
+        [DateGreaterOrEqualThanPresent]
         public DateTime EndDate { get; set; }
 
         [Required]

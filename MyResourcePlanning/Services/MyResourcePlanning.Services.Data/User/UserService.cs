@@ -31,6 +31,8 @@
 
             var userWithSkills = this.context.Users
                 .Where(u => u.IsDeleted == false && u.Roles.Any(r => r.RoleId == resourceRoleId))
+                .OrderBy(u => u.FirstName)
+                .ThenBy(u => u.LastName)
                 .To<TViewModel>()
                 .ToList();
 
@@ -43,6 +45,8 @@
 
             var approvers = this.context.Users
                 .Where(u => u.IsDeleted == false && u.Roles.Any(r => r.RoleId == approverRoleId))
+                .OrderBy(u => u.FirstName)
+                .ThenBy(u => u.LastName)
                 .To<TViewModel>()
                 .ToList();
 

@@ -55,14 +55,14 @@
                 return this.View(new CalendarAllViewModel());
             }
 
-            await this.calendarService.Edit(model, id);
+            await this.calendarService.EditPeriod(model, id);
 
             return this.Redirect("/Calendar/All");
         }
 
         public async Task<IActionResult> Delete(string id)
         {
-            await this.calendarService.Delete(id);
+            await this.calendarService.DeletePeriod(id);
 
             return this.Redirect("/Calendar/All");
         }
