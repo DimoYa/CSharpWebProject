@@ -44,19 +44,19 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fas fa-business-time"></i> </span>
                 </div>
-                <input asp-for="Name" class="form-control" placeholder="Enter working hours..." />
+                <input asp-for="Name" class="form-control" placeholder="Enter name..." />
             </div>
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group">
             <div class="d-flex justify-content-center">
-                <label asp-for="RequestedHours" class="font-weight-bold"></label>
+                <label asp-for="RequestedHours" type="number" step="any" class="font-weight-bold"></label>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fas fa-clock"></i> </span>
                 </div>
-                <input asp-for="RequestedHours" class="form-control" type="number" step="any" placeholder="Enter working hours..." />
+                <input asp-for="RequestedHours" class="form-control" placeholder="Enter working hours..." />
             </div>
             <span asp-validation-for="RequestedHours" class="text-danger"></span>
         </div>

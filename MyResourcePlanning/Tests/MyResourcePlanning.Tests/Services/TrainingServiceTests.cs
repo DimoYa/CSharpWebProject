@@ -203,7 +203,7 @@
 
             var expectedResults = this.dummyUserTrainings
                  .Where(ut => ut.UserId == currentUserId)
-                 .Where(ut => ut.Training.DueDate >= DateTime.Now)
+                 .Where(ut => ut.Training.DueDate.Date >= DateTime.Now.Date)
                  .Where(ut => ut.Training.IsDeleted == false)
                 .ToList();
 

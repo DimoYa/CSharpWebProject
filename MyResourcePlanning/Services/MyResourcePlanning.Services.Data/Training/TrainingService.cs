@@ -143,7 +143,7 @@
             var currentUserId = await this.userService.GetCurrentUserId();
 
             var trainings = this.context.UserTrainings
-                 .Where(ut => ut.Training.DueDate >= DateTime.Now)
+                 .Where(ut => ut.Training.DueDate.Date >= DateTime.Now.Date)
                  .Where(ut => ut.UserId == currentUserId)
                  .Where(ut => ut.Training.IsDeleted == false)
                  .To<TViewModel>()
@@ -155,7 +155,7 @@
         public Task<IEnumerable<TViewModel>> GetAllUsersTrainings<TViewModel>()
         {
             var trainings = this.context.UserTrainings
-                 .Where(d => d.Training.DueDate >= DateTime.Now)
+                 .Where(d => d.Training.DueDate.Date >= DateTime.Now.Date)
                  .Where(s => s.Training.IsDeleted == false)
                  .To<TViewModel>()
                  .ToList();

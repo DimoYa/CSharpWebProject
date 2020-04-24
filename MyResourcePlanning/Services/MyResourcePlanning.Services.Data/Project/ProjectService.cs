@@ -66,7 +66,7 @@
             var projects = this.context.Projects
                 .Where(p => p.IsDeleted == false)
                 .Where(p => p.RequestedHours > 0)
-                .Where(p => p.EndDate >= DateTime.Now)
+                .Where(p => p.EndDate.Date >= DateTime.Now.Date)
                 .OrderBy(p => p.Name)
                 .To<TViewModel>()
                 .ToList();
@@ -79,7 +79,7 @@
             var projects = this.context.Projects
                 .Where(p => p.IsDeleted == false
                 && p.RequestedHours > 0
-                && p.EndDate >= DateTime.Now)
+                && p.EndDate.Date >= DateTime.Now.Date)
                 .To<TViewModel>()
                 .ToList();
 

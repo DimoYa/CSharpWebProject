@@ -154,7 +154,7 @@
             var expectedResults = this.dummyProjects
                 .Where(p => p.IsDeleted == false)
                 .Where(p => p.RequestedHours > 0)
-                .Where(p => p.EndDate >= DateTime.Now)
+                .Where(p => p.EndDate.Date >= DateTime.Now.Date)
                 .OrderBy(p => p.Name);
 
             CollectionAssert.AreEqual(
@@ -173,7 +173,7 @@
             var expectedResults = this.dummyProjects
                 .Where(p => p.IsDeleted == false)
                 .Where(p => p.RequestedHours > 0)
-                .Where(p => p.EndDate >= DateTime.Now)
+                .Where(p => p.EndDate.Date >= DateTime.Now.Date)
                 .OrderBy(p=> p.Name);
 
             CollectionAssert.AreEqual(
