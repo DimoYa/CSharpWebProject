@@ -21,7 +21,7 @@ namespace MyResourcePlanning.Tests.Service
     {
         private IAdminService adminService;
         private IUserService userService;
-        private Mock<UserManager<User>> mockUserManager;
+        private Mock<UserManager<User>> mockedUserManager;
         private List<UserRole> dummyRoles;
         private List<User> dummyUsers;
 
@@ -31,7 +31,7 @@ namespace MyResourcePlanning.Tests.Service
             var context = MyResourcePlanningDbContextInMemoryFactory.InitializeContext();
             this.userService = new UserService(context, null);
 
-            this.mockUserManager = new Mock<UserManager<User>>(
+            this.mockedUserManager = new Mock<UserManager<User>>(
                     new Mock<IUserStore<User>>().Object,
                     new Mock<IOptions<IdentityOptions>>().Object,
                     new Mock<IPasswordHasher<User>>().Object,
@@ -45,7 +45,7 @@ namespace MyResourcePlanning.Tests.Service
 
 
 
-            this.adminService = new AdminService(context, userService, mockUserManager.Object);
+            this.adminService = new AdminService(context, userService, mockedUserManager.Object);
 
             this.dummyRoles = DummyData.GetDummyUserRoles();
             this.dummyUsers = DummyData.GetDummyUsers();
@@ -102,6 +102,27 @@ namespace MyResourcePlanning.Tests.Service
             var mockedModel = new AdminManageApproverBindingModel() { FullName = "Test Test" };
 
             await this.adminService.ManageUserApprover("123", mockedModel);
+
+            var actualResult = dummyUsers.SingleOrDefault(u => u.Id == "123");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualResult.Approver.FirstName.Equals("Test"));
+                Assert.That(actualResult.Approver.LastName.Equals("Test"));
+            });
+        }
+
+        [Test]
+        [Property("service", "AdminService")]
+        public async Task Lock_ShouldLocksTheUser()
+        {
+            var userid = "123";
+            var user = this.dummyUsers.SingleOrDefault(u=>u.id == userid);
+
+            this.mockedUserManager.Setup(x => x.SetLockoutEndDateAsync(user, Datetime.now))
+            .Returns(Task.FromResult(currentUserId));
+
+            await this.adminService.Lock(userid);
 
             var actualResult = dummyUsers.SingleOrDefault(u => u.Id == "123");
 
