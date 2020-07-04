@@ -31,16 +31,26 @@
     public class Startup
     {
         private readonly IConfiguration configuration;
+        private readonly IHostingEnvironment currentEnv;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             this.configuration = configuration;
+            this.currentEnv = env;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MyResourcePlanningDbContext>(
-                options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+            if (this.currentEnv.EnvironmentName == "Integration")
+            {
+                services.AddDbContext<MyResourcePlanningDbContext>(
+                    options => options.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()));
+            }
+            else
+            {
+                services.AddDbContext<MyResourcePlanningDbContext>(
+                    options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+            }
 
             services
                 .AddIdentity<User, UserRole>(options =>
